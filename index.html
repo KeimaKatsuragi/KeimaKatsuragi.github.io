@@ -579,6 +579,196 @@ ATE&=\bar{r}(1, X)_{dr}-\bar{r}(0, X)_{dr}\\
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/09/17/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94RCM%EF%BC%9A%E4%B8%89%E5%A4%A7%E5%81%87%E8%AE%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/v201900.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dulingzhi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/09/17/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94RCM%EF%BC%9A%E4%B8%89%E5%A4%A7%E5%81%87%E8%AE%BE/" itemprop="url">因果推断系列——RCM：三大假设</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-17T00:00:00+08:00">
+                2021-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/" itemprop="url" rel="index">
+                    <span itemprop="name">因果推断</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在RCM的学习中，我们都会接触到三个假设，这三个假设分别是SUTVA（Stable Unit Treatment Value Assumption）、可忽略性（Ignorability）和正向性（Positivity），本文将结合这三大假定进行一一讲解和阐述</p>
+<h1 id="三大假定"><a href="#三大假定" class="headerlink" title="三大假定"></a>三大假定</h1><h2 id="前言：一个医学实验的例子"><a href="#前言：一个医学实验的例子" class="headerlink" title="前言：一个医学实验的例子"></a>前言：一个医学实验的例子</h2><p>一家医院想通过利用病人的观察数据（即电子健康记录）来评估一种疾病的<strong>几种不同药物</strong>的治疗效果，这些数据包括病人的人口统计信息、病人服用的具体药物和具体剂量以及医疗检查的结果。由于病人只可能接受其中一种治疗方法，我们只能知道病人在该治疗方案下病人的治疗结果（即我们只能从电子健康记录中得到一个特定病人的事实结果），因此，核心任务是<strong>预测如果病人采取另一种治疗方法（即不同的药物或同一药物的不同剂量）会发生什么</strong>。<br>回答这样的反事实问题是非常具有挑战性的。因此，我们希望使用因果推理来预测<strong>每个病人在所有不同剂量的药物上的所有潜在结果</strong>。然后，我们就可以合理、准确地评估和比较不同药物对这种疾病的治疗效果。<br>在这个例子中，需要特别注意的一点是，<strong>对于每一种药物，它们可能有不同的剂量</strong>。例如，对于药物A来说，剂量范围可以是$[a,b]$范围内的一个连续变量，而对于药物B来说，剂量可以是一个分类变量，有几种具体的剂量方案。<br>总结一下：</p>
+<ul>
+<li>个体是指患有所研究疾病的病人。</li>
+<li>治疗方法指的是针对这种疾病的不同药物的具体剂量，我们用$W(W\in{0，1，2，\cdots，n })$表示治疗方法。例如，$W_{i}=1$可以代表单位$i$所服用的具有特定剂量的药物A，$W_{i}=2$代表单位$i$所服用的具有特定剂量的药物B。</li>
+<li>用$Y$来表示治疗结果，例如一种血液测试，可以衡量药物破坏疾病的能力，导致病人的康复。让$Y_{i}(W=1)$表示特定剂量的药物A对病人$i$的潜在结果。</li>
+<li>病人的特征可能包括年龄、性别、临床表现和其他一些医学检查等等。在这些特征中，年龄、性别和其他人口统计学信息是治疗前的变量，不会受到服用治疗的影响。一些临床表现和医学检查会受到服用药物的影响，它们是治疗后的变量。在这个例子中，我们的目标是根据提供的观察数据估计不同药物对这种疾病的治疗效果。</li>
+</ul>
+<h2 id="SUTVA（Stable-Unit-Treatment-Value-Assumption）"><a href="#SUTVA（Stable-Unit-Treatment-Value-Assumption）" class="headerlink" title="SUTVA（Stable Unit Treatment Value Assumption）"></a>SUTVA（Stable Unit Treatment Value Assumption）</h2><p>这个假定包含了两部分内容：</p>
+<ul>
+<li>第一点是每个个体的独立性。也就是说，个体之间不存在这相互作用；</li>
+<li>另一点则是说每种实验或处理水平（treatment）都是一种单一版本。这也就意味着每一个个体所接受的处理水平是唯一的，所导致的潜在结果也是唯一的。</li>
+</ul>
+<p>在评论 Basu（1980）的随机性检验的文章时，Rubin（1980）<a href="#reference1"><sup>1</sup></a>首次界定SUTVA 条件指的是任何一个个体被干预时，不管干预的机制是什么，也不管其他个体受到什么干预，它的潜在结果都是一样的。这个假设条件具有两个关键内容：一个是每一个个体所接受的处理水平是唯一的，所导致的潜在结果也是唯一的；另一个是干预的结果不受其他个体所接受处理的影响。</p>
+<p><div id="reference1"></div></p>
+<ul>
+<li>[1] Rubin, D. B. (1980). Randomization analysis of experimental data: The Fisher randomization test comment. Journal of the American Statistical Association, 75(371), 591-593.</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/21/20210221_%E9%A3%9F%E8%B0%B1_%E9%A6%99%E8%8A%8B%E6%89%A3%E8%82%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2215,7 +2405,7 @@ y_{i}=E(y_{i}|x_{i1}, x_{i2}, x_{ip})+\epsilon_{i}</script><p>用矩阵可以表
             
               <div class="site-state-item site-state-posts">
                 <a href="/archives">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
