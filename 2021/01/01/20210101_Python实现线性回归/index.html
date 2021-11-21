@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python,statistics,linear regression," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="最小二乘法求解线性回归的基本原理如果一组自变量$x$和因变量$y$存在线性关系，那么可以用如下方程表示他们的线性关系：  y_{i}&#x3D;b_{0}+b_{1}x_{i1}+b_{2}x_{i2}+\dots++b_{p}x_{ip}+\epsilon_{i} \tag{1} \label{eq1}其中$i$表示第$i$个方程，$\epsilon_{i}$是随机误差且满足$\epsilon_{i} \">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python实现线性回归">
+<meta property="og:url" content="http://example.com/2021/01/01/20210101_Python%E5%AE%9E%E7%8E%B0%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/index.html">
+<meta property="og:site_name" content="Dulingzhi&#39;s Blog">
+<meta property="og:description" content="最小二乘法求解线性回归的基本原理如果一组自变量$x$和因变量$y$存在线性关系，那么可以用如下方程表示他们的线性关系：  y_{i}&#x3D;b_{0}+b_{1}x_{i1}+b_{2}x_{i2}+\dots++b_{p}x_{ip}+\epsilon_{i} \tag{1} \label{eq1}其中$i$表示第$i$个方程，$\epsilon_{i}$是随机误差且满足$\epsilon_{i} \">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/2021/01/01/images/20210101_Python实现线性回归_1.png">
+<meta property="article:published_time" content="2021-01-01T09:45:00.000Z">
+<meta property="article:modified_time" content="2021-01-09T11:46:31.815Z">
+<meta property="article:author" content="LingZhi Du">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="statistics">
+<meta property="article:tag" content="linear regression">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/01/01/images/20210101_Python实现线性回归_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/01/01/20210101_Python实现线性回归/"/>
+
+
+
+
+
+  <title>Python实现线性回归 | Dulingzhi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dulingzhi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/01/01/20210101_Python%E5%AE%9E%E7%8E%B0%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/v201900.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dulingzhi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python实现线性回归</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-01-01T17:45:00+08:00">
+                2021-01-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="最小二乘法求解线性回归的基本原理"><a href="#最小二乘法求解线性回归的基本原理" class="headerlink" title="最小二乘法求解线性回归的基本原理"></a>最小二乘法求解线性回归的基本原理</h1><p>如果一组自变量$x$和因变量$y$存在线性关系，那么可以用如下方程表示他们的线性关系：</p>
+<script type="math/tex; mode=display">
+y_{i}=b_{0}+b_{1}x_{i1}+b_{2}x_{i2}+\dots++b_{p}x_{ip}+\epsilon_{i} \tag{1} \label{eq1}</script><p>其中$i$表示第$i$个方程，$\epsilon_{i}$是随机误差且满足$\epsilon_{i} \sim N(0, \sigma^{2})$。</p>
+<p>如果把$y_{i}$看成关于是$\epsilon_{i}$的随机变量，那么由$\epsilon_{i}$的性质，可以得到如下关系：</p>
+<script type="math/tex; mode=display">
+E(y_{i}|x_{i1}, x_{i2}, x_{ip})=b_{0}+b_{1}x_{i1}+b_{2}x_{i2}+\dots++b_{p}x_{ip} \tag{2} \label{eq2}</script><p>由公式<script type="math/tex">\eqref{eq1}\eqref{eq2}</script>可以得到：</p>
+<script type="math/tex; mode=display">
+y_{i}=E(y_{i}|x_{i1}, x_{i2}, x_{ip})+\epsilon_{i}</script><p>用矩阵可以表示为</p>
+<script type="math/tex; mode=display">
+\textbf{y=Xb}+\boldsymbol{\epsilon} \tag{3} \label{eq3}</script><p>其中</p>
+<script type="math/tex; mode=display">
+\begin{gathered}
+\textbf{X}=
+\begin{bmatrix}
+1    &    x_{11}    &    \dots    &    x_{1p}    \\
+1    &    x_{21}    &    \dots    &    x_{2p}    \\
+\dots    &    \dots    &    \dots    &    \dots    \\
+1    &    x_{n1}    &    \dots    &    x_{np}    \\
+\end{bmatrix}
+\end{gathered}，
+\textbf{y}=(y_{1}, y_{2}, \dots, y_{n})^{T},
+\boldsymbol{\epsilon} = (\epsilon_{1}, \epsilon_{2}, \dots, \epsilon_{n})^{T}</script><p>线性回归本质上就是在估计公式$\eqref{eq3}$的参数$\textbf{b}$</p>
+<p>对于线性回归，一般来说，最常用的方法便是最小二乘法（至于为什么不直接用$\boldsymbol{X^{-1}y}$来估计$\boldsymbol{b}$可以见另外一篇文章「待定」）</p>
+<p>最小二乘法通过最小化误差（残差）的平方和寻找数据的最佳的函数匹配，使得这些求得的数据与实际数据之间误差的平方和为最小。用数学语言描述为：</p>
+<script type="math/tex; mode=display">
+\min \quad \boldsymbol{\epsilon^{2}}=(\boldsymbol{y-E(y|X)})^{2} \tag{4} \label{eq4}</script><p>若满足以下2个条件：</p>
+<ol>
+<li>$\boldsymbol{X}$满秩</li>
+<li>$\epsilon_{i}$是随机误差且满足$\epsilon_{i} \sim N(0, \sigma^{2})$</li>
+</ol>
+<p>则公式$\eqref{eq4}$存在解析解。</p>
+<p>对参数$\textbf{b}$求偏导，并令其等于0:</p>
+<script type="math/tex; mode=display">
+\frac{\partial \boldsymbol{\epsilon^{2}}}{\partial \boldsymbol{b}}=2\boldsymbol{X^{T}(y-Xb)} \tag{5} \label{eq5}\\
+\frac{\partial \boldsymbol{\epsilon^{2}}}{\partial \boldsymbol{b}}=0\\</script><p>解出：</p>
+<script type="math/tex; mode=display">
+\boldsymbol{b}=\boldsymbol{(X^{T}X)^{-1}X^{T}y}</script><blockquote>
+<p>若满足以下2个条件：</p>
+<ol>
+<li>$\boldsymbol{X}$满秩</li>
+<li>$\epsilon_{i}$是随机误差且满足$\epsilon_{i} \sim N(0, \sigma^{2})$</li>
+</ol>
+</blockquote>
+<p>该条件是最小二乘法存在解析解的条件，但如果满足以下6个条件：</p>
+<ol>
+<li>参数线性。总体回归模型是线性模型，包括变量线性和参数线性，如</li>
+<li>随机抽样。观测值$(x_{i1}, x_{i2}, \dots, x_{ip}, y_{i})$是对总体的随机抽烟，并且遵循公式$\eqref{eq1}$</li>
+<li>满秩。自变量之间没有完全的线性关系</li>
+<li>零条件均值。随机误差在每个观测点的条件均值为0</li>
+<li>同方差假定。随机干扰项的条件方差固定</li>
+<li>无序列相关性。即不同样本的随机误差取值不相关</li>
+</ol>
+<p>则最小二乘法得到的解析解是BLUE，无需再找其他解析解（高斯-马尔可夫定理）</p>
+<h1 id="常见替代方法的原理及其应用"><a href="#常见替代方法的原理及其应用" class="headerlink" title="常见替代方法的原理及其应用"></a>常见替代方法的原理及其应用</h1><p>由求解的原理可以得知使用解析解估计线性模型参数$\boldsymbol{b}$的重要条件之一便是$\boldsymbol{X}$满秩，但在实际应用中我们常常遇到这两种情况：</p>
+<ol>
+<li>模型线性程度低</li>
+<li>$\boldsymbol{X}$不满秩，即存在共线性问题</li>
+</ol>
+<p>因此解析解通常难以进行实际应用，下面将介绍几种常用的替代方法，用于解决实际的线性回归问题</p>
+<h2 id="梯度下降法（Gradient-Descent-GD）"><a href="#梯度下降法（Gradient-Descent-GD）" class="headerlink" title="梯度下降法（Gradient Descent, GD）"></a>梯度下降法（Gradient Descent, GD）</h2><p>梯度的本意是一个向量（矢量），表示某一函数在该点处的方向导数沿着该方向取得最大值，即函数在该点处沿着该方向（此梯度的方向）变化最快，变化率最大（为该梯度的模）<a href="#refer-anchor-1"><sup>1</sup></a></p>
+<p>该方法要解决的问题依旧是$\eqref{eq4}$，由梯度的定义不难看出，$\eqref{eq5}$便是梯度的计算公式，与求解析解不同的是，梯度下降法通过迭代来逼近最优解，其迭代公式如下：</p>
+<script type="math/tex; mode=display">
+\boldsymbol{b}=\boldsymbol{b}-\lambda \nabla_{b}\boldsymbol{\epsilon^{2}}</script><p>其中$\lambda$称为<strong>步长或者学习率</strong>，$\boldsymbol{\epsilon^{2}}=2\boldsymbol{X^{T}(y-Xb)} $，2只是常数，不影响迭代结果，可以改变成其他任意常数</p>
+<p>如果非凸规划问题，则梯度下降法不一定找到全剧最优解而是陷入局部最优解。</p>
+<p>根据使用样本的方法不同，梯度下降法常分为以下几种：</p>
+<h3 id="批量梯度下降法（Batch-Gradient-Descent-BGD）"><a href="#批量梯度下降法（Batch-Gradient-Descent-BGD）" class="headerlink" title="批量梯度下降法（Batch Gradient Descent, BGD）"></a>批量梯度下降法（Batch Gradient Descent, BGD）</h3><p>批量梯度下降法在计算优化函数的梯度时利用<strong>全部样本数据</strong></p>
+<p>迭代过程如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(max_iters):</span><br><span class="line">		grad = gradient(loss_function, y, x, b_old)</span><br><span class="line">		b_new = b_old - <span class="keyword">lambda</span>* grad</span><br><span class="line">		<span class="keyword">if</span> distance(b_new, b_old) &lt; sup:</span><br><span class="line">				end</span><br><span class="line">		end</span><br></pre></td></tr></table></figure>
+<p>其中sup为收敛精度</p>
+<h3 id="随机梯度下降（Stochastic-Gradient-Descent-SGD）"><a href="#随机梯度下降（Stochastic-Gradient-Descent-SGD）" class="headerlink" title="随机梯度下降（Stochastic Gradient Descent, SGD）"></a>随机梯度下降（Stochastic Gradient Descent, SGD）</h3><p>随机梯度下降法在计算优化函数的梯度时利用随机选择的<strong>一个样本数据</strong></p>
+<p>迭代过程如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(max_iters):</span><br><span class="line">  	x = get_batch(x, <span class="number">1</span>)</span><br><span class="line">    y = get_batch(y, <span class="number">1</span>)</span><br><span class="line">		grad = gradient(loss_function, y, x, b_old)</span><br><span class="line">		b_new = b_old - <span class="keyword">lambda</span>* grad</span><br><span class="line">		<span class="keyword">if</span> distance(b_new, b_old) &lt; sup:</span><br><span class="line">				end</span><br><span class="line">		end</span><br></pre></td></tr></table></figure>
+<p>其中sup为收敛精度</p>
+<h3 id="小批量梯度下降法（Mini-batch-Gradient-Descent-MBGD）"><a href="#小批量梯度下降法（Mini-batch-Gradient-Descent-MBGD）" class="headerlink" title="小批量梯度下降法（Mini-batch Gradient Descent, MBGD）"></a>小批量梯度下降法（Mini-batch Gradient Descent, MBGD）</h3><p>小批量梯度下降法在计算优化函数的梯度时利用随机选择的<strong>一部分样本数据</strong>，SGD实际上是MBGD的一个特例：</p>
+<p>迭代过程如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(max_iters):</span><br><span class="line">  	x = get_batch(x, batch_size)</span><br><span class="line">    y = get_batch(y, batch_size)</span><br><span class="line">		grad = gradient(loss_function, y, x, b_old)</span><br><span class="line">		b_new = b_old - <span class="keyword">lambda</span>* grad</span><br><span class="line">		<span class="keyword">if</span> distance(b_new, b_old) &lt; sup:</span><br><span class="line">				end</span><br><span class="line">		end</span><br></pre></td></tr></table></figure>
+<p>其中sup为收敛精度</p>
+<p>一般来说，我们常用MBGD而不是SGD</p>
+<h3 id="梯度下降法方法比较"><a href="#梯度下降法方法比较" class="headerlink" title="梯度下降法方法比较"></a>梯度下降法方法比较</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th>BGD</th>
+<th>SGD</th>
+<th>MBGD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>优点</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>缺点</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h3><p>数据集：Automobile.csv(Stata附带数据集)</p>
+<p>属性数：12</p>
+<p>数据预览：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>price</strong></th>
+<th><strong>mpg</strong></th>
+<th><strong>rep78</strong></th>
+<th><strong>headroom</strong></th>
+<th><strong>trunk</strong></th>
+<th><strong>weight</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4099</td>
+<td>22</td>
+<td>3</td>
+<td>2.5</td>
+<td>11</td>
+<td>2930</td>
+</tr>
+<tr>
+<td>4749</td>
+<td>17</td>
+<td>3</td>
+<td>3</td>
+<td>11</td>
+<td>3350</td>
+</tr>
+<tr>
+<td>3799</td>
+<td>22</td>
+<td></td>
+<td>3</td>
+<td>12</td>
+<td>2640</td>
+</tr>
+<tr>
+<td>4816</td>
+<td>20</td>
+<td>3</td>
+<td>4.5</td>
+<td>16</td>
+<td>3250</td>
+</tr>
+<tr>
+<td>7827</td>
+<td>15</td>
+<td>4</td>
+<td>4</td>
+<td>20</td>
+<td>4080</td>
+</tr>
+<tr>
+<td>5788</td>
+<td>18</td>
+<td>3</td>
+<td>4</td>
+<td>21</td>
+<td>3670</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>为方便起见，我们以price为因变量，mpg为自变量拟合线性模型</p>
+<p>首先先看下散点图（stata）：</p>
+<p><img src="../images/20210101_Python实现线性回归_1.png" alt="avatar"></p>
+<p><strong>批量梯度下降法代码</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> scipy.spatial <span class="keyword">import</span> distance</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinearRegression</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__add_constant</span>(<span class="params">self, x, constant=<span class="literal">True</span>, predict=<span class="literal">False</span></span>):</span></span><br><span class="line">        <span class="keyword">if</span> x.ndim == <span class="number">1</span>:</span><br><span class="line">            x.shape = (<span class="built_in">len</span>(x), <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> constant:</span><br><span class="line">            cons = np.ones(<span class="built_in">len</span>(x))</span><br><span class="line">            cons.shape = (<span class="built_in">len</span>(x), <span class="number">1</span>)</span><br><span class="line">            x = np.hstack([cons, x])</span><br><span class="line">        <span class="keyword">elif</span> <span class="keyword">not</span> constant:</span><br><span class="line">            cons = np.zeros(<span class="built_in">len</span>(x))</span><br><span class="line">            cons.shape = (<span class="built_in">len</span>(x), <span class="number">1</span>)</span><br><span class="line">            x = np.hstack([cons, x])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> predict:</span><br><span class="line">            self.x_new = x</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__gradient_descent</span>(<span class="params">self, y, x, learning_rate=<span class="number">1e-8</span>, epsilon=<span class="number">1e-20</span>, max_iter=<span class="number">1000000</span></span>):</span></span><br><span class="line">        <span class="comment"># theta是回归系数向量</span></span><br><span class="line">        <span class="comment"># 不直接使用最小二乘法的原因是有可能x不满秩，无法求出其逆矩阵，而梯度下降法本质上和最小二乘法相同，因此使用该近似方法</span></span><br><span class="line">        np.random.seed(<span class="number">20000</span>)</span><br><span class="line">        theta = np.random.randn(x.shape[<span class="number">1</span>])</span><br><span class="line">        theta.shape = (<span class="built_in">len</span>(theta), <span class="number">1</span>)</span><br><span class="line">        y.shape = (<span class="built_in">len</span>(y), <span class="number">1</span>)</span><br><span class="line">        error = np.zeros(x.shape[<span class="number">1</span>])</span><br><span class="line">        theta.dtype = np.float_</span><br><span class="line">        st1 = []</span><br><span class="line">        st2 = []</span><br><span class="line">        <span class="keyword">for</span> <span class="built_in">iter</span> <span class="keyword">in</span> <span class="built_in">range</span>(max_iter):</span><br><span class="line">            sum_error = x.transpose().dot(x.dot(theta) - y) / (<span class="number">2</span> * x.shape[<span class="number">0</span>])</span><br><span class="line">            sum_error.dtype = np.float_</span><br><span class="line"></span><br><span class="line">            theta -= learning_rate * sum_error</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> distance.euclidean(theta, error) &lt; epsilon:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                error = theta.copy()</span><br><span class="line">                st1.append(<span class="built_in">abs</span>(sum_error[<span class="number">0</span>]))</span><br><span class="line">                st2.append(<span class="built_in">abs</span>(sum_error[<span class="number">1</span>]))</span><br><span class="line">        </span><br><span class="line">        a = np.array(<span class="built_in">list</span>(<span class="built_in">range</span>(<span class="built_in">iter</span>+<span class="number">1</span>)))</span><br><span class="line">        b = np.array(st1)</span><br><span class="line">        c = np.array(st2)</span><br><span class="line">        print(a.shape, b.shape)</span><br><span class="line">        fig = plt.figure(<span class="number">1</span>)</span><br><span class="line">        <span class="comment"># plt.plot(a, b)</span></span><br><span class="line">        plt.plot(a, c, c=<span class="string">&#x27;g&#x27;</span>)</span><br><span class="line">        plt.show()</span><br><span class="line">        </span><br><span class="line">        self.theta = theta</span><br><span class="line">        y_pre = x.dot(theta)</span><br><span class="line">        y_pre.dtype = np.float_</span><br><span class="line">        self.y_pre = y_pre</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__residual</span>(<span class="params">self, y, y_pre</span>):</span></span><br><span class="line">        self.res = y - y_pre</span><br><span class="line">        self.res.dtype = np.float_</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__r_square</span>(<span class="params">self, y, y_pre</span>):</span></span><br><span class="line">        sst = (y - y.mean()).transpose().dot((y - y.mean()))[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">        sse = (y_pre - y.mean()).transpose().dot((y_pre - y.mean()))[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># ssr = sst - sse</span></span><br><span class="line">        ssr = (y - y_pre).transpose().dot((y - y_pre))[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">        print(<span class="string">&quot;y.mean():&quot;</span>, y.mean())</span><br><span class="line">        print(sst)</span><br><span class="line">        print(sse)</span><br><span class="line">        print(ssr)</span><br><span class="line"></span><br><span class="line">        self.r2 = sse / sst</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">durbin_waston</span>(<span class="params">self</span>):</span></span><br><span class="line">        error_1 = self.res[<span class="number">1</span>:]</span><br><span class="line">        error_0 = self.res[:-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">        error_s = error_1 - error_0</span><br><span class="line">        error_s.dtype = np.float_</span><br><span class="line">        error_s_sum = error_s.transpose().dot(error_s)</span><br><span class="line"></span><br><span class="line">        error_sum = self.res.transpose().dot(self.res)</span><br><span class="line"></span><br><span class="line">        dw = error_s_sum / error_sum</span><br><span class="line"></span><br><span class="line">        self.dw = dw[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fit</span>(<span class="params">self, y, x, constant=<span class="literal">True</span>, learning_rate=<span class="number">1e-6</span>, epsilon=<span class="number">1e-8</span>, max_iter=<span class="number">300000</span></span>):</span></span><br><span class="line">        y.shape = (<span class="built_in">len</span>(y), <span class="number">1</span>)</span><br><span class="line">        self.iscons = constant</span><br><span class="line">        self.x = x</span><br><span class="line">        self.y = y</span><br><span class="line">        x_new = self.__add_constant(x, constant)</span><br><span class="line"></span><br><span class="line">        self.__gradient_descent(y, x_new, constant, learning_rate, epsilon, max_iter)</span><br><span class="line">        </span><br><span class="line">        self.__residual(y, self.y_pre)</span><br><span class="line">        self.__r_square(y, self.y_pre)</span><br><span class="line">        self.durbin_waston()</span><br><span class="line">        <span class="comment"># fig = plt.figure(1)</span></span><br><span class="line">        <span class="comment"># plt.scatter(x, y, c=&#x27;g&#x27;)</span></span><br><span class="line">        <span class="comment"># plt.plot(x, self.y_pre)</span></span><br><span class="line">        <span class="comment"># plt.show()</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">regression_report</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            print(<span class="string">&quot;residual:&quot;</span>, self.res)</span><br><span class="line">            print(<span class="string">&quot;intercept = &#123;&#125;, slope = &#123;&#125;&quot;</span>.<span class="built_in">format</span>(self.theta[<span class="number">0</span>], self.theta[<span class="number">1</span>:]))</span><br><span class="line">            print(<span class="string">&quot;r_square = &#123;&#125;&quot;</span>.<span class="built_in">format</span>(self.r2))</span><br><span class="line">            print(<span class="string">&quot;dw = &#123;&#125;&quot;</span>.<span class="built_in">format</span>(self.dw))</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">&quot;please fit a regression model&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">predict</span>(<span class="params">self, x_test</span>):</span></span><br><span class="line">        x_test = self.__add_constant(x_test, self.iscons, <span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">return</span> x_test.dot(self.theta)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    lm = LinearRegression()</span><br><span class="line">    df = pd.read_csv(<span class="string">&quot;Automobile.csv&quot;</span>)</span><br><span class="line">    df = df.fillna(axis=<span class="number">0</span>, method=<span class="string">&#x27;ffill&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    x = df[[<span class="string">&#x27;mpg&#x27;</span>]]</span><br><span class="line">    y = df[<span class="string">&#x27;price&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    x = x.values</span><br><span class="line">    y = y.values</span><br><span class="line">    lm.fit(y, x)</span><br><span class="line">    lm.regression_report()</span><br></pre></td></tr></table></figure>
+<p>设置学习率为1e-6，收敛精度为1e-8，最大迭代次数为300000</p>
+<p>代码运行结果：</p>
+<p>误差的收敛情况：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> scipy.spatial <span class="keyword">import</span> distance</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinearRegression</span>:</span></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__stochastic_gradient_descent</span>(<span class="params">self, y, x, learning_rate=<span class="number">1e-8</span>, epsilon=<span class="number">1e-20</span>, max_iter=<span class="number">1000000</span>, batch=<span class="number">64</span></span>):</span></span><br><span class="line">        <span class="comment"># theta是回归系数向量</span></span><br><span class="line">        <span class="comment"># 不直接使用最小二乘法的原因是有可能x不满秩，无法求出其逆矩阵，而梯度下降法本质上和最小二乘法相同，因此使用该近似方法</span></span><br><span class="line">        np.random.seed(<span class="number">20000</span>)</span><br><span class="line">        theta = np.random.randn(x.shape[<span class="number">1</span>])</span><br><span class="line">        theta.shape = (<span class="built_in">len</span>(theta), <span class="number">1</span>)</span><br><span class="line">        y.shape = (<span class="built_in">len</span>(y), <span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        error = np.zeros(x.shape[<span class="number">1</span>])</span><br><span class="line">        theta.dtype = np.float_</span><br><span class="line">        st1 = []</span><br><span class="line">        st2 = []</span><br><span class="line">        print(<span class="built_in">type</span>(max_iter), max_iter)</span><br><span class="line">        <span class="keyword">for</span> <span class="built_in">iter</span> <span class="keyword">in</span> <span class="built_in">range</span>(max_iter):</span><br><span class="line">            b = np.random.choice(x.shape[<span class="number">0</span>], batch)</span><br><span class="line">            random_x = x[b]</span><br><span class="line">            random_y = y[b]</span><br><span class="line">            </span><br><span class="line">            sum_error = random_x.transpose().dot(random_x.dot(theta) - random_y) / (<span class="number">2</span> * random_x.shape[<span class="number">0</span>])</span><br><span class="line">            sum_error.dtype = np.float_</span><br><span class="line"></span><br><span class="line">            theta -= learning_rate * sum_error</span><br><span class="line">            print(<span class="string">&quot;sum_error:&quot;</span>, sum_error)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> distance.euclidean(theta, error) &lt; epsilon:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                error = theta.copy()</span><br><span class="line">                st1.append(<span class="built_in">abs</span>(sum_error[<span class="number">0</span>]))</span><br><span class="line">                st2.append(<span class="built_in">abs</span>(sum_error[<span class="number">1</span>]))</span><br><span class="line">        </span><br><span class="line">        a = np.array(<span class="built_in">list</span>(<span class="built_in">range</span>(<span class="built_in">iter</span>+<span class="number">1</span>)))</span><br><span class="line">        b = np.array(st1)</span><br><span class="line">        c = np.array(st2)</span><br><span class="line">        </span><br><span class="line">        fig = plt.figure(<span class="number">1</span>)</span><br><span class="line">        plt.plot(a, c, c=<span class="string">&#x27;g&#x27;</span>)</span><br><span class="line">        plt.show()</span><br><span class="line">        self.theta = theta</span><br><span class="line">        y_pre = x.dot(theta)</span><br><span class="line">        y_pre.dtype = np.float_</span><br><span class="line">        self.y_pre = y_pre</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">    lm = LinearRegression()</span><br><span class="line">    df = pd.read_csv(<span class="string">&quot;Automobile.csv&quot;</span>)</span><br><span class="line">    df = df.fillna(axis=<span class="number">0</span>, method=<span class="string">&#x27;ffill&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    x = df[[<span class="string">&#x27;mpg&#x27;</span>]]</span><br><span class="line">    y = df[<span class="string">&#x27;price&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    x = x.values</span><br><span class="line">    y = y.values</span><br><span class="line">    lm.fit(y, x)</span><br><span class="line">    lm.regression_report()</span><br></pre></td></tr></table></figure>
+<p>设置学习率为1e-6，收敛精度为1e-8，最大迭代次数为300000</p>
+<p>代码运行结果：</p>
+<p>误差的收敛情况：</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><div id="refer-anchor-1"></div></p>
+<ul>
+<li>[1]  <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/梯度/13014729?fr=aladdin">百度百科-梯度</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/statistics/" rel="tag"># statistics</a>
+          
+            <a href="/tags/linear-regression/" rel="tag"># linear regression</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/12/27/20201227_Hexo%E8%BD%AC%E4%B9%89%E7%AC%A6%E5%8F%B7/" rel="next" title="hexo转义符号">
+                <i class="fa fa-chevron-left"></i> hexo转义符号
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/01/19/20210119_DataFrame%E5%A4%9A%E7%BA%A7%E7%B4%A2%E5%BC%95%E5%A2%9E%E5%8A%A0%E8%A1%8C/" rel="prev" title="Dataframe的多级索引">
+                Dataframe的多级索引 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/v201900.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+                <a href="/archives">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E4%BA%8C%E4%B9%98%E6%B3%95%E6%B1%82%E8%A7%A3%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">最小二乘法求解线性回归的基本原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%B3%95%E7%9A%84%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">常见替代方法的原理及其应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%EF%BC%88Gradient-Descent-GD%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">梯度下降法（Gradient Descent, GD）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%EF%BC%88Batch-Gradient-Descent-BGD%EF%BC%89"><span class="nav-number">2.1.1.</span> <span class="nav-text">批量梯度下降法（Batch Gradient Descent, BGD）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%EF%BC%88Stochastic-Gradient-Descent-SGD%EF%BC%89"><span class="nav-number">2.1.2.</span> <span class="nav-text">随机梯度下降（Stochastic Gradient Descent, SGD）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E6%89%B9%E9%87%8F%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%EF%BC%88Mini-batch-Gradient-Descent-MBGD%EF%BC%89"><span class="nav-number">2.1.3.</span> <span class="nav-text">小批量梯度下降法（Mini-batch Gradient Descent, MBGD）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E6%B3%95%E6%96%B9%E6%B3%95%E6%AF%94%E8%BE%83"><span class="nav-number">2.1.4.</span> <span class="nav-text">梯度下降法方法比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="nav-number">2.1.5.</span> <span class="nav-text">实际应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LingZhi Du</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
