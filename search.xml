@@ -1,901 +1,280 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search>
-  <entry>
-    <title>hexo搭建过程存在的问题以及对应的解决办法(Mac OS)</title>
-    <url>/2020/12/27/20201227_Hexo%E6%9C%AC%E5%9C%B0%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E9%97%AE%E9%A2%98%E9%9B%86/</url>
-    <content><![CDATA[<h1 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h1><hr>
-<p>MacBook Pro (16-inch, 2019)<br><strong>Processor</strong>：2.3 GHz 8-Core Intel Core i9<br><strong>Memory</strong>：16GB 2667 MHz DDR4<br><strong>Graphics</strong>：AMD Radeon Pro 5500M &amp;Intel UHD Graphics 630 1536 MB</p>
-<h1 id="用hexo搭建本地博客的基本步骤"><a href="#用hexo搭建本地博客的基本步骤" class="headerlink" title="用hexo搭建本地博客的基本步骤"></a>用hexo搭建本地博客的基本步骤</h1><h2 id="1-安装Homebrew套件"><a href="#1-安装Homebrew套件" class="headerlink" title="1. 安装Homebrew套件"></a>1. 安装Homebrew套件</h2><hr>
-<ul>
-<li>官方安装命令：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/usr/bin/ruby -e <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>&quot;</span></span><br></pre></td></tr></table></figure></li>
-<li>如遇到网速过慢的情况，可点击这里参看解决办法</li>
-</ul>
-<h2 id="2-安装Node-js"><a href="#2-安装Node-js" class="headerlink" title="2. 安装Node.js"></a>2. 安装Node.js</h2><hr>
-<ul>
-<li>安装命令<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install node </span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="3-安装Hexo"><a href="#3-安装Hexo" class="headerlink" title="3. 安装Hexo"></a>3. 安装Hexo</h2><hr>
-<ul>
-<li>安装命令：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure></li>
-<li>如遇到网速过慢的情况，可点击这里参看解决办法</li>
-</ul>
-<h2 id="4-配置Hexo"><a href="#4-配置Hexo" class="headerlink" title="4. 配置Hexo"></a>4. 配置Hexo</h2><hr>
-<ul>
-<li>在任意位置创建存放本地博客的文件夹，现假定在/Users/user下<ul>
-<li>创建文件夹命令：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">mkdir &lt;your folder name&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li>进入博客文件夹：<ul>
-<li>命令： <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;your folder name&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li>依次键入以下命令：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo init</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure></li>
-<li>例外情况：<ul>
-<li>若hexo版本为5.0及以上，安装部分主题会提示：&#34;&#123;&#37; extends &#39;_layout.swig&#39; &#37;&#125; &#123;&#37; import &#39;_macro/post.swig&#39; as post_template &#37;&#125;&#34;<ul>
-<li>原因：swig需要自己手动安装(博主自己的版本为4.2.0，依旧需要手动安装)</li>
-<li>解决办法：在博客文件夹下键入命令：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm i hexo-renderer-swig</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-</li>
-<li>搭建成功的目录：<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">   .</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="5-测试博客"><a href="#5-测试博客" class="headerlink" title="5. 测试博客"></a>5. 测试博客</h2><hr>
-<ul>
-<li>使用命令：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo s --debug  //启动hexo服务器，提示可以从localhost:4000访问，整个过程都可以看到调试信息</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="6-Hexo常用命令"><a href="#6-Hexo常用命令" class="headerlink" title="6. Hexo常用命令"></a>6. Hexo常用命令</h2><hr>
-   <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo init       //将当前目录初始化为hexo站点</span><br><span class="line">hexo new &lt;new blog name&gt;   //新建一篇文章。如无特殊设置会放在/<span class="built_in">source</span>/_posts中</span><br><span class="line">hexo new page &lt;new page name&gt;  //新建一个网页。生成网页后的路径将在执行命令后显示，一般在/<span class="built_in">source</span>中</span><br><span class="line">default_layout 参数代替。如果标题包含空格的话，请使用引号括起来。</span><br><span class="line">hexo clean      // 清除缓存，如果对本地文件做了修改，同步到远程验证修改的效果之前，先clean，清除缓存</span><br><span class="line">hexo generate   // 简写hexo g，根据markdown文件生成静态文件</span><br><span class="line">hexo server     // 简写hexo s，启动本地hexo 服务器，默认localhost:4000可以访问</span><br><span class="line">hexo deploy     // 简写hexo d，将本地修改，部署到远端</span><br><span class="line">hexo version    // 简写hexo v，显示hexo版本</span><br></pre></td></tr></table></figure>
-<h1 id="问题集"><a href="#问题集" class="headerlink" title="问题集"></a>问题集</h1><hr>
-<h2 id="1-npm下载速度慢"><a href="#1-npm下载速度慢" class="headerlink" title="1. npm下载速度慢"></a>1. npm下载速度慢</h2><hr>
-<p>原因：国内网下载国外数据<br>解决办法：更换镜像<br>三种方式：</p>
-<ol>
-<li>通过config命令<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org –global </span><br><span class="line">npm config <span class="built_in">set</span> disturl https://npm.taobao.org/dist –global</span><br></pre></td></tr></table></figure></li>
-<li>命令行指定(推荐)<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">npm –registry https://registry.npm.taobao.org info underscore</span><br></pre></td></tr></table></figure></li>
-<li>编辑 ~/.npmrc 加入下面内容<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">registry = https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-<h2 id="2-categories和tags页面不显示"><a href="#2-categories和tags页面不显示" class="headerlink" title="2. categories和tags页面不显示"></a>2. categories和tags页面不显示</h2></li>
-</ol>
-<hr>
-<p>原因：默认不显示categories和tags页面，<br>解决办法：如果需要的话需要利用上面的命令新建，具体做法是(默认现在位置在博客目录下)：</p>
-<ol>
-<li>在博客目录下键入以下命令：<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hexo new page tags</span><br><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure></li>
-<li>打开source/tags/index.md，添加type: tags，如<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: tags</span><br><span class="line">date: 2020-12-27 03:12:33</span><br><span class="line">type: tags</span><br><span class="line">---</span><br></pre></td></tr></table></figure></li>
-<li>打开source/categories/index.md，添加type: categories，如<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line">date: 2020-12-27 03:12:33</span><br><span class="line">type: categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure></li>
-<li>打开scaffolds/draft.md，添加tags: &#123; &#123;tags &#125; &#125;，如:<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">tags: &#123;&#123; tags &#125;&#125;</span><br><span class="line">---</span><br></pre></td></tr></table></figure></li>
-<li>打开scaffolds/post.md，添加tags: &#123; &#123; tags &#125; &#125;，如：<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">date: &#123;&#123; date &#125;&#125;</span><br><span class="line">tags: &#123;&#123; tags &#125;&#125;</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<h2 id="3-写hexo博客时报错Template-render-error-unknown-path"><a href="#3-写hexo博客时报错Template-render-error-unknown-path" class="headerlink" title="3. 写hexo博客时报错Template render error: (unknown path)"></a>3. 写hexo博客时报错Template render error: (unknown path)</h2></li>
-</ol>
-<hr>
-<p>原因：文章中出现了hexo无法转义的字符<br>解决办法：使用转义符号，具体可参见<a href="/2020/12/27/20201227_Hexo转义符号/">Hexo转义字符</a></p>
-<h2 id="4-使用Next主题，按照教程部署，打不开tags和categories"><a href="#4-使用Next主题，按照教程部署，打不开tags和categories" class="headerlink" title="4. 使用Next主题，按照教程部署，打不开tags和categories"></a>4. 使用Next主题，按照教程部署，打不开tags和categories</h2><hr>
-<p>原因：教程有缺陷，出现了多余空格<br>解决办法：打开/themes/next/_config.yml<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">menu:</span><br><span class="line">   tags: &#x2F; || tags</span><br><span class="line">改为：</span><br><span class="line">menu:</span><br><span class="line">   tags: &#x2F;|| tags</span><br><span class="line">其他同理</span><br></pre></td></tr></table></figure></p>
-<h2 id="5-文章多标签设置"><a href="#5-文章多标签设置" class="headerlink" title="5. 文章多标签设置"></a>5. 文章多标签设置</h2><hr>
-<p>原因：没有参照官方文档<br>解决办法：tags: [tag1,tag2,…,tagn] (推荐)</p>
-]]></content>
-      <tags>
-        <tag>hexo</tag>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hexo转义符号</title>
-    <url>/2020/12/27/20201227_Hexo%E8%BD%AC%E4%B9%89%E7%AC%A6%E5%8F%B7/</url>
-    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">符号 转义字符             说明</span><br><span class="line">!    &amp;#33;              惊叹号</span><br><span class="line">”    &amp;#34;(&quot;)           双引号</span><br><span class="line">#    &amp;#35;              数字标志</span><br><span class="line">$    &amp;#36;              美元标志</span><br><span class="line">%    &amp;#37;              百分号</span><br><span class="line">&amp;    &amp;#38;(&amp;)           和</span><br><span class="line">‘    &#39;                  单引号</span><br><span class="line">(    &amp;#40;              小括号左边部分</span><br><span class="line">)    &amp;#41;              小括号右边部分</span><br><span class="line">*    &amp;#42;              星号</span><br><span class="line">+    &amp;#43;              加号</span><br><span class="line">&lt;    &amp;#60;(&lt;)           小于号</span><br><span class="line">&#x3D;    &amp;#61;              等于符号</span><br><span class="line">-    &amp;#45;(&amp;minus;)     减号</span><br><span class="line">&gt;    &amp;#62;(&gt;)           大于号</span><br><span class="line">?    &amp;#63;              问号</span><br><span class="line">@    &amp;#64;              Commercial at</span><br><span class="line">[    &amp;#91;              中括号左边部分</span><br><span class="line">\    &amp;#92;              反斜杠        </span><br><span class="line">]    &amp;#93;              中括号右边部分</span><br><span class="line">&#123;    &amp;#123;             大括号左边部分</span><br><span class="line">|    &amp;#124;             竖线</span><br><span class="line">&#125;    &amp;#125;             大括号右边部分</span><br></pre></td></tr></table></figure>]]></content>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Bayesian-Data-Analysis（二）：单参数模型</title>
+      <link href="/2021/11/28/20211128_Bayesian-Data-Analysis%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%8D%95%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B/"/>
+      <url>/2021/11/28/20211128_Bayesian-Data-Analysis%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%8D%95%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B/</url>
+      
+        <content type="html"><![CDATA[<h1 id="一般单参数模型的贝叶斯推断过程：以女性出生率估计为例"><a href="#一般单参数模型的贝叶斯推断过程：以女性出生率估计为例" class="headerlink" title="一般单参数模型的贝叶斯推断过程：以女性出生率估计为例"></a>一般单参数模型的贝叶斯推断过程：以女性出生率估计为例</h1><p>在两百年前的欧洲，绝大数人相信女性出生率小于0.5。目前通过大量欧洲人口中估计，这个值是0.485，同上一章约定的符号，我们把女性出生率设定为$\theta$，那么男女出生性别比可以表示为$\phi=\frac{1-\theta}{\theta}$。同时我们设定在$n$个被记录的出生样本中，有$y$个是女性，那么我们可以用一个二项分布来对该问题建模，也就是</p><script type="math/tex; mode=display">\begin{align*}p(y \mid \theta) = Bin(y \mid n, \theta) = \begin{pmatrix}n\\y\end{pmatrix}\theta^{y}(1-\theta)^{n-y}\end{align*}</script><p>假设我们对出生率的实际分布情况并不了解，那么我们可以假设$\theta$在集合里取任意一个值都是可能的，即$\theta \sim U(0, 1)$，用概率密度表示为$p(\theta)=1 \quad \theta \in [0, 1]$。</p><p>应用第一篇中提到的贝叶斯法则</p><script type="math/tex; mode=display">\begin{align*}p(\theta \mid y) &\propto p(\theta)p(y \mid \theta)\\&\propto \theta^{y}(1-\theta)^{n-y}\end{align*}</script><p>而这恰好是Beta分布的一种：$\theta \mid y \sim Beta(y+1, n-y+1)$</p><p>在1745年至1770年，共有241945名女孩和251527名男孩出生，现需要检验女孩的出生率是否小于0.5，即确定下面概率值的大小</p><script type="math/tex; mode=display">Pr(\theta \geq 0.5 \mid y=241945, n=241945+251527)</script><p>如果明确表达$p(\theta \mid y)$，即</p><script type="math/tex; mode=display">\begin{align*}p(\theta \mid y) = \frac{\begin{pmatrix}n\\y\end{pmatrix}\theta^{y}(1-\theta)^{n-y}}{p(y)}\end{align*}</script><p>其中</p><script type="math/tex; mode=display">\begin{align*}p(y) &= \int_{0}^{1} \begin{pmatrix}n\\y\end{pmatrix}\theta^{y}(1-\theta)^{n-y}d\theta\\&= \frac{1}{n+1}\end{align*}</script><p>进而</p><script type="math/tex; mode=display">\begin{align*}Pr(\theta \geq 0.5 \mid y, n)&= \int_{0.5}^{1}p(\theta \mid y) d\theta\\&\approx 1.15 \times 10^{-42}\end{align*}</script><p>因此”几乎可以”确定女性出生率低于0.5。</p><p>在得到后验分布的情况下，我们重新抽取一份出生记录，这个婴儿的性别为女性($\widetilde{y}=1$)的概率为</p><script type="math/tex; mode=display">\begin{align*}Pr(\widetilde{y}=1 \mid y)&= \int_{0}^{1} Pr(\widetilde{y}=1 \mid y, n)p(\theta \mid y) d\theta\\&= \int_{0}^{1} Pr(\widetilde{y}=1 \mid n)p(\theta \mid y) d\theta\\&= \int_{0}^{1} \theta p(\theta \mid y) d\theta\\&= \frac{y+1}{n+2}\end{align*}</script><h1 id="信息先验分布"><a href="#信息先验分布" class="headerlink" title="信息先验分布"></a>信息先验分布</h1><h2 id="共轭先验分布"><a href="#共轭先验分布" class="headerlink" title="共轭先验分布"></a>共轭先验分布</h2><p>通过Beta分布的表达式，我们可以把区间$(0, 1)$的均匀分布看成是$Beta(1, 1)$。那么上面的例子则变得有意思起来。如果我们取先验分布为$\theta  \sim Beta(1, 1)$，在总体分布为$y \mid \theta \sim Bin(n, \theta)$的情况下，后验分布也是一类Beta分布，即$\theta \mid y \sim Beta(y+1, n-y+1)$。这也就意味着，<strong>对于某一些总体分布，如果我们能够取适当的先验分布，那么我们的后验分布和先验分布会在同一类分布簇</strong>，我们只需要稍加调整参数值就可以非常方便的去进行后验分布的计算。</p><h3 id="共轭先验分布的定义"><a href="#共轭先验分布的定义" class="headerlink" title="共轭先验分布的定义"></a>共轭先验分布的定义</h3><p>设$\theta$为总体分布中的参数，其抽样分布属于$\mathcal{F}$分布簇，$p(\theta)$是$\theta$的先验密度函数，分布属于$\mathcal{P}$分布簇，若抽样后计算的后验密度函数和$p(\theta)$处于同一分布簇中，那么我们认为$\mathcal{P}$和$\mathcal{F}$是共轭的</p><blockquote><p>需要强调，共轭先验分布是<strong>针对某一分布中的参数而言的</strong>，如正态分布中的均值和方差参数，泊松分布的均值参数等。</p></blockquote><h3 id="共轭先验分布的优缺点"><a href="#共轭先验分布的优缺点" class="headerlink" title="共轭先验分布的优缺点"></a>共轭先验分布的优缺点</h3><p>优点：</p><ol><li>计算方便</li><li>后验分布的一些参数可以得到很好的解释</li></ol><p>缺点：</p><ol><li>先验分布的选择需要符合现实情况，错误选择先验分布，可能会掩盖后验分布的实际情况</li></ol><h3 id="常用共轭先验分布"><a href="#常用共轭先验分布" class="headerlink" title="常用共轭先验分布"></a>常用共轭先验分布</h3><p>列举一些常用的共轭先验分布，具体证明放在附录，如感兴趣可以阅读</p><div class="table-container"><table><thead><tr><th>总体分布</th><th>参数</th><th>共轭先验分布</th></tr></thead><tbody><tr><td>二项分布</td><td>抽取概率</td><td>Beta分布</td></tr><tr><td>泊松分布</td><td>均值</td><td>Gamma分布</td></tr><tr><td>指数分布</td><td>均值（均值倒数）</td><td>Gamma分布</td></tr><tr><td>正态分布（方差已知）</td><td>均值</td><td>正态分布</td></tr><tr><td>正态分布（均值已知）</td><td>方差</td><td>倒Gamma分布</td></tr></tbody></table></div><h2 id="非共轭先验分布"><a href="#非共轭先验分布" class="headerlink" title="非共轭先验分布"></a>非共轭先验分布</h2><h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="常见分布"><a href="#常见分布" class="headerlink" title="常见分布"></a>常见分布</h2><h3 id="Binormal-Distribution"><a href="#Binormal-Distribution" class="headerlink" title="Binormal Distribution"></a>Binormal Distribution</h3><p>概率函数</p><script type="math/tex; mode=display">\begin{align*}p(y \mid \theta) =  \begin{pmatrix}n\\y\end{pmatrix}\theta^{y}(1-\theta)^{n-y}\end{align*}</script><p>期望</p><script type="math/tex; mode=display">\begin{align*}E(\theta) &= \sum_{y}p(y \mid \theta)\\&= n\theta\end{align*}</script><p>方差</p><script type="math/tex; mode=display">\begin{align*}E(\theta) &= \sum_{y}(\theta-E(\theta) )^{2}\\&= n\theta(1-\theta)\end{align*}</script><h3 id="Poisson-Distribution"><a href="#Poisson-Distribution" class="headerlink" title="Poisson Distribution"></a>Poisson Distribution</h3><p>概率函数</p><script type="math/tex; mode=display">\begin{align*}p(y_{i} \mid \theta) =  \frac{\theta^{y_{i}}}{y_{i}!}e^{-\theta}\end{align*}</script><p>期望</p><script type="math/tex; mode=display">\begin{align*}E(\theta) &= \sum_{i=1}^{n}p(y_{i} \mid \theta)\\&= \theta\end{align*}</script><p>方差</p><script type="math/tex; mode=display">\begin{align*}E(\theta) &= \sum_{y}(\theta-E(\theta) )^{2}\\&= \theta\end{align*}</script><h3 id="Exponential-Distribution"><a href="#Exponential-Distribution" class="headerlink" title="Exponential Distribution"></a>Exponential Distribution</h3><p>概率函数</p><script type="math/tex; mode=display">\begin{align*}p(y_{i} \mid \theta) =  \frac{\theta^{y_{i}}}{y_{i}!}e^{-\theta}\end{align*}</script><p>期望</p><script type="math/tex; mode=display">\begin{align*}E(\theta) &= \sum_{i=1}^{n}p(y_{i} \mid \theta)\\&= \theta\end{align*}</script><p>方差</p><script type="math/tex; mode=display">\begin{align*}E(\theta) &= \sum_{y}(\theta-E(\theta) )^{2}\\&= \theta\end{align*}</script><h3 id="Normal-Distribution"><a href="#Normal-Distribution" class="headerlink" title="Normal Distribution"></a>Normal Distribution</h3><p>概率函数</p><script type="math/tex; mode=display">\begin{align*}p(y_{i} \mid \theta) =  \frac{\theta^{y_{i}}}{y_{i}!}e^{-\theta}\end{align*}</script><p>期望</p><script type="math/tex; mode=display">\begin{align*}E(\theta) &= \sum_{i=1}^{n}p(y_{i} \mid \theta)\\&= \theta\end{align*}</script><p>方差</p><script type="math/tex; mode=display">\begin{align*}E(\theta) &= \sum_{y}(\theta-E(\theta) )^{2}\\&= \theta\end{align*}</script><h2 id="共轭先验分布的证明"><a href="#共轭先验分布的证明" class="headerlink" title="共轭先验分布的证明"></a>共轭先验分布的证明</h2><h3 id="Binormal-Distribution-1"><a href="#Binormal-Distribution-1" class="headerlink" title="Binormal Distribution"></a>Binormal Distribution</h3><p>总体分布满足</p><script type="math/tex; mode=display">\begin{align*}p(y \mid \theta) \propto \theta^{y}(1-\theta)^{n-y}\end{align*}</script><p>取先验分布$p(\theta)$为$Beta(\alpha, \beta)$</p><script type="math/tex; mode=display">\begin{align*}p(\theta) \propto \theta^{\alpha-1}(1-\theta)^{\beta-1}\end{align*}</script><p>那么后验分布$p(\theta \mid y)$满足</p><script type="math/tex; mode=display">\begin{align*}p(\theta \mid y) &\propto \theta^{y}(1-\theta)^{n-y}\theta^{\alpha-1}(1-\theta)^{\beta-1}\\&=\theta^{y+\alpha-1}(1-\theta)^{n-y+\beta-1}\\&=Beta(\alpha+y, n-y+\beta)\end{align*}</script><h3 id="Binormal-Distribution-2"><a href="#Binormal-Distribution-2" class="headerlink" title="Binormal Distribution"></a>Binormal Distribution</h3><p>总体分布满足</p><script type="math/tex; mode=display">\begin{align*}p(y \mid \theta) \propto \theta^{y}(1-\theta)^{n-y}\end{align*}</script><p>取先验分布$p(\theta)$为$Beta(\alpha, \beta)$</p><script type="math/tex; mode=display">\begin{align*}p(\theta) \propto \theta^{\alpha-1}(1-\theta)^{\beta-1}\end{align*}</script><p>那么后验分布$p(\theta \mid y)$满足</p><script type="math/tex; mode=display">\begin{align*}p(\theta \mid y) &\propto \theta^{y}(1-\theta)^{n-y}\theta^{\alpha-1}(1-\theta)^{\beta-1}\\&=\theta^{y+\alpha-1}(1-\theta)^{n-y+\beta-1}\\&=Beta(\alpha+y, n-y+\beta)\end{align*}</script><p>概率函数</p><script type="math/tex; mode=display">\begin{align*}p(y_{i} \mid \theta) =  \frac{\theta^{y_{i}}}{y_{i}!}e^{-\theta}\end{align*}</script><p>设观测数据为$y=\{y_{1}, \cdot, y_{n}\}$，利用最大似然法可得</p><script type="math/tex; mode=display">\begin{align*}p(y \mid \theta) &=  \prod_{i=1}^{n} \frac{\theta^{y_{i}}}{y_{i}!}e^{-\theta}\\&=   \frac{\theta^{\sum_{i=1}^{n} y_{i}}}{\prod_{i=1}^{n}y_{i}!}e^{-n\theta}\\&\propto \theta^{t}e^{-n\theta}\end{align*}</script><p>其中$t=\sum_{i=1}^{n} y_{i}$</p>]]></content>
+      
+      
       <categories>
-        <category>hexo</category>
+          
+          <category> Bayesian Data Analysis </category>
+          
       </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>blog</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/12/27/20201227_hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-      <tags>
-        <tag>test</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python实现线性回归</title>
-    <url>/2021/01/01/20210101_Python%E5%AE%9E%E7%8E%B0%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/</url>
-    <content><![CDATA[<h1 id="最小二乘法求解线性回归的基本原理"><a href="#最小二乘法求解线性回归的基本原理" class="headerlink" title="最小二乘法求解线性回归的基本原理"></a>最小二乘法求解线性回归的基本原理</h1><p>如果一组自变量$x$和因变量$y$存在线性关系，那么可以用如下方程表示他们的线性关系：</p>
-<script type="math/tex; mode=display">
-y_{i}=b_{0}+b_{1}x_{i1}+b_{2}x_{i2}+\dots++b_{p}x_{ip}+\epsilon_{i} \tag{1} \label{eq1}</script><p>其中$i$表示第$i$个方程，$\epsilon_{i}$是随机误差且满足$\epsilon_{i} \sim N(0, \sigma^{2})$。</p>
-<p>如果把$y_{i}$看成关于是$\epsilon_{i}$的随机变量，那么由$\epsilon_{i}$的性质，可以得到如下关系：</p>
-<script type="math/tex; mode=display">
-E(y_{i}|x_{i1}, x_{i2}, x_{ip})=b_{0}+b_{1}x_{i1}+b_{2}x_{i2}+\dots++b_{p}x_{ip} \tag{2} \label{eq2}</script><p>由公式<script type="math/tex">\eqref{eq1}\eqref{eq2}</script>可以得到：</p>
-<script type="math/tex; mode=display">
-y_{i}=E(y_{i}|x_{i1}, x_{i2}, x_{ip})+\epsilon_{i}</script><p>用矩阵可以表示为</p>
-<script type="math/tex; mode=display">
-\textbf{y=Xb}+\boldsymbol{\epsilon} \tag{3} \label{eq3}</script><p>其中</p>
-<script type="math/tex; mode=display">
-\begin{gathered}
-\textbf{X}=
-\begin{bmatrix}
-1    &    x_{11}    &    \dots    &    x_{1p}    \\
-1    &    x_{21}    &    \dots    &    x_{2p}    \\
-\dots    &    \dots    &    \dots    &    \dots    \\
-1    &    x_{n1}    &    \dots    &    x_{np}    \\
-\end{bmatrix}
-\end{gathered}，
-\textbf{y}=(y_{1}, y_{2}, \dots, y_{n})^{T},
-\boldsymbol{\epsilon} = (\epsilon_{1}, \epsilon_{2}, \dots, \epsilon_{n})^{T}</script><p>线性回归本质上就是在估计公式$\eqref{eq3}$的参数$\textbf{b}$</p>
-<p>对于线性回归，一般来说，最常用的方法便是最小二乘法（至于为什么不直接用$\boldsymbol{X^{-1}y}$来估计$\boldsymbol{b}$可以见另外一篇文章「待定」）</p>
-<p>最小二乘法通过最小化误差（残差）的平方和寻找数据的最佳的函数匹配，使得这些求得的数据与实际数据之间误差的平方和为最小。用数学语言描述为：</p>
-<script type="math/tex; mode=display">
-\min \quad \boldsymbol{\epsilon^{2}}=(\boldsymbol{y-E(y|X)})^{2} \tag{4} \label{eq4}</script><p>若满足以下2个条件：</p>
-<ol>
-<li>$\boldsymbol{X}$满秩</li>
-<li>$\epsilon_{i}$是随机误差且满足$\epsilon_{i} \sim N(0, \sigma^{2})$</li>
-</ol>
-<p>则公式$\eqref{eq4}$存在解析解。</p>
-<p>对参数$\textbf{b}$求偏导，并令其等于0:</p>
-<script type="math/tex; mode=display">
-\frac{\partial \boldsymbol{\epsilon^{2}}}{\partial \boldsymbol{b}}=2\boldsymbol{X^{T}(y-Xb)} \tag{5} \label{eq5}\\
-\frac{\partial \boldsymbol{\epsilon^{2}}}{\partial \boldsymbol{b}}=0\\</script><p>解出：</p>
-<script type="math/tex; mode=display">
-\boldsymbol{b}=\boldsymbol{(X^{T}X)^{-1}X^{T}y}</script><blockquote>
-<p>若满足以下2个条件：</p>
-<ol>
-<li>$\boldsymbol{X}$满秩</li>
-<li>$\epsilon_{i}$是随机误差且满足$\epsilon_{i} \sim N(0, \sigma^{2})$</li>
-</ol>
-</blockquote>
-<p>该条件是最小二乘法存在解析解的条件，但如果满足以下6个条件：</p>
-<ol>
-<li>参数线性。总体回归模型是线性模型，包括变量线性和参数线性，如</li>
-<li>随机抽样。观测值$(x_{i1}, x_{i2}, \dots, x_{ip}, y_{i})$是对总体的随机抽烟，并且遵循公式$\eqref{eq1}$</li>
-<li>满秩。自变量之间没有完全的线性关系</li>
-<li>零条件均值。随机误差在每个观测点的条件均值为0</li>
-<li>同方差假定。随机干扰项的条件方差固定</li>
-<li>无序列相关性。即不同样本的随机误差取值不相关</li>
-</ol>
-<p>则最小二乘法得到的解析解是BLUE，无需再找其他解析解（高斯-马尔可夫定理）</p>
-<h1 id="常见替代方法的原理及其应用"><a href="#常见替代方法的原理及其应用" class="headerlink" title="常见替代方法的原理及其应用"></a>常见替代方法的原理及其应用</h1><p>由求解的原理可以得知使用解析解估计线性模型参数$\boldsymbol{b}$的重要条件之一便是$\boldsymbol{X}$满秩，但在实际应用中我们常常遇到这两种情况：</p>
-<ol>
-<li>模型线性程度低</li>
-<li>$\boldsymbol{X}$不满秩，即存在共线性问题</li>
-</ol>
-<p>因此解析解通常难以进行实际应用，下面将介绍几种常用的替代方法，用于解决实际的线性回归问题</p>
-<h2 id="梯度下降法（Gradient-Descent-GD）"><a href="#梯度下降法（Gradient-Descent-GD）" class="headerlink" title="梯度下降法（Gradient Descent, GD）"></a>梯度下降法（Gradient Descent, GD）</h2><p>梯度的本意是一个向量（矢量），表示某一函数在该点处的方向导数沿着该方向取得最大值，即函数在该点处沿着该方向（此梯度的方向）变化最快，变化率最大（为该梯度的模）<a href="#refer-anchor-1"><sup>1</sup></a></p>
-<p>该方法要解决的问题依旧是$\eqref{eq4}$，由梯度的定义不难看出，$\eqref{eq5}$便是梯度的计算公式，与求解析解不同的是，梯度下降法通过迭代来逼近最优解，其迭代公式如下：</p>
-<script type="math/tex; mode=display">
-\boldsymbol{b}=\boldsymbol{b}-\lambda \nabla_{b}\boldsymbol{\epsilon^{2}}</script><p>其中$\lambda$称为<strong>步长或者学习率</strong>，$\boldsymbol{\epsilon^{2}}=2\boldsymbol{X^{T}(y-Xb)} $，2只是常数，不影响迭代结果，可以改变成其他任意常数</p>
-<p>如果非凸规划问题，则梯度下降法不一定找到全剧最优解而是陷入局部最优解。</p>
-<p>根据使用样本的方法不同，梯度下降法常分为以下几种：</p>
-<h3 id="批量梯度下降法（Batch-Gradient-Descent-BGD）"><a href="#批量梯度下降法（Batch-Gradient-Descent-BGD）" class="headerlink" title="批量梯度下降法（Batch Gradient Descent, BGD）"></a>批量梯度下降法（Batch Gradient Descent, BGD）</h3><p>批量梯度下降法在计算优化函数的梯度时利用<strong>全部样本数据</strong></p>
-<p>迭代过程如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(max_iters):</span><br><span class="line">		grad = gradient(loss_function, y, x, b_old)</span><br><span class="line">		b_new = b_old - <span class="keyword">lambda</span>* grad</span><br><span class="line">		<span class="keyword">if</span> distance(b_new, b_old) &lt; sup:</span><br><span class="line">				end</span><br><span class="line">		end</span><br></pre></td></tr></table></figure>
-<p>其中sup为收敛精度</p>
-<h3 id="随机梯度下降（Stochastic-Gradient-Descent-SGD）"><a href="#随机梯度下降（Stochastic-Gradient-Descent-SGD）" class="headerlink" title="随机梯度下降（Stochastic Gradient Descent, SGD）"></a>随机梯度下降（Stochastic Gradient Descent, SGD）</h3><p>随机梯度下降法在计算优化函数的梯度时利用随机选择的<strong>一个样本数据</strong></p>
-<p>迭代过程如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(max_iters):</span><br><span class="line">  	x = get_batch(x, <span class="number">1</span>)</span><br><span class="line">    y = get_batch(y, <span class="number">1</span>)</span><br><span class="line">		grad = gradient(loss_function, y, x, b_old)</span><br><span class="line">		b_new = b_old - <span class="keyword">lambda</span>* grad</span><br><span class="line">		<span class="keyword">if</span> distance(b_new, b_old) &lt; sup:</span><br><span class="line">				end</span><br><span class="line">		end</span><br></pre></td></tr></table></figure>
-<p>其中sup为收敛精度</p>
-<h3 id="小批量梯度下降法（Mini-batch-Gradient-Descent-MBGD）"><a href="#小批量梯度下降法（Mini-batch-Gradient-Descent-MBGD）" class="headerlink" title="小批量梯度下降法（Mini-batch Gradient Descent, MBGD）"></a>小批量梯度下降法（Mini-batch Gradient Descent, MBGD）</h3><p>小批量梯度下降法在计算优化函数的梯度时利用随机选择的<strong>一部分样本数据</strong>，SGD实际上是MBGD的一个特例：</p>
-<p>迭代过程如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(max_iters):</span><br><span class="line">  	x = get_batch(x, batch_size)</span><br><span class="line">    y = get_batch(y, batch_size)</span><br><span class="line">		grad = gradient(loss_function, y, x, b_old)</span><br><span class="line">		b_new = b_old - <span class="keyword">lambda</span>* grad</span><br><span class="line">		<span class="keyword">if</span> distance(b_new, b_old) &lt; sup:</span><br><span class="line">				end</span><br><span class="line">		end</span><br></pre></td></tr></table></figure>
-<p>其中sup为收敛精度</p>
-<p>一般来说，我们常用MBGD而不是SGD</p>
-<h3 id="梯度下降法方法比较"><a href="#梯度下降法方法比较" class="headerlink" title="梯度下降法方法比较"></a>梯度下降法方法比较</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th></th>
-<th>BGD</th>
-<th>SGD</th>
-<th>MBGD</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>优点</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>缺点</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h3><p>数据集：Automobile.csv(Stata附带数据集)</p>
-<p>属性数：12</p>
-<p>数据预览：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th><strong>price</strong></th>
-<th><strong>mpg</strong></th>
-<th><strong>rep78</strong></th>
-<th><strong>headroom</strong></th>
-<th><strong>trunk</strong></th>
-<th><strong>weight</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>4099</td>
-<td>22</td>
-<td>3</td>
-<td>2.5</td>
-<td>11</td>
-<td>2930</td>
-</tr>
-<tr>
-<td>4749</td>
-<td>17</td>
-<td>3</td>
-<td>3</td>
-<td>11</td>
-<td>3350</td>
-</tr>
-<tr>
-<td>3799</td>
-<td>22</td>
-<td></td>
-<td>3</td>
-<td>12</td>
-<td>2640</td>
-</tr>
-<tr>
-<td>4816</td>
-<td>20</td>
-<td>3</td>
-<td>4.5</td>
-<td>16</td>
-<td>3250</td>
-</tr>
-<tr>
-<td>7827</td>
-<td>15</td>
-<td>4</td>
-<td>4</td>
-<td>20</td>
-<td>4080</td>
-</tr>
-<tr>
-<td>5788</td>
-<td>18</td>
-<td>3</td>
-<td>4</td>
-<td>21</td>
-<td>3670</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>为方便起见，我们以price为因变量，mpg为自变量拟合线性模型</p>
-<p>首先先看下散点图（stata）：</p>
-<p><img src="../images/20210101_Python实现线性回归_1.png" alt="avatar"></p>
-<p><strong>批量梯度下降法代码</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> scipy.spatial <span class="keyword">import</span> distance</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinearRegression</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__add_constant</span>(<span class="params">self, x, constant=<span class="literal">True</span>, predict=<span class="literal">False</span></span>):</span></span><br><span class="line">        <span class="keyword">if</span> x.ndim == <span class="number">1</span>:</span><br><span class="line">            x.shape = (<span class="built_in">len</span>(x), <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> constant:</span><br><span class="line">            cons = np.ones(<span class="built_in">len</span>(x))</span><br><span class="line">            cons.shape = (<span class="built_in">len</span>(x), <span class="number">1</span>)</span><br><span class="line">            x = np.hstack([cons, x])</span><br><span class="line">        <span class="keyword">elif</span> <span class="keyword">not</span> constant:</span><br><span class="line">            cons = np.zeros(<span class="built_in">len</span>(x))</span><br><span class="line">            cons.shape = (<span class="built_in">len</span>(x), <span class="number">1</span>)</span><br><span class="line">            x = np.hstack([cons, x])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> predict:</span><br><span class="line">            self.x_new = x</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__gradient_descent</span>(<span class="params">self, y, x, learning_rate=<span class="number">1e-8</span>, epsilon=<span class="number">1e-20</span>, max_iter=<span class="number">1000000</span></span>):</span></span><br><span class="line">        <span class="comment"># theta是回归系数向量</span></span><br><span class="line">        <span class="comment"># 不直接使用最小二乘法的原因是有可能x不满秩，无法求出其逆矩阵，而梯度下降法本质上和最小二乘法相同，因此使用该近似方法</span></span><br><span class="line">        np.random.seed(<span class="number">20000</span>)</span><br><span class="line">        theta = np.random.randn(x.shape[<span class="number">1</span>])</span><br><span class="line">        theta.shape = (<span class="built_in">len</span>(theta), <span class="number">1</span>)</span><br><span class="line">        y.shape = (<span class="built_in">len</span>(y), <span class="number">1</span>)</span><br><span class="line">        error = np.zeros(x.shape[<span class="number">1</span>])</span><br><span class="line">        theta.dtype = np.float_</span><br><span class="line">        st1 = []</span><br><span class="line">        st2 = []</span><br><span class="line">        <span class="keyword">for</span> <span class="built_in">iter</span> <span class="keyword">in</span> <span class="built_in">range</span>(max_iter):</span><br><span class="line">            sum_error = x.transpose().dot(x.dot(theta) - y) / (<span class="number">2</span> * x.shape[<span class="number">0</span>])</span><br><span class="line">            sum_error.dtype = np.float_</span><br><span class="line"></span><br><span class="line">            theta -= learning_rate * sum_error</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> distance.euclidean(theta, error) &lt; epsilon:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                error = theta.copy()</span><br><span class="line">                st1.append(<span class="built_in">abs</span>(sum_error[<span class="number">0</span>]))</span><br><span class="line">                st2.append(<span class="built_in">abs</span>(sum_error[<span class="number">1</span>]))</span><br><span class="line">        </span><br><span class="line">        a = np.array(<span class="built_in">list</span>(<span class="built_in">range</span>(<span class="built_in">iter</span>+<span class="number">1</span>)))</span><br><span class="line">        b = np.array(st1)</span><br><span class="line">        c = np.array(st2)</span><br><span class="line">        print(a.shape, b.shape)</span><br><span class="line">        fig = plt.figure(<span class="number">1</span>)</span><br><span class="line">        <span class="comment"># plt.plot(a, b)</span></span><br><span class="line">        plt.plot(a, c, c=<span class="string">&#x27;g&#x27;</span>)</span><br><span class="line">        plt.show()</span><br><span class="line">        </span><br><span class="line">        self.theta = theta</span><br><span class="line">        y_pre = x.dot(theta)</span><br><span class="line">        y_pre.dtype = np.float_</span><br><span class="line">        self.y_pre = y_pre</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__residual</span>(<span class="params">self, y, y_pre</span>):</span></span><br><span class="line">        self.res = y - y_pre</span><br><span class="line">        self.res.dtype = np.float_</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__r_square</span>(<span class="params">self, y, y_pre</span>):</span></span><br><span class="line">        sst = (y - y.mean()).transpose().dot((y - y.mean()))[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">        sse = (y_pre - y.mean()).transpose().dot((y_pre - y.mean()))[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># ssr = sst - sse</span></span><br><span class="line">        ssr = (y - y_pre).transpose().dot((y - y_pre))[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">        print(<span class="string">&quot;y.mean():&quot;</span>, y.mean())</span><br><span class="line">        print(sst)</span><br><span class="line">        print(sse)</span><br><span class="line">        print(ssr)</span><br><span class="line"></span><br><span class="line">        self.r2 = sse / sst</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">durbin_waston</span>(<span class="params">self</span>):</span></span><br><span class="line">        error_1 = self.res[<span class="number">1</span>:]</span><br><span class="line">        error_0 = self.res[:-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">        error_s = error_1 - error_0</span><br><span class="line">        error_s.dtype = np.float_</span><br><span class="line">        error_s_sum = error_s.transpose().dot(error_s)</span><br><span class="line"></span><br><span class="line">        error_sum = self.res.transpose().dot(self.res)</span><br><span class="line"></span><br><span class="line">        dw = error_s_sum / error_sum</span><br><span class="line"></span><br><span class="line">        self.dw = dw[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fit</span>(<span class="params">self, y, x, constant=<span class="literal">True</span>, learning_rate=<span class="number">1e-6</span>, epsilon=<span class="number">1e-8</span>, max_iter=<span class="number">300000</span></span>):</span></span><br><span class="line">        y.shape = (<span class="built_in">len</span>(y), <span class="number">1</span>)</span><br><span class="line">        self.iscons = constant</span><br><span class="line">        self.x = x</span><br><span class="line">        self.y = y</span><br><span class="line">        x_new = self.__add_constant(x, constant)</span><br><span class="line"></span><br><span class="line">        self.__gradient_descent(y, x_new, constant, learning_rate, epsilon, max_iter)</span><br><span class="line">        </span><br><span class="line">        self.__residual(y, self.y_pre)</span><br><span class="line">        self.__r_square(y, self.y_pre)</span><br><span class="line">        self.durbin_waston()</span><br><span class="line">        <span class="comment"># fig = plt.figure(1)</span></span><br><span class="line">        <span class="comment"># plt.scatter(x, y, c=&#x27;g&#x27;)</span></span><br><span class="line">        <span class="comment"># plt.plot(x, self.y_pre)</span></span><br><span class="line">        <span class="comment"># plt.show()</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">regression_report</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            print(<span class="string">&quot;residual:&quot;</span>, self.res)</span><br><span class="line">            print(<span class="string">&quot;intercept = &#123;&#125;, slope = &#123;&#125;&quot;</span>.<span class="built_in">format</span>(self.theta[<span class="number">0</span>], self.theta[<span class="number">1</span>:]))</span><br><span class="line">            print(<span class="string">&quot;r_square = &#123;&#125;&quot;</span>.<span class="built_in">format</span>(self.r2))</span><br><span class="line">            print(<span class="string">&quot;dw = &#123;&#125;&quot;</span>.<span class="built_in">format</span>(self.dw))</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">&quot;please fit a regression model&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">predict</span>(<span class="params">self, x_test</span>):</span></span><br><span class="line">        x_test = self.__add_constant(x_test, self.iscons, <span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">return</span> x_test.dot(self.theta)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    lm = LinearRegression()</span><br><span class="line">    df = pd.read_csv(<span class="string">&quot;Automobile.csv&quot;</span>)</span><br><span class="line">    df = df.fillna(axis=<span class="number">0</span>, method=<span class="string">&#x27;ffill&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    x = df[[<span class="string">&#x27;mpg&#x27;</span>]]</span><br><span class="line">    y = df[<span class="string">&#x27;price&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    x = x.values</span><br><span class="line">    y = y.values</span><br><span class="line">    lm.fit(y, x)</span><br><span class="line">    lm.regression_report()</span><br></pre></td></tr></table></figure>
-<p>设置学习率为1e-6，收敛精度为1e-8，最大迭代次数为300000</p>
-<p>代码运行结果：</p>
-<p>误差的收敛情况：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> scipy.spatial <span class="keyword">import</span> distance</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinearRegression</span>:</span></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__stochastic_gradient_descent</span>(<span class="params">self, y, x, learning_rate=<span class="number">1e-8</span>, epsilon=<span class="number">1e-20</span>, max_iter=<span class="number">1000000</span>, batch=<span class="number">64</span></span>):</span></span><br><span class="line">        <span class="comment"># theta是回归系数向量</span></span><br><span class="line">        <span class="comment"># 不直接使用最小二乘法的原因是有可能x不满秩，无法求出其逆矩阵，而梯度下降法本质上和最小二乘法相同，因此使用该近似方法</span></span><br><span class="line">        np.random.seed(<span class="number">20000</span>)</span><br><span class="line">        theta = np.random.randn(x.shape[<span class="number">1</span>])</span><br><span class="line">        theta.shape = (<span class="built_in">len</span>(theta), <span class="number">1</span>)</span><br><span class="line">        y.shape = (<span class="built_in">len</span>(y), <span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        error = np.zeros(x.shape[<span class="number">1</span>])</span><br><span class="line">        theta.dtype = np.float_</span><br><span class="line">        st1 = []</span><br><span class="line">        st2 = []</span><br><span class="line">        print(<span class="built_in">type</span>(max_iter), max_iter)</span><br><span class="line">        <span class="keyword">for</span> <span class="built_in">iter</span> <span class="keyword">in</span> <span class="built_in">range</span>(max_iter):</span><br><span class="line">            b = np.random.choice(x.shape[<span class="number">0</span>], batch)</span><br><span class="line">            random_x = x[b]</span><br><span class="line">            random_y = y[b]</span><br><span class="line">            </span><br><span class="line">            sum_error = random_x.transpose().dot(random_x.dot(theta) - random_y) / (<span class="number">2</span> * random_x.shape[<span class="number">0</span>])</span><br><span class="line">            sum_error.dtype = np.float_</span><br><span class="line"></span><br><span class="line">            theta -= learning_rate * sum_error</span><br><span class="line">            print(<span class="string">&quot;sum_error:&quot;</span>, sum_error)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> distance.euclidean(theta, error) &lt; epsilon:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                error = theta.copy()</span><br><span class="line">                st1.append(<span class="built_in">abs</span>(sum_error[<span class="number">0</span>]))</span><br><span class="line">                st2.append(<span class="built_in">abs</span>(sum_error[<span class="number">1</span>]))</span><br><span class="line">        </span><br><span class="line">        a = np.array(<span class="built_in">list</span>(<span class="built_in">range</span>(<span class="built_in">iter</span>+<span class="number">1</span>)))</span><br><span class="line">        b = np.array(st1)</span><br><span class="line">        c = np.array(st2)</span><br><span class="line">        </span><br><span class="line">        fig = plt.figure(<span class="number">1</span>)</span><br><span class="line">        plt.plot(a, c, c=<span class="string">&#x27;g&#x27;</span>)</span><br><span class="line">        plt.show()</span><br><span class="line">        self.theta = theta</span><br><span class="line">        y_pre = x.dot(theta)</span><br><span class="line">        y_pre.dtype = np.float_</span><br><span class="line">        self.y_pre = y_pre</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">    lm = LinearRegression()</span><br><span class="line">    df = pd.read_csv(<span class="string">&quot;Automobile.csv&quot;</span>)</span><br><span class="line">    df = df.fillna(axis=<span class="number">0</span>, method=<span class="string">&#x27;ffill&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    x = df[[<span class="string">&#x27;mpg&#x27;</span>]]</span><br><span class="line">    y = df[<span class="string">&#x27;price&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    x = x.values</span><br><span class="line">    y = y.values</span><br><span class="line">    lm.fit(y, x)</span><br><span class="line">    lm.regression_report()</span><br></pre></td></tr></table></figure>
-<p>设置学习率为1e-6，收敛精度为1e-8，最大迭代次数为300000</p>
-<p>代码运行结果：</p>
-<p>误差的收敛情况：</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><div id="refer-anchor-1"></div></p>
-<ul>
-<li>[1]  <a href="https://baike.baidu.com/item/梯度/13014729?fr=aladdin">百度百科-梯度</a></li>
-</ul>
-]]></content>
-      <tags>
-        <tag>Python</tag>
-        <tag>statistics</tag>
-        <tag>linear regression</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Dataframe的多级索引</title>
-    <url>/2021/01/19/20210119_DataFrame%E5%A4%9A%E7%BA%A7%E7%B4%A2%E5%BC%95%E5%A2%9E%E5%8A%A0%E8%A1%8C/</url>
-    <content><![CDATA[<h1 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h1><p>一般来说Dataframe的索引都是单一索引。学过数据库的话会知道有时候单个属性作为索引较为单薄，例如下面的成绩表</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>姓名</th>
-<th>科目</th>
-<th>成绩</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Mike</td>
-<td>Math</td>
-<td>90</td>
-</tr>
-<tr>
-<td>Mike</td>
-<td>Chinese</td>
-<td>85</td>
-</tr>
-<tr>
-<td>Bob</td>
-<td>English</td>
-<td>70</td>
-</tr>
-<tr>
-<td>Amy</td>
-<td>Math</td>
-<td>99</td>
-</tr>
-<tr>
-<td>Amy</td>
-<td>English</td>
-<td>96</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>无论是单用姓名还是科目，都没有办法很好的发挥索引的功能（例如假设姓名可以作为索引，那么我可以利用Mike这个姓名找到唯一的一个成绩，但事实上我可以找到两个），但是（姓名，科目）却可以唯一的找到成绩。这个（姓名，科目）便是我们的联合索引。因此在实际中我们有可能会用到这样的索引形式（虽然在Dataframe中没有这个必要单独设置成这样）。</p>
-<p>在Dataframe中我们有多级索引（multiindex）。多级索引实际上是联合索引的一种，只是将索引层级化，用前面的例子，如果我们设置的多级索引是（姓名，科目），那么我们最终得到的表的形式应该是：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>姓名</th>
-<th>科目</th>
-<th>成绩</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Mike</td>
-<td>Math</td>
-<td>90</td>
-</tr>
-<tr>
-<td></td>
-<td>Chinese</td>
-<td>85</td>
-</tr>
-<tr>
-<td>Bob</td>
-<td>English</td>
-<td>70</td>
-</tr>
-<tr>
-<td>Amy</td>
-<td>Math</td>
-<td>99</td>
-</tr>
-<tr>
-<td></td>
-<td>English</td>
-<td>96</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>但如果设置的多级索引是（科目，姓名），那么我们最终得到的表的形式应该是：</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>科目</th>
-<th>姓名</th>
-<th>成绩</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Math</td>
-<td>Mike</td>
-<td>90</td>
-</tr>
-<tr>
-<td></td>
-<td>Amy</td>
-<td>99</td>
-</tr>
-<tr>
-<td>Chinese</td>
-<td>Mike</td>
-<td>85</td>
-</tr>
-<tr>
-<td>English</td>
-<td>Bob</td>
-<td>70</td>
-</tr>
-<tr>
-<td></td>
-<td>Amy</td>
-<td>96</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>但无论是哪种形式的多级索引，我们都能够用这样的索引找到对于的成绩</p>
-<h1 id="创建多级索引"><a href="#创建多级索引" class="headerlink" title="创建多级索引"></a>创建多级索引</h1><p>在Dataframe中我们有很多种种方法创建多级索引。如果我们仔细观察不难发现当我们查看一个Dataframe（简便起见后称df）的索引时，我们得到的是一个Index对象（pandas.Index)。而多级索引则更进一步，其索引为MultiIndex对象，因此，多级索引可以利用MultiIndex对象来创建。其中最常用的方法是利用pd.MultiIndex.from_arrays和pd.MultiIndex.from_product来创建。</p>
-<p>以我们的第一张多级索引表为例，如果我们有了分数序列(90, 85, 70, 99, 96)，我们可以使用以下代码创建出该Dataframe：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">scores = [<span class="number">90</span>, <span class="number">85</span>, <span class="number">70</span>, <span class="number">99</span>, <span class="number">96</span>]</span><br><span class="line">df = pd.DataFrame(</span><br><span class="line">        data=scores,</span><br><span class="line">        index=pd.MultiIndex.from_arrays(</span><br><span class="line">            arrays=[[<span class="string">&#x27;Mike&#x27;</span>, <span class="string">&#x27;Mike&#x27;</span>, <span class="string">&#x27;Bob&#x27;</span>, <span class="string">&#x27;Amy&#x27;</span>, <span class="string">&#x27;Amy&#x27;</span>], [<span class="string">&#x27;Math&#x27;</span>, <span class="string">&#x27;Chinese&#x27;</span>, <span class="string">&#x27;English&#x27;</span>, <span class="string">&#x27;Math&#x27;</span>, <span class="string">&#x27;English&#x27;</span>]], </span><br><span class="line">            names=[<span class="string">&#x27;姓名&#x27;</span>, <span class="string">&#x27;科目&#x27;</span>]),</span><br><span class="line">        columns=[<span class="string">&#x27;成绩&#x27;</span>]</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">print(df)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>其中pd.MultiIndex.from_arrays的第一个参数是一个arrays，即索引的具体信息，放置在第一层的sequence是第一级索引，以此类推。不仅如此我们还可以用names参数给索引命名，像本例给索引命名为姓名和科目。</p>
-<blockquote>
-<p>需要注意的是，如果构建原表的话，姓名和科目是作为属性在columns中命名，但此刻我们将它作为了索引，因此只能在index中构建<br>除了行索引(index)，我们还可以建立列(columns)的多级索引，在此不再重复，感兴趣的读者可以自行尝试。<br>pd.MultiIndex.from_product其实用的是笛卡尔积的原理，例如我们想要向该方法传入&#91;&#91;&#39;A&#39;,&#39;B&#39;&#93;&#91;&#39;C&#39;,&#39;D&#39;&#93;&#93;，最终我们得到的是AC,AD,BC,BD四个索引，在此不做展示了</p>
-</blockquote>
-<p>除了这种方法，我们也可以从原表中设置多级索引，例如在我们获取原表后，可以用如下代码实现多级索引的构建：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建原表的DataFrame</span></span><br><span class="line">...</span><br><span class="line"><span class="comment"># 设置多级索引</span></span><br><span class="line">df.set_index([<span class="string">&#x27;姓名&#x27;</span>, <span class="string">&#x27;科目&#x27;</span>], inplace=<span class="literal">True</span>)</span><br><span class="line">print(df)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h1 id="多级索引的切片"><a href="#多级索引的切片" class="headerlink" title="多级索引的切片"></a>多级索引的切片</h1><p>多级索引的切片和一般索引的切片并无二致，以我们的第一张多级索引表为例，尝试使用以下代码理解：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建第一张多级索引表的DataFrame</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">print(df.loc[<span class="string">&#x27;Mike&#x27;</span>, :])  </span><br><span class="line"><span class="comment"># 科目         </span></span><br><span class="line"><span class="comment"># Math     90</span></span><br><span class="line"><span class="comment"># Chinese  85</span></span><br><span class="line">print(df.loc[<span class="string">&#x27;Mike&#x27;</span>, :].loc[<span class="string">&#x27;Math&#x27;</span>, :])</span><br><span class="line"><span class="comment"># 成绩  90</span></span><br><span class="line"><span class="comment"># Name: (Mike, Math), dtype: int64</span></span><br><span class="line">print(df.loc[(<span class="string">&#x27;Mike&#x27;</span>, <span class="string">&#x27;Math&#x27;</span>), :])  </span><br><span class="line"><span class="comment"># 成绩  90</span></span><br><span class="line"><span class="comment"># Name: (Mike, Math), dtype: int64</span></span><br><span class="line">print(df.iloc[<span class="number">0</span>, :])</span><br><span class="line"><span class="comment"># 成绩  90</span></span><br><span class="line"><span class="comment"># Name: (Mike, Math), dtype: int64</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>若索引为中文可能会报错，此为pandas中文兼容性问题</p>
-</blockquote>
-<h1 id="多级索引增加行"><a href="#多级索引增加行" class="headerlink" title="多级索引增加行"></a>多级索引增加行</h1><p>在创建多级索引后增加行是pandas中比较bug的一个操作，后续等待修复，但目前为止仅尝试出以下方法是成立的。以我们的第一张多级索引表为例，如果我们想要在Bob的名下加上English的分数86，必须得使用以下代码:<br><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建第一张多级索引表的DataFrame</span></span><br><span class="line">...</span><br><span class="line"><span class="comment"># 正确做法</span></span><br><span class="line">df.loc[(<span class="string">&#x27;Bob&#x27;</span>, <span class="string">&#x27;English&#x27;</span>), :] = <span class="number">86</span></span><br><span class="line"><span class="comment"># 错误做法(这些做法是将原表做了copy操作，但实际上原表并未修改)</span></span><br><span class="line">df.loc[(<span class="string">&#x27;Bob&#x27;</span>, <span class="string">&#x27;English&#x27;</span>), :] = <span class="number">86</span></span><br><span class="line">df.loc[(<span class="string">&#x27;Bob&#x27;</span>, <span class="string">&#x27;English&#x27;</span>)] = <span class="number">86</span></span><br><span class="line">df.loc[<span class="string">&#x27;Bob&#x27;</span>, :].loc[<span class="string">&#x27;English&#x27;</span>, :] = <span class="number">86</span></span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>这可能是一个pandas的一个bug，需要特别注意</p>
-</blockquote>
-<h1 id="说在最后"><a href="#说在最后" class="headerlink" title="说在最后"></a>说在最后</h1><p>一般多级索引不会直接使用，很多情况下我们会在使用了groupby操作后产生多级索引，该篇最初的背景是作者在写毕业论文中遇到的一个小问题，虽然问题很小，但确实困扰了很久，因此特地记录一下。</p>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> Bayesian Data Analysis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Bayesian Data Analysis（一）：概率与推断</title>
+      <link href="/2021/11/27/20211127_Bayesian-Data-Analysis%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%A6%82%E7%8E%87%E4%B8%8E%E6%8E%A8%E6%96%AD%20copy/"/>
+      <url>/2021/11/27/20211127_Bayesian-Data-Analysis%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%A6%82%E7%8E%87%E4%B8%8E%E6%8E%A8%E6%96%AD%20copy/</url>
+      
+        <content type="html"><![CDATA[<h1 id="贝叶斯数据分析的三个步骤："><a href="#贝叶斯数据分析的三个步骤：" class="headerlink" title="贝叶斯数据分析的三个步骤："></a>贝叶斯数据分析的三个步骤：</h1><ol><li>建立起一个<strong>全概率模型</strong>。问题中所有观测样本和未观测样本的联合概率密度。模型必须与科学研究问题蕴含的知识以及数据收集过程相关</li><li>基于观测样本进行条件化。计算和解释合适的<strong>后验分布</strong>——在给定观测样本的条件下，关于未观测样本的条件概率分布</li><li>评估模型拟合情况和结果后验分布的启示。模型是否很好地拟合了数据？实质性结论是否可信？以及模型对于前面的假设1（数据拟合程度）的敏感性如何？最终，如果不满足其一都有可能让我们修改和拓展模型，然后重新完成这三个步骤。</li></ol><h1 id="符号和统计推断"><a href="#符号和统计推断" class="headerlink" title="符号和统计推断"></a>符号和统计推断</h1><h2 id="两种未观测到的估计：统计推断中的未观测数据"><a href="#两种未观测到的估计：统计推断中的未观测数据" class="headerlink" title="两种未观测到的估计：统计推断中的未观测数据"></a>两种未观测到的估计：统计推断中的未观测数据</h2><ol><li>潜在的观测数据（比如未来实验中会出现的，或当前实验结果未出现的）</li><li>数据无法被直接观测到的，比如控制着观察数据产生的假设过程的参数（比如回归估计的系数）<h2 id="参数、数据和预测"><a href="#参数、数据和预测" class="headerlink" title="参数、数据和预测"></a>参数、数据和预测</h2>在全系列，我们使用$\theta$表示为我们关注的观测的向量或总体参数（比如每个实验中病人的生存概率），$y$表示为我们的观测数据（比如每个实验组中病人生存和死亡的数量），$\widetilde{y}$表示为我们未知的或潜在的观测数据（比如下次抽查中病人的生存或者死亡的情况）。同时约定希腊字母表示参数。小写罗马字母表示观测或未观测的标量或向量（向量为列向量），大写罗马字母表示矩阵。不加说明$p$表示概率密度，$F$表示累计概率分布，$Pr$表示累计概率。<h2 id="可交换性"><a href="#可交换性" class="headerlink" title="可交换性"></a>可交换性</h2>对于一个有$n$个值的不确定性表述$p(y_{1}, \cdots, y_{n})$，我们认为每一个下标都是可交换的，也就是说不会收到样本顺序的影响。通常情况下我们认为$y_{i}$是满足iid假设的</li></ol><h1 id="贝叶斯推断"><a href="#贝叶斯推断" class="headerlink" title="贝叶斯推断"></a>贝叶斯推断</h1><h2 id="贝叶斯公式"><a href="#贝叶斯公式" class="headerlink" title="贝叶斯公式"></a>贝叶斯公式</h2><p>从全概率公式出发，我们知道$\theta$和$y$的联合概率分布可以表达为</p><script type="math/tex; mode=display">\begin{align*}p(\theta, y) = p(\theta)p(y \mid \theta)\end{align*}</script><p>如果给定观测数据$y$，应用我们的贝叶斯法则，可以将<strong>后验密度分布</strong>表示为</p><script type="math/tex; mode=display">\begin{align*}p(\theta \mid y) = \frac{p(\theta, y)}{p(y)} = \frac{p(\theta)p(y \mid \theta)}{p(y)}\end{align*}</script><p>其中$p(y)=\sum_{\theta}p(\theta)p(y \mid \theta)$（连续情形下为$p(y)=\int_{\theta}p(\theta)p(y \mid \theta)$）</p><p>由于给定了观测数据，因此我们可以认为观测数据$y$的<strong>边缘概率密度</strong>仅仅起到一个调节作用，也就是说</p><script type="math/tex; mode=display">\begin{align*}p(\theta \mid y) \propto p(\theta)p(y \mid \theta)\end{align*}</script><h2 id="后验预测分布"><a href="#后验预测分布" class="headerlink" title="后验预测分布"></a>后验预测分布</h2><p>我们假定未来想要观测数据$\widetilde{y}$出现的可能的分布，我们可以表示为$p(\widetilde{y} \mid y)$，根据贝叶斯法则，在连续情形下可以表示为</p><script type="math/tex; mode=display">\begin{align*}p(\widetilde{y} \mid y) &= \int p(\widetilde{y}, \theta \mid y) d\theta\\&= \int p(\widetilde{y} \mid y, \theta) p(\theta \mid y) d\theta\\&= \int p(\widetilde{y} \mid \theta) p(\theta \mid y) d\theta \quad \mbox{(未观测数据的抽取与已观测数据无关，iid假设)}\\\end{align*}</script><p>第2、3行表示后验预测分布可以看成是在$\theta$的后验分布下的条件预测值的平均</p><h2 id="贝叶斯因子"><a href="#贝叶斯因子" class="headerlink" title="贝叶斯因子"></a>贝叶斯因子</h2><p>贝叶斯因子提供了比较后验分布的好坏的方式，其表达为</p><script type="math/tex; mode=display">\begin{align*}\frac{p(\theta_{1} \mid y)}{p(\theta_{2} \mid y)} = \frac{p(\theta_{1})p(y \mid \theta_{1})/p(y)}{p(\theta_{2})p(y \mid \theta_{2})/p(y)}=\frac{p(\theta_{1})p(y \mid \theta_{1})}{p(\theta_{2})p(y \mid \theta_{2})}=\frac{p(\theta_{1})}{p(\theta_{2})}\frac{p(y \mid \theta_{1})}{p(y \mid \theta_{2})}\end{align*}</script><p>$\frac{p(\theta_{1})}{p(\theta_{2})}$是$\theta$的先验分布比，$\frac{p(\theta_{1} \mid y)}{p(\theta_{2} \mid y)} $是后验分布比</p><h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="均值与方差"><a href="#均值与方差" class="headerlink" title="均值与方差"></a>均值与方差</h2><p>假定存在随机变量$u$和$v$，且两个变量具有相关性，考虑连续情形。随机变量$u$的期望和方差可以表示为</p><script type="math/tex; mode=display">\begin{align*}E(u) &= \int up(u)du\\var(u) &=  \int (u-E(u))^{2}du = E(u^{2})-(E(u))^{2}\end{align*}</script><p>若随机变量$u$为向量形式，那么协方差矩阵可以表示为</p><script type="math/tex; mode=display">\begin{align*}cov(u) &=  \int (u-E(u))(u-E(u))^{T}du\end{align*}</script><p>期望迭代公式：在给定$v$的边缘分布情形下</p><script type="math/tex; mode=display">\begin{align*}E(u) &= \iint up(u,v)dudv\\&= \iint up(u \mid v) p(v) dudv\\&= \int_{v} E(u \mid v) p(v) dv\\&= E_{v}(E_{u}(u \mid v))\end{align*}</script><p>同时关于方差，我们可以表示为</p><script type="math/tex; mode=display">\begin{align*}var(u) &= E(u^{2})-(E(u))^{2}\\&= E(u^{2})-E\{(E(u \mid v))^{2}\}+E\{(E(u \mid v))^{2}\}-(E(u))^{2}\\&= E\{E(u^{2} \mid v)\}-E\{(E(u \mid v))^{2}\}+E\{(E(u \mid v))^{2}\}-(E\{E(u \mid v)\})^{2} \quad \mbox{（应用上面的期望迭代公式）}\\&= E\{E(u^{2} \mid v)-(E(u \mid v))^{2}\}+(E\{(E(u \mid v))^{2}\}-(E\{E(u \mid v)\})^{2})\\&= E(var(u \mid v)) + var(E(u \mid v))\\\end{align*}</script>]]></content>
+      
+      
       <categories>
-        <category>DataFrame</category>
+          
+          <category> Bayesian Data Analysis </category>
+          
       </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>Dataframe</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Dataframe设置条件格式</title>
-    <url>/2021/01/25/20210125_Dataframe%E6%9D%A1%E4%BB%B6%E6%A0%BC%E5%BC%8F/</url>
-    <content><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><h1 id="设置条件格式"><a href="#设置条件格式" class="headerlink" title="设置条件格式"></a>设置条件格式</h1><h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><p><a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/style.html">https://pandas.pydata.org/pandas-docs/stable/user_guide/style.html</a></p>
-<p>rgb和十六进制颜色互转（可再写篇文章）<br><a href="https://www.sioe.cn/yingyong/yanse-rgb-16/">https://www.sioe.cn/yingyong/yanse-rgb-16/</a></p>
-<h2 id="对于多条件的条件格式的设置（重点）"><a href="#对于多条件的条件格式的设置（重点）" class="headerlink" title="对于多条件的条件格式的设置（重点）"></a>对于多条件的条件格式的设置（重点）</h2>]]></content>
+      
+      
+        <tags>
+            
+            <tag> Bayesian Data Analysis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>因果推断系列:RCM（二）——倾向性得分</title>
+      <link href="/2021/11/22/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97:RCM%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%80%BE%E5%90%91%E6%80%A7%E5%BE%97%E5%88%86/"/>
+      <url>/2021/11/22/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97:RCM%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%80%BE%E5%90%91%E6%80%A7%E5%BE%97%E5%88%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在Rubin Casual Model(RCM)的第一篇讲述了模型的三个基本假设，在本文中，将主要围绕着Rubin(1983)的文章重点看一下在大样本理论倾向性得分的定义、推导及含义。</p><h1 id="倾向性得分"><a href="#倾向性得分" class="headerlink" title="倾向性得分"></a>倾向性得分</h1><h2 id="数学推导"><a href="#数学推导" class="headerlink" title="数学推导"></a>数学推导</h2><h3 id="符号定义"><a href="#符号定义" class="headerlink" title="符号定义"></a>符号定义</h3><p>假设从总体中随机抽出$N$个样本。为方便起见，规定<strong>实验指派变量（treatment assigned variable， 即实验方案）</strong>$w$仅有两种，用数学符号表达为:</p><script type="math/tex; mode=display">\begin{equation}w=\left\{\begin{aligned}1, \mbox{if it had received treatment 1}\\0, \mbox{if it had received treatment 0}\\\end{aligned}\right.\end{equation}</script><p>为了方便起见，设置实验1为实验组，实验0为对照组。记个体$i$的潜在结果为$\{Y_{i}(w=0),Y_{i}(w=1)\}$。用$x=\{x_{1}, x_{2}, \cdots, x_{k}\}$表示一系列观测到的<strong>预处理措施或者协变量</strong>，同时，定义<strong>平衡分数</strong>$b(x)$为一类关于协变量$x$的函数，这种函数能够使得在给定$b(x)$(即给定平衡分数)的情况下，协变量$x$的条件分布与实验指派变量$w$无关，用符号表示为</p><script type="math/tex; mode=display">x \perp w \mid b(x)</script><p>另外，假定给定协变量$x$的前提下，给用户指派到实验组的条件概率为</p><script type="math/tex; mode=display">e(x)=pr(w=1 \mid x)</script><p>我们称$e(x)$为<strong>倾向性得分</strong>，进而我们容易得到以下的等式:</p><script type="math/tex; mode=display">pr(w_{1}, \cdots, w_{n} \mid x_{1}, \cdots, x_{n})=\prod_{i=1}^{N}e(x_{i})^{w_{i}}  \{1-e(x_{i})\}^{1-w_{i}}</script><h3 id="基本理论（大样本）"><a href="#基本理论（大样本）" class="headerlink" title="基本理论（大样本）"></a>基本理论（大样本）</h3><p><strong>定理1</strong>：在给定倾向性得分$e(x)$ 的条件下，实验指派变量$w$和协变量$x$条件独立，用符号表示为</p><script type="math/tex; mode=display">x \perp w \mid e(x)</script><p>定理1实际上是定理2的一个特例，因此在此略过证明</p><p><strong>定理2</strong>：假定$b(x)$是关于$x$的一个函数，当且仅当$e(x)=f\{b(x)\}$时$b(x)$是平衡性分数，即</p><script type="math/tex; mode=display">x \perp w \mid b(x)</script><p>证明：</p><p>充分性：</p><p>假定满足$e(x)=f\{b(x)\}$，根据$e(x)$的定义及定理1，要证明$x \perp w \mid b(x)$，可证</p><script type="math/tex; mode=display">pr\{w=1 \mid b(x)\}=e(x)</script><p>而</p><script type="math/tex; mode=display">\begin{align*}pr\{w=1 \mid b(x)\}&=\int_{x}xg\{pr\{w=1 \mid x\} \mid b(x)\}dx\\&=\int_{x}xg\{e(x) \mid b(x)\}dx\\&=E\{e(x) \mid b(x)\}\\&=e(x) \quad (\mbox{b(x) is finer than e(x)})\end{align*}</script><p>证明成立</p><p>必要性：</p><p>假定$x \perp w \mid b(x)$ ，但是$e(x) \neq f\{b(x)\}$，那么必定存在$x_{1}$和$x_{2}$满足$e(x_{1}) \neq e(x_{2})$ 但是$b(x_{1})=b(x_{2})$。这样一来，根据倾向性得分的定义$pr(w=1 \mid x_{1}) \neq pr(w=1 \mid x_{2})$，那么$b(x)$一定不是平衡性分数</p><p>Q.E.D</p><p><strong>定理3</strong>：如果满足$\{Y(w=0),Y(w=1)\} \perp w \mid x$并且$0&lt;pr(w=1 \mid x) &lt;1$，那么一定满足$\{Y(w=0),Y(w=1)\} \perp w \mid b(x)$并且$0&lt;pr\{w=1 \mid b(x)\}&lt;1$</p><p>证明：</p><p>该定理即证</p><script type="math/tex; mode=display">pr\{w=1 \mid Y(w=0),Y(w=1), b(x)\}=pr\{w=1 \mid b(x)\}</script><p>同定理2证明</p><script type="math/tex; mode=display">\begin{align*}pr\{z=1 \mid Y(w=0),Y(w=1), b(x)\}&=E\{ pr\{w=1 \mid Y(w=0),Y(w=1), x\}\mid  Y(w=0),Y(w=1), b(x)\}\\&=E\{ pr\{w=1 \mid x\}\mid  Y(w=0),Y(w=1), b(x)\}\\&=E\{e(x) \mid Y(w=0),Y(w=1), b(x)\}\\&=E\{e(x) \mid b(x)\}\\&=e(x) \quad (\mbox{b(x) is finer than e(x)})\end{align*}</script><p>Q.E.D</p><p><strong>定理4</strong>：假定实验指派变量$w$是强可忽略的，且$b(x)$是平衡性分数，在给定平衡性分数$b(x)$下实验组和对照组观测到的反应的期望差异等于给定平衡性分数$b(x)$下的平均处理效应（ATE），即</p><script type="math/tex; mode=display">E\{Y(w=1) \mid b(x), w=1\}-E\{Y(w=0) \mid b(x), w=0\}=E\{Y(w=1)-Y(w=0) \mid b(x)\}</script><p>证明：</p><p>由定理3，</p><script type="math/tex; mode=display">\begin{align*}E\{Y(w=1) \mid b(x), w=1\}-E\{Y(w=0) \mid b(x), w=0\}&=E\{Y(w=1) \mid b(x)\}-E\{Y(w=0) \mid b(x)\}\\&=E\{Y(w=1)-Y(w=0) \mid b(x)\}\end{align*}</script><p>Q.E.D</p><p>由定理4，在两阶段抽样过程中，实验组和对照组观测到的反应的期望差异可以表示为</p><script type="math/tex; mode=display">\begin{align*}E_{b(x)}\{E\{Y(w=1)\mid b(x), w=1\}-E\{Y(w=0) \mid b(x), w=0\}\}&=E_{b(x)}\{E\{Y(w=1)-Y(w=0) \mid b(x)\}\}\\&=E(Y(w=1)-Y(w=0))\end{align*}</script><p>即实验组与对照组总体的平均处理效应（ATE）</p><h2 id="理论解释"><a href="#理论解释" class="headerlink" title="理论解释"></a>理论解释</h2><p>在本章开始，先进行了关于倾向性得分的定义和数学推导做了详尽的介绍，我们认为这是有必要的，数学推导是理解倾向性得分理论正确性以及理论本质的一个重要手段，在本节，我们重点讲一下为什么要使用倾向性得分，以及如何使用它。</p><p>不知道大家是否注意到上一篇中我们在讲述可忽略性（Ignorability）时的数学表述:</p><script type="math/tex; mode=display">\begin{align*}\{Y(w=0), Y(w=1)\} \perp w \mid x\end{align*}</script><p>可以试想一下，假如协变量组$x$的数目比较大，共有$k$个，每个协变量共有$m$类分组，那么所有分组共有$m^{k}$种，从实际角度出发，我们不可能去对每一类都进行严格的控制，不然我们要比较的组数就太多了，因此在这种情况下，<strong>降维</strong>是一种非常有效的手段。在定理3中，我们已经证明了平衡分数/倾向性得分替代协变量的可能性，这也意味着，如果我们能够利用协变量$x$去拟合一个适当的$b(x)$，同时利用$b(x)$去输出一个标签或一个标签对应的概率值，那么我们就能够把维数大大降下来，以一个相对较少的组数进行比较。</p><p>问题来了，如果我们需要去拟合一个$b(x)$，因变量是什么呢？这块翻阅了大量关于因果推断的文章和博客，却无人提及这一点。实际上，我们的因变量可以是我们自定义的一个变量（只要这个变量有意义），但最常用的通常是我们的实验指派变量$w$。</p><p><div id="ref1"></div></p><ul><li>[1] Rosenbaum, P. R., &amp; Rubin, D. B. (1983). The central role of the propensity score in observational studies for causal effects. Biometrika, 70(1), 41-55.</li></ul>]]></content>
+      
+      
       <categories>
-        <category>DataFrame</category>
+          
+          <category> 因果推断 </category>
+          
       </categories>
-      <tags>
-        <tag>Python</tag>
-        <tag>Dataframe</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>因果推断</title>
-    <url>/2021/09/17/20210920_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/</url>
-    <content><![CDATA[<h1 id="因果推断"><a href="#因果推断" class="headerlink" title="因果推断"></a>因果推断</h1><h2 id="1-数学部分"><a href="#1-数学部分" class="headerlink" title="1 数学部分"></a>1 数学部分</h2><h3 id="1-1-符号定义"><a href="#1-1-符号定义" class="headerlink" title="1.1 符号定义"></a>1.1 符号定义</h3><p>假设从总体中随机抽出$N$个样本，规定<strong>实验指派变量</strong>$z$满足</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-z=
-\left\{
-\begin{aligned}
-1, \mbox{if it had received treatment 1}\\
-0, \mbox{if it had received treatment 0}\\
-\end{aligned}
-\right.
-\end{equation}</script><p>为了方便起见，设置实验1为实验组，实验0为对照组。令$r_{1}$和$r_{0}$分别为用户接受实验组和对照组的反应，对于第$i$个个体的反应，规定为$r_{1i}$和$r_{0i}$。用$x=\{x_{1}, x_{2}, \cdots, x_{n}\}$表示一系列观测到的<strong>预处理措施或者协变量</strong>，同时，定义<strong>平衡分数</strong>$b(x)$为能够在给定平衡分数的前提下，协变量$x$的条件分布对于对照组和实验组完全一致的关于协变量$x$的函数，用符号表示为</p>
-<script type="math/tex; mode=display">
-x \perp z \mid b(x)</script><p>另外，假定给定协变量$x$的前提下，给用户指派到实验组的条件概率为</p>
-<script type="math/tex; mode=display">
-e(x)=pr(z=1 \mid x)</script><p>称$e(x)$为<strong>倾向性得分</strong>，同时假定</p>
-<script type="math/tex; mode=display">
-pr(z_{1}, \cdots, z_{n} \mid x_{1}, \cdots, x_{n})=\prod_{i=1}^{N}e(x_{i})^{z_{i}}  \{1-e(x_{i})\}^{1-z_{i}}</script><p>定义可忽略性和正向性如下：</p>
-<p>可忽略性：$(r_{0}, r_{1}) \perp z \mid x$</p>
-<p>正向性：$0&lt;pr(z=1 \mid x) &lt;1$</p>
-<h3 id="1-2-基本理论（大样本）"><a href="#1-2-基本理论（大样本）" class="headerlink" title="1.2 基本理论（大样本）"></a>1.2 基本理论（大样本）</h3><p><strong>定理1</strong>：在给定倾向性得分$e(x)$ 的条件下，实验指派变量$z$和协变量$x$条件独立，用符号表示为</p>
-<script type="math/tex; mode=display">
-x \perp z \mid e(x)</script><p>证明：略</p>
-<p><strong>定理2</strong>：假定$b(x)$是关于$x$的一个函数，当且仅当$e(x)=f\{b(x)\}$时$b(x)$是平衡性分数，即</p>
-<script type="math/tex; mode=display">
-x \perp z \mid b(x)</script><p>证明：略，见1.1定义</p>
-<p>充分性：</p>
-<p>假定满足$e(x)=f\{b(x)\}$，根据$e(x)$的定义及定理1，要证明$x \perp z \mid b(x)$，可证</p>
-<script type="math/tex; mode=display">
-pr\{z=1 \mid b(x)\}=e(x)</script><p>而</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-pr\{z=1 \mid b(x)\}&=\int_{x}xg\{pr\{z=1 \mid x\} \mid b(x)\}dx\\
-&=\int_{x}xg\{e(x) \mid b(x)\}dx\\
-&=E\{e(x) \mid b(x)\}\\
-&=e(x) \quad (\mbox{b(x) is finer than e(x)})
-\end{align*}</script><p>证明成立</p>
-<p>必要性：</p>
-<p>假定$x \perp z \mid b(x)$ ，但是$e(x) \neq f\{b(x)\}$，那么必定存在$x_{1}$和$x_{2}$满足$e(x_{1}) \neq e(x_{2})$ 但是$b(x_{1})=b(x_{2})$。这样一来，根据倾向性得分的定义$pr(z=1 \mid x_{1}) \neq pr(z=1 \mid x_{2})$，那么$b(x)$一定不是平衡性分数</p>
-<p>Q.E.D</p>
-<p><strong>定理3</strong>：如果满足$(r_{0}, r_{1}) \perp z \mid x$并且$0&lt;pr(z=1 \mid x) &lt;1$，那么一定满足$(r_{0}, r_{1}) \perp z \mid b(x)$并且$0&lt;pr\{z=1 \mid b(x)\}&lt;1$</p>
-<p>证明：</p>
-<p>该定理即证</p>
-<script type="math/tex; mode=display">
-pr\{z=1 \mid r_{0}, r_{1}, b(x)\}=pr\{z=1 \mid b(x)\}</script><p>同定理2证明</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-pr\{z=1 \mid r_{0}, r_{1}, b(x)\}&=E\{ pr\{z=1 \mid r_{0}, r_{1}, x\}\mid  r_{0}, r_{1}, b(x)\}\\
-&=E\{ pr\{z=1 \mid x\}\mid  r_{0}, r_{1}, b(x)\}\\
-&=E\{e(x) \mid r_{0}, r_{1}, b(x)\}\\
-&=E\{e(x) \mid b(x)\}\\
-&=e(x) \quad (\mbox{b(x) is finer than e(x)})
-\end{align*}</script><p>Q.E.D</p>
-<p><strong>定理4</strong>：假定实验指派变量$z$是强可忽略的，且$b(x)$是平衡性分数，在给定平衡性分数$b(x)$下实验组和对照组观测到的反应的期望差异等于给定平衡性分数$b(x)$下的平均处理效应（ATE），即</p>
-<script type="math/tex; mode=display">
-E\{r_{1} \mid b(x), z=1\}-E\{r_{0} \mid b(x), z=0\}=E\{r_{1}-r_{0} \mid b(x)\}</script><p>证明：</p>
-<p>由定理3，</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-E\{r_{1} \mid b(x), z=1\}-E\{r_{0} \mid b(x), z=0\}&=E\{r_{1} \mid b(x)\}-E\{r_{0} \mid b(x)\}\\
-&=E\{r_{1}-r_{0} \mid b(x)\}
-\end{align*}</script><p>Q.E.D</p>
-<p>由定理4，在两阶段抽样过程中，实验组和对照组观测到的反应的期望差异可以表示为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-E_{b(x)}\{E\{r_{1} \mid b(x), z=1\}-E\{r_{0} \mid b(x), z=0\}\}
-&=E_{b(x)}\{E\{r_{1}-r_{0} \mid b(x)\}\}\\
-&=E(r_{1}-r_{0})
-\end{align*}</script><p>即实验组与对照组总体的平均处理效应（ATE）</p>
-<h3 id="1-3-Inverse-Propensity-Weighting"><a href="#1-3-Inverse-Propensity-Weighting" class="headerlink" title="1.3 Inverse Propensity Weighting"></a>1.3 Inverse Propensity Weighting</h3><p>假设有限总体$N$划被分为$S$组（例如根据性别划分），组标记为$s=1,2,\cdots,S$，且每一组的总体频数$N_{s}$已知，满足$N=N_{1}+N_{2}+\cdots+N_{S}$，那么实验效应的总体均值可以被估计为</p>
-<script type="math/tex; mode=display">
-\bar{r}
-=\frac{1}{N}\sum_{s=1}^{S}\sum_{i=1}^{N_{s}}r_{si}
-=\sum_{s=1}^{S}\frac{N_{s}}{N}\bar{r}_{s}</script><p>为了方便起见，引入前面的标记$z$，并假定反应只能观测在被选择的样本中，假设被观测到的样本数$n$满足$n=n_{1}+n_{2}+\cdots+n_{S}$，那么每一组实验效应的样本均值可以被估计为</p>
-<script type="math/tex; mode=display">
-\bar{r}_{s}=\frac{\sum_{i=1}^{N_{s}}z_{i}^{(s)}r_{i}^{(s)}}{n_{s}}</script><p>所有组别的实验效应样本均值可以估计为</p>
-<script type="math/tex; mode=display">
-\bar{r}
-=\sum_{s=1}^{S}\frac{N_{s}}{N}\bar{r}_{s}
-=\sum_{s=1}^{S}\frac{\sum_{i=1}^{N_{s}}z_{i}^{(s)}r_{i}^{(s)}}{(n_{s}/N_{s})}</script><p>在实际中，若$n_{S}$趋近于0，那么某一组$\bar{r}_{s}$估计出来的值将会趋于无穷，为了解决这个问题，Holt和Smith（1919）提出了在随机抽样的条件下，$\bar{r}$无偏的一种解决方案：</p>
-<script type="math/tex; mode=display">
-\bar{r}
-=\frac{\sum_{s=1}^{S}\sum_{i=1}^{N_{s}}z_{i}^{(s)}r_{i}^{(s)}}{\sum_{s=1}^{S}n_{s}}</script><p>需要指出$\bar{r}$并不是<strong>条件无偏</strong>的，在给定样本总体n的情况下，$\bar{r}$是有偏的</p>
-<p>Rosenbaum（1987）给出了一种更通用的解决方案，即</p>
-<script type="math/tex; mode=display">
-\bar{r}
-=\frac{1}{N}\sum_{s=1}^{S}\sum_{i=1}^{N_{s}}\frac{z_{i}^{(s)}r_{i}^{(s)}}{\hat{e}_{s}}
-=\sum_{s=1}^{S}\frac{N_{s}}{N}\frac{n_{s}}{\hat{m}_{s}}\bar{r}_{s}</script><p>其中$\hat{e}_{s}=\frac{\hat{m}_{s}}{N_{s}}$是下式的极大似然估计</p>
-<script type="math/tex; mode=display">
-\Phi=(\phi_{1},\phi_{2},\cdots,\phi_{S})^{T}=\boldsymbol{F \beta}\\
-\phi_{S}=log[\frac{e_{s}}{1-e_{s}}]\\
-\boldsymbol{F} \in R^{S \times P}(1 \leq P \leq S)</script><p>可以证实，当$n_{s} &gt;$0且$\boldsymbol{F}$列满秩时，</p>
-<script type="math/tex; mode=display">
-\bar{r}
-=\sum_{s=1}^{S}\frac{\sum_{i=1}^{N_{s}}z_{i}^{(s)}r_{i}^{(s)}}{(n_{s}/N_{s})}</script><p>当$\boldsymbol{F}=\boldsymbol{1}$时，</p>
-<script type="math/tex; mode=display">
-\bar{r}
-=\frac{\sum_{s=1}^{S}\sum_{i=1}^{N_{s}}z_{i}^{(s)}r_{i}^{(s)}}{\sum_{s=1}^{S}n_{s}}</script><p>借助上式，在估计平均处理效应（ATE）时，可以表示为</p>
-<script type="math/tex; mode=display">
-ATE=\frac{1}{N}(
-\sum_{s=1}^{S}\sum_{i=1}^{N_{s}}\frac{z_{i}^{(s)}r_{i}^{(s)}}{\hat{e}_{s}}
--\sum_{s=1}^{S}\sum_{i=1}^{N_{s}}\frac{(1-z_{i}^{(s)})r_{i}^{(s)}}{(1-\hat{e}_{s})}
-)</script><h3 id="1-3-Doubly-Robust-Estimation（DR-Estimation）"><a href="#1-3-Doubly-Robust-Estimation（DR-Estimation）" class="headerlink" title="1.3 Doubly Robust Estimation（DR Estimation）"></a>1.3 Doubly Robust Estimation（DR Estimation）</h3><p>双重鲁棒性估计在上世纪统计推断中已经有使用了，但论文较为杂乱，没有能直接说清楚的。近些年来在Recommendation System或者是Reinforcement Learning开始引用，主要是用在部分组别实际反应的观测数据缺失的情况。这种估计是基于样本的<strong>半参数估计</strong>。DR Estimator可以表示为下式：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-\bar{r}_{dr}
-&=\frac{1}{n}\sum_{i=1}^{N}\frac{z_{i}}{\hat{e}_{i}}r_{i}+
-    \frac{1}{n}\sum_{i=1}^{N}(1-\frac{z_{i}}{\hat{e}_{i}})r_{i,mean} \tag{1}\\
-&=\frac{1}{n}\sum_{i=1}^{N}\{\frac{z_{i}}{\hat{e}_{i}}(r_{i}-r_{i,mean})+r_{i,mean}\} \tag{2}
-\end{align}</script><p>其中$r_{i,mean}$是利用协变量$X$和实验结果$r$估计出来的模型，可以是线性模型，也可以是非线性的。如果$\hat{e}_{s}$能够真实的反映用户参与实验的情况，那么利用$(1)$式，$1-\frac{z_{i}}{\hat{e}_{}}=0$i，剩下的部分即IPW；若模型估计的足够准确，利用$(2)$式，$r_{i}-r_{i,mean}=0$，剩余部分即模型预估出来的结果，那么同样能够达到效果。在这种条件下，平均处理效应可以被表示为（应用$(2)$式）</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-ATE&=\bar{r}(1, X)_{dr}-\bar{r}(0, X)_{dr}\\
-&=\frac{1}{n}\sum_{i=1}^{N}\{
-    r(1,X)_{i,mean}-r(0,X)_{i,mean}
-    +\frac{z_{i}(r_{i}-r(1,X)_{i,mean})}{\hat{e}_{i}}-\frac{(1-z_{i})(r_{i}-r(0,X)_{i,mean})}{(1-\hat{e}_{i})}
-\}
-\end{align*}</script>]]></content>
+      
+      
+        <tags>
+            
+            <tag> 因果推断 </tag>
+            
+            <tag> RCM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>因果推断系列:RCM（一）——三大假设</title>
+      <link href="/2021/11/22/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97:RCM%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E4%B8%89%E5%A4%A7%E5%81%87%E8%AE%BE/"/>
+      <url>/2021/11/22/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97:RCM%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E4%B8%89%E5%A4%A7%E5%81%87%E8%AE%BE/</url>
+      
+        <content type="html"><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在Rubin Casual Model(RCM)的学习中，大多数文章或多或少都会提到关于RCM的三个重要假定。这三个假定分别是SUTVA（Stable Unit Treatment Value Assumption）、可忽略性（Ignorability）和正向性（Positivity），本文记录了三大假定的定义及其解释。</p><h1 id="三大假定"><a href="#三大假定" class="headerlink" title="三大假定"></a>三大假定</h1><h2 id="前言：一个医学实验的例子"><a href="#前言：一个医学实验的例子" class="headerlink" title="前言：一个医学实验的例子"></a>前言：一个医学实验的例子</h2><p>一家医院想通过利用病人的观察数据（即电子健康记录）来评估一种疾病的<strong>几种不同药物</strong>的治疗效果，这些数据包括病人的人口统计信息、病人服用的具体药物和具体剂量以及医疗检查的结果。由于病人只可能接受其中一种治疗方法，我们只能知道病人在该治疗方案下病人的治疗结果（即我们只能从电子健康记录中得到一个特定病人的事实结果），因此，核心任务是<strong>预测如果病人采取另一种治疗方法（即不同的药物或同一药物的不同剂量）会发生什么</strong>。<br>回答这样的反事实问题是非常具有挑战性的。因此，我们希望使用因果推理来预测<strong>每个病人在所有不同剂量的药物上的所有潜在结果</strong>。然后，我们就可以合理、准确地评估和比较不同药物对这种疾病的治疗效果。<br>在这个例子中，需要特别注意的一点是，<strong>对于每一种药物，它们可能有不同的剂量</strong>。例如，对于药物A来说，剂量范围可以是$[a,b]$范围内的一个连续变量，而对于药物B来说，剂量可以是一个分类变量，有几种具体的剂量方案。<br>总结一下：</p><ul><li>个体是指患有所研究疾病的病人。</li><li>治疗方法指的是针对这种疾病的不同药物的具体剂量，我们用$W(W\in{0，1，2，\cdots，n })$表示治疗方法。例如，$W_{i}=1$可以代表单位$i$所服用的具有特定剂量的药物A，$W_{i}=2$代表单位$i$所服用的具有特定剂量的药物B。</li><li>用$Y$来表示治疗结果，例如一种血液测试，可以衡量药物破坏疾病的能力，导致病人的康复。让$Y_{i}(W=1)$表示特定剂量的药物A对病人$i$的潜在结果。</li><li>病人的特征可能包括年龄、性别、临床表现和其他一些医学检查等等。在这些特征中，年龄、性别和其他人口统计学信息是治疗前的变量，不会受到服用治疗的影响。一些临床表现和医学检查会受到服用药物的影响，它们是治疗后的变量。在这个例子中，我们的目标是根据提供的观察数据估计不同药物对这种疾病的治疗效果。</li></ul><h2 id="SUTVA（Stable-Unit-Treatment-Value-Assumption）"><a href="#SUTVA（Stable-Unit-Treatment-Value-Assumption）" class="headerlink" title="SUTVA（Stable Unit Treatment Value Assumption）"></a>SUTVA（Stable Unit Treatment Value Assumption）</h2><p>在评论 Basu（1980）的随机性检验的文章时，Rubin（1980）<a href="#ref1"><sup>1</sup></a>首次界定SUTVA 条件指的是任何一个个体被干预时，不管干预的机制是什么，也不管其他个体受到什么干预，它的潜在结果都是一样的。这个假设条件具有两个关键内容：一个是每一个个体所接受的处理水平是唯一的，所导致的潜在结果也是唯一的；另一个是干预的结果不受其他个体所接受处理的影响。这个假定包含了两部分内容：</p><ul><li>第一点是每个个体的独立性。也就是说，个体之间不存在这相互作用；</li><li>另一点则是说每种实验或处理水平（treatment）都是一种单一版本。这也就意味着每一个个体所接受的处理水平是唯一的，所导致的潜在结果也是唯一的。</li></ul><p>放到我们医学实验的例子上，假设我们的药物A为阿司匹林片剂，我们要研究的是感冒的程度（为方便起见我们用头疼与否来进行衡量）：</p><ol><li>个体之间不存在这相互作用意味着病人1的头疼与否不会影响到病人2是否会头疼。例如，如果病人1在头疼的情况下，无论病人2是否服用阿斯匹林，病人2的潜在结果都是头疼；而在病人1不头疼的情况下，病人2服用阿斯匹林就不头疼，不服用就头疼。在这种情况下，我们认为是不符合SUTVA假定的。</li><li>处理水平唯一则是指对于每一种剂量的阿司匹林，我们都应该单独的视为一种治疗方案。例如服用25mg的阿司匹林和服用50mg的阿司匹林，其潜在结果可能是不同的。</li></ol><h2 id="可忽略性（Ignorability）"><a href="#可忽略性（Ignorability）" class="headerlink" title="可忽略性（Ignorability）"></a>可忽略性（Ignorability）</h2><p>在统计学中，可忽略性（Ignorability）是实验设计的一个特点，即数据收集方法（和缺失数据的性质）<strong>不取决于缺失数据</strong>。如果在给定观测数据的情况下，一个缺失数据矩阵，条件独立于缺失数据，那么诸如治疗分配或调查抽样策略等缺失数据机制是 “可忽略的”。</p><p>Rubin(1978)<a href="#ref2"><sup>2</sup></a>在贝叶斯推断的框架下讨论了可忽略的分配机制，可以理解为在给定了关于个体的所有被记录事项的情况（观测数据）下，个人被分配到实验组的方式与数据分析无关(即在后验的推断中，可将分配机制“忽略”掉)。之后Rubin和Rosenbaum(1983)<a href="#ref3"><sup>3</sup></a>定义了强可忽略的实验分配条件，在这里，如果我们假定只有两种实验方案$W=0/W=1$，记个体$i$的潜在结果为$\{Y_{i}(W=0),Y_{i}(W=1)\}$，那么这种强可忽略的实验分配条件可以用数学公式来表达为:</p><script type="math/tex; mode=display">\begin{align*}\{Y(W=0), Y(W=1)\} \perp W \mid X\end{align*}</script><p>其中$Y(W=t)$表示了在给定实验方案$t$的条件下的潜在结果，$X$是与该实验有关的协变量，$W$是实验指派变量。而实际上，对于每一个个体$i$，我们能够观测得到其中一种结果，即实际结果$Y_{i}$满足:</p><script type="math/tex; mode=display">\begin{align*}Y_{i}=W_{i}Y_{i}(W=1)+(1-W_{i})Y(W=0)\end{align*}</script><p>$(Y(W=0), Y(W=1)) \perp W \mid X$这一条件可以进行如下解读:</p><ol><li>即给定协变量$X$，实验的分配$W$相当于随机分配，即给定X，无论W如何，实验的潜在结果是相同的（这也就是说在控制了协变量X的情况下，个体$i$的潜在结果为$\{Y_{i}(W=0),Y_{i}(W=1)\}$也就确定了下来，具体是哪一种结果仅取决于$W$的分配）</li><li>给定X， 若个体$i$和个体$j$的潜在结果是相同的，则$W$的分布相同，用数学表达式可以表达为:$pr(W|Y_{i}(W=0), Y_{i}(W=1), X=x)=pr(W|Y_{j}(W=0), Y_{j}(W=1), X=x)$</li></ol><p>Ignorability假设保证了研究平均处理效应时，不同实验组的协变量$X$是相同的。从而避免由于选择偏差（selection bias），导致实验组的分配有不同倾向性的情况。在因果图里</p><pre class="mermaid">graph TD;W-->Y;X(confounders: X)-->W;X(confounders: X)-->Y;</pre><p>放到我们医学实验的例子，假设$W=1$代表使用药物。X为年龄</p><p>例如，考察药物对病人治疗效果的例子。$Y$为是否康复，$W=1$代使用药物A。协变量$X$为年龄，为了方便起见，我们仅划分为年轻的病人和年老的病人两类群体。其中<strong>年轻的病人基本不会选择用药，只有年老的病人更倾向于选择用药</strong>。如果不控制协变量$X$，那么$W=1$的治疗组以年老的病人为主，$W=0$的对照组以年轻的病人为主，进而使用药物的组里康复率会偏低，甚至低于对照组，从而得出药物对康复率具有副作用的错误结论（辛普森悖论）。如果将协变量年龄固定后再进行研究，对于年轻的病人，其用药倾向性一致，从而$W$的分配没有倾向性。由此消除了协变量$X$对处理效应的干扰，从数学公式上看，总体的平均因果效应可以被如下计算:</p><script type="math/tex; mode=display">\begin{align*}ACE&=E(Y_{i}(W=1)-Y_{i}(W=0)|X)\\&=E(Y_{i}(W=1)|X) - E(Y_{i}(W=0)|X) \quad \mbox{(期望计算的线性性，非线性不可用)}\\&=E(Y_{i}(W=1)|W=1, X) - E(Y_{i}(W=0)|W=0, X) \quad \mbox{(随机化，即可忽略性的应用)}\\&=E(Y_{i}|W=1, X) - E(Y_{i}(W=0)|X)\\\end{align*}</script><h2 id="正向性（Positivity）"><a href="#正向性（Positivity）" class="headerlink" title="正向性（Positivity）"></a>正向性（Positivity）</h2><p>正向性<a href="#ref3"><sup>3</sup></a>相比于其他两个假定更容易理解，这个假定保证了给定任意一个协变量$X=x$，每一个实验组被分配的概率都不等于0，用数学公式表示为:</p><script type="math/tex; mode=display">\begin{align*}0<pr(W=w \mid X=x) <1\end{align*}</script><p>放到我们医学实验的例子里，同样考察药物对病人治疗效果的例子。$Y$为是否康复，$W=1$代使用药物A。协变量$X$为年龄，为了方便起见，我们仅划分为年轻的病人和年老的病人两类群体。如果<strong>年轻的病人均不选择用药，只有年老的病人全都选择用药</strong>，那么这种情况下，是不满足正向性假定的。以年轻的病人为例，我们只知道他们不使用药物的结果，但是<strong>我们没有观测数据帮助我们估计使用药物的结果</strong>，这种情况下我们没法做平均处理效应的计算。</p><p><div id="ref1"></div></p><ul><li>[1] Rubin, D. B. (1980). Randomization analysis of experimental data: The Fisher randomization test comment. Journal of the American Statistical Association, 75(371), 591-593.<div id="ref2"></div></li><li>[2] Rubin, D. B. (1978). Bayesian inference for causal effects: The role of randomization. The Annals of statistics, 34-58.<div id="ref3"></div></li><li>[3] Rosenbaum, P. R., &amp; Rubin, D. B. (1983). The central role of the propensity score in observational studies for causal effects. Biometrika, 70(1), 41-55.</li></ul>]]></content>
+      
+      
       <categories>
-        <category>因果推断</category>
+          
+          <category> 因果推断 </category>
+          
       </categories>
-      <tags>
-        <tag>因果推断</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>因果推断系列:RCM（一）——三大假设</title>
-    <url>/2021/11/22/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97:RCM%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E4%B8%89%E5%A4%A7%E5%81%87%E8%AE%BE/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在Rubin Casual Model(RCM)的学习中，大多数文章或多或少都会提到关于RCM的三个重要假定。这三个假定分别是SUTVA（Stable Unit Treatment Value Assumption）、可忽略性（Ignorability）和正向性（Positivity），本文记录了三大假定的定义及其解释。</p>
-<h1 id="三大假定"><a href="#三大假定" class="headerlink" title="三大假定"></a>三大假定</h1><h2 id="前言：一个医学实验的例子"><a href="#前言：一个医学实验的例子" class="headerlink" title="前言：一个医学实验的例子"></a>前言：一个医学实验的例子</h2><p>一家医院想通过利用病人的观察数据（即电子健康记录）来评估一种疾病的<strong>几种不同药物</strong>的治疗效果，这些数据包括病人的人口统计信息、病人服用的具体药物和具体剂量以及医疗检查的结果。由于病人只可能接受其中一种治疗方法，我们只能知道病人在该治疗方案下病人的治疗结果（即我们只能从电子健康记录中得到一个特定病人的事实结果），因此，核心任务是<strong>预测如果病人采取另一种治疗方法（即不同的药物或同一药物的不同剂量）会发生什么</strong>。<br>回答这样的反事实问题是非常具有挑战性的。因此，我们希望使用因果推理来预测<strong>每个病人在所有不同剂量的药物上的所有潜在结果</strong>。然后，我们就可以合理、准确地评估和比较不同药物对这种疾病的治疗效果。<br>在这个例子中，需要特别注意的一点是，<strong>对于每一种药物，它们可能有不同的剂量</strong>。例如，对于药物A来说，剂量范围可以是$[a,b]$范围内的一个连续变量，而对于药物B来说，剂量可以是一个分类变量，有几种具体的剂量方案。<br>总结一下：</p>
-<ul>
-<li>个体是指患有所研究疾病的病人。</li>
-<li>治疗方法指的是针对这种疾病的不同药物的具体剂量，我们用$W(W\in{0，1，2，\cdots，n })$表示治疗方法。例如，$W_{i}=1$可以代表单位$i$所服用的具有特定剂量的药物A，$W_{i}=2$代表单位$i$所服用的具有特定剂量的药物B。</li>
-<li>用$Y$来表示治疗结果，例如一种血液测试，可以衡量药物破坏疾病的能力，导致病人的康复。让$Y_{i}(W=1)$表示特定剂量的药物A对病人$i$的潜在结果。</li>
-<li>病人的特征可能包括年龄、性别、临床表现和其他一些医学检查等等。在这些特征中，年龄、性别和其他人口统计学信息是治疗前的变量，不会受到服用治疗的影响。一些临床表现和医学检查会受到服用药物的影响，它们是治疗后的变量。在这个例子中，我们的目标是根据提供的观察数据估计不同药物对这种疾病的治疗效果。</li>
-</ul>
-<h2 id="SUTVA（Stable-Unit-Treatment-Value-Assumption）"><a href="#SUTVA（Stable-Unit-Treatment-Value-Assumption）" class="headerlink" title="SUTVA（Stable Unit Treatment Value Assumption）"></a>SUTVA（Stable Unit Treatment Value Assumption）</h2><p>在评论 Basu（1980）的随机性检验的文章时，Rubin（1980）<a href="#ref1"><sup>1</sup></a>首次界定SUTVA 条件指的是任何一个个体被干预时，不管干预的机制是什么，也不管其他个体受到什么干预，它的潜在结果都是一样的。这个假设条件具有两个关键内容：一个是每一个个体所接受的处理水平是唯一的，所导致的潜在结果也是唯一的；另一个是干预的结果不受其他个体所接受处理的影响。这个假定包含了两部分内容：</p>
-<ul>
-<li>第一点是每个个体的独立性。也就是说，个体之间不存在这相互作用；</li>
-<li>另一点则是说每种实验或处理水平（treatment）都是一种单一版本。这也就意味着每一个个体所接受的处理水平是唯一的，所导致的潜在结果也是唯一的。</li>
-</ul>
-<p>放到我们医学实验的例子上，假设我们的药物A为阿司匹林片剂，我们要研究的是感冒的程度（为方便起见我们用头疼与否来进行衡量）：</p>
-<ol>
-<li>个体之间不存在这相互作用意味着病人1的头疼与否不会影响到病人2是否会头疼。例如，如果病人1在头疼的情况下，无论病人2是否服用阿斯匹林，病人2的潜在结果都是头疼；而在病人1不头疼的情况下，病人2服用阿斯匹林就不头疼，不服用就头疼。在这种情况下，我们认为是不符合SUTVA假定的。</li>
-<li>处理水平唯一则是指对于每一种剂量的阿司匹林，我们都应该单独的视为一种治疗方案。例如服用25mg的阿司匹林和服用50mg的阿司匹林，其潜在结果可能是不同的。</li>
-</ol>
-<h2 id="可忽略性（Ignorability）"><a href="#可忽略性（Ignorability）" class="headerlink" title="可忽略性（Ignorability）"></a>可忽略性（Ignorability）</h2><p>在统计学中，可忽略性（Ignorability）是实验设计的一个特点，即数据收集方法（和缺失数据的性质）<strong>不取决于缺失数据</strong>。如果在给定观测数据的情况下，一个缺失数据矩阵，条件独立于缺失数据，那么诸如治疗分配或调查抽样策略等缺失数据机制是 “可忽略的”。</p>
-<p>Rubin(1978)<a href="#ref2"><sup>2</sup></a>在贝叶斯推断的框架下讨论了可忽略的分配机制，可以理解为在给定了关于个体的所有被记录事项的情况（观测数据）下，个人被分配到实验组的方式与数据分析无关(即在后验的推断中，可将分配机制“忽略”掉)。之后Rubin和Rosenbaum(1983)<a href="#ref3"><sup>3</sup></a>定义了强可忽略的实验分配条件，在这里，如果我们假定只有两种实验方案$W=0/W=1$，记个体$i$的潜在结果为$\{Y_{i}(W=0),Y_{i}(W=1)\}$，那么这种强可忽略的实验分配条件可以用数学公式来表达为:</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-\{Y(W=0), Y(W=1)\} \perp W \mid X
-\end{align*}</script><p>其中$Y(W=t)$表示了在给定实验方案$t$的条件下的潜在结果，$X$是与该实验有关的协变量，$W$是实验指派变量。而实际上，对于每一个个体$i$，我们能够观测得到其中一种结果，即实际结果$Y_{i}$满足:</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-Y_{i}=W_{i}Y_{i}(W=1)+(1-W_{i})Y(W=0)
-\end{align*}</script><p>$(Y(W=0), Y(W=1)) \perp W \mid X$这一条件可以进行如下解读:</p>
-<ol>
-<li>即给定协变量$X$，实验的分配$W$相当于随机分配，即给定X，无论W如何，实验的潜在结果是相同的（这也就是说在控制了协变量X的情况下，个体$i$的潜在结果为$\{Y_{i}(W=0),Y_{i}(W=1)\}$也就确定了下来，具体是哪一种结果仅取决于$W$的分配）</li>
-<li>给定X， 若个体$i$和个体$j$的潜在结果是相同的，则$W$的分布相同，用数学表达式可以表达为:$pr(W|Y_{i}(W=0), Y_{i}(W=1), X=x)=pr(W|Y_{j}(W=0), Y_{j}(W=1), X=x)$</li>
-</ol>
-<p>Ignorability假设保证了研究平均处理效应时，不同实验组的协变量$X$是相同的。从而避免由于选择偏差（selection bias），导致实验组的分配有不同倾向性的情况。在因果图里</p>
-<pre class="mermaid">graph TD;
-W-->Y;
-X(confounders: X)-->W;
-X(confounders: X)-->Y;</pre>
-
-<p>放到我们医学实验的例子，假设$W=1$代表使用药物。X为年龄</p>
-<p>例如，考察药物对病人治疗效果的例子。$Y$为是否康复，$W=1$代使用药物A。协变量$X$为年龄，为了方便起见，我们仅划分为年轻的病人和年老的病人两类群体。其中<strong>年轻的病人基本不会选择用药，只有年老的病人更倾向于选择用药</strong>。如果不控制协变量$X$，那么$W=1$的治疗组以年老的病人为主，$W=0$的对照组以年轻的病人为主，进而使用药物的组里康复率会偏低，甚至低于对照组，从而得出药物对康复率具有副作用的错误结论（辛普森悖论）。如果将协变量年龄固定后再进行研究，对于年轻的病人，其用药倾向性一致，从而$W$的分配没有倾向性。由此消除了协变量$X$对处理效应的干扰，从数学公式上看，总体的平均因果效应可以被如下计算:</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-ACE&=E(Y_{i}(W=1)-Y_{i}(W=0)|X)\\
-&=E(Y_{i}(W=1)|X) - E(Y_{i}(W=0)|X) \quad \mbox{(期望计算的线性性，非线性不可用)}\\
-&=E(Y_{i}(W=1)|W=1, X) - E(Y_{i}(W=0)|W=0, X) \quad \mbox{(随机化，即可忽略性的应用)}\\
-&=E(Y_{i}|W=1, X) - E(Y_{i}(W=0)|X)\\
-\end{align*}</script><h2 id="正向性（Positivity）"><a href="#正向性（Positivity）" class="headerlink" title="正向性（Positivity）"></a>正向性（Positivity）</h2><p>正向性<a href="#ref3"><sup>3</sup></a>相比于其他两个假定更容易理解，这个假定保证了给定任意一个协变量$X=x$，每一个实验组被分配的概率都不等于0，用数学公式表示为:</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-0<pr(W=w \mid X=x) <1
-\end{align*}</script><p>放到我们医学实验的例子里，同样考察药物对病人治疗效果的例子。$Y$为是否康复，$W=1$代使用药物A。协变量$X$为年龄，为了方便起见，我们仅划分为年轻的病人和年老的病人两类群体。如果<strong>年轻的病人均不选择用药，只有年老的病人全都选择用药</strong>，那么这种情况下，是不满足正向性假定的。以年轻的病人为例，我们只知道他们不使用药物的结果，但是<strong>我们没有观测数据帮助我们估计使用药物的结果</strong>，这种情况下我们没法做平均处理效应的计算。</p>
-<p><div id="ref1"></div></p>
-<ul>
-<li>[1] Rubin, D. B. (1980). Randomization analysis of experimental data: The Fisher randomization test comment. Journal of the American Statistical Association, 75(371), 591-593.<div id="ref2"></div></li>
-<li>[2] Rubin, D. B. (1978). Bayesian inference for causal effects: The role of randomization. The Annals of statistics, 34-58.<div id="ref3"></div></li>
-<li>[3] Rosenbaum, P. R., &amp; Rubin, D. B. (1983). The central role of the propensity score in observational studies for causal effects. Biometrika, 70(1), 41-55.</li>
-</ul>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 因果推断 </tag>
+            
+            <tag> RCM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>因果推断</title>
+      <link href="/2021/09/17/20210920_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/"/>
+      <url>/2021/09/17/20210920_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/</url>
+      
+        <content type="html"><![CDATA[<h1 id="因果推断"><a href="#因果推断" class="headerlink" title="因果推断"></a>因果推断</h1><h2 id="1-数学部分"><a href="#1-数学部分" class="headerlink" title="1 数学部分"></a>1 数学部分</h2><h3 id="1-1-符号定义"><a href="#1-1-符号定义" class="headerlink" title="1.1 符号定义"></a>1.1 符号定义</h3><p>假设从总体中随机抽出$N$个样本，规定<strong>实验指派变量</strong>$z$满足</p><script type="math/tex; mode=display">\begin{equation}z=\left\{\begin{aligned}1, \mbox{if it had received treatment 1}\\0, \mbox{if it had received treatment 0}\\\end{aligned}\right.\end{equation}</script><p>为了方便起见，设置实验1为实验组，实验0为对照组。令$r_{1}$和$r_{0}$分别为用户接受实验组和对照组的反应，对于第$i$个个体的反应，规定为$r_{1i}$和$r_{0i}$。用$x=\{x_{1}, x_{2}, \cdots, x_{n}\}$表示一系列观测到的<strong>预处理措施或者协变量</strong>，同时，定义<strong>平衡分数</strong>$b(x)$为能够在给定平衡分数的前提下，协变量$x$的条件分布对于对照组和实验组完全一致的关于协变量$x$的函数，用符号表示为</p><script type="math/tex; mode=display">x \perp z \mid b(x)</script><p>另外，假定给定协变量$x$的前提下，给用户指派到实验组的条件概率为</p><script type="math/tex; mode=display">e(x)=pr(z=1 \mid x)</script><p>称$e(x)$为<strong>倾向性得分</strong>，同时假定</p><script type="math/tex; mode=display">pr(z_{1}, \cdots, z_{n} \mid x_{1}, \cdots, x_{n})=\prod_{i=1}^{N}e(x_{i})^{z_{i}}  \{1-e(x_{i})\}^{1-z_{i}}</script><p>定义可忽略性和正向性如下：</p><p>可忽略性：$(r_{0}, r_{1}) \perp z \mid x$</p><p>正向性：$0&lt;pr(z=1 \mid x) &lt;1$</p><h3 id="1-2-基本理论（大样本）"><a href="#1-2-基本理论（大样本）" class="headerlink" title="1.2 基本理论（大样本）"></a>1.2 基本理论（大样本）</h3><p><strong>定理1</strong>：在给定倾向性得分$e(x)$ 的条件下，实验指派变量$z$和协变量$x$条件独立，用符号表示为</p><script type="math/tex; mode=display">x \perp z \mid e(x)</script><p>证明：略</p><p><strong>定理2</strong>：假定$b(x)$是关于$x$的一个函数，当且仅当$e(x)=f\{b(x)\}$时$b(x)$是平衡性分数，即</p><script type="math/tex; mode=display">x \perp z \mid b(x)</script><p>证明：略，见1.1定义</p><p>充分性：</p><p>假定满足$e(x)=f\{b(x)\}$，根据$e(x)$的定义及定理1，要证明$x \perp z \mid b(x)$，可证</p><script type="math/tex; mode=display">pr\{z=1 \mid b(x)\}=e(x)</script><p>而</p><script type="math/tex; mode=display">\begin{align*}pr\{z=1 \mid b(x)\}&=\int_{x}xg\{pr\{z=1 \mid x\} \mid b(x)\}dx\\&=\int_{x}xg\{e(x) \mid b(x)\}dx\\&=E\{e(x) \mid b(x)\}\\&=e(x) \quad (\mbox{b(x) is finer than e(x)})\end{align*}</script><p>证明成立</p><p>必要性：</p><p>假定$x \perp z \mid b(x)$ ，但是$e(x) \neq f\{b(x)\}$，那么必定存在$x_{1}$和$x_{2}$满足$e(x_{1}) \neq e(x_{2})$ 但是$b(x_{1})=b(x_{2})$。这样一来，根据倾向性得分的定义$pr(z=1 \mid x_{1}) \neq pr(z=1 \mid x_{2})$，那么$b(x)$一定不是平衡性分数</p><p>Q.E.D</p><p><strong>定理3</strong>：如果满足$(r_{0}, r_{1}) \perp z \mid x$并且$0&lt;pr(z=1 \mid x) &lt;1$，那么一定满足$(r_{0}, r_{1}) \perp z \mid b(x)$并且$0&lt;pr\{z=1 \mid b(x)\}&lt;1$</p><p>证明：</p><p>该定理即证</p><script type="math/tex; mode=display">pr\{z=1 \mid r_{0}, r_{1}, b(x)\}=pr\{z=1 \mid b(x)\}</script><p>同定理2证明</p><script type="math/tex; mode=display">\begin{align*}pr\{z=1 \mid r_{0}, r_{1}, b(x)\}&=E\{ pr\{z=1 \mid r_{0}, r_{1}, x\}\mid  r_{0}, r_{1}, b(x)\}\\&=E\{ pr\{z=1 \mid x\}\mid  r_{0}, r_{1}, b(x)\}\\&=E\{e(x) \mid r_{0}, r_{1}, b(x)\}\\&=E\{e(x) \mid b(x)\}\\&=e(x) \quad (\mbox{b(x) is finer than e(x)})\end{align*}</script><p>Q.E.D</p><p><strong>定理4</strong>：假定实验指派变量$z$是强可忽略的，且$b(x)$是平衡性分数，在给定平衡性分数$b(x)$下实验组和对照组观测到的反应的期望差异等于给定平衡性分数$b(x)$下的平均处理效应（ATE），即</p><script type="math/tex; mode=display">E\{r_{1} \mid b(x), z=1\}-E\{r_{0} \mid b(x), z=0\}=E\{r_{1}-r_{0} \mid b(x)\}</script><p>证明：</p><p>由定理3，</p><script type="math/tex; mode=display">\begin{align*}E\{r_{1} \mid b(x), z=1\}-E\{r_{0} \mid b(x), z=0\}&=E\{r_{1} \mid b(x)\}-E\{r_{0} \mid b(x)\}\\&=E\{r_{1}-r_{0} \mid b(x)\}\end{align*}</script><p>Q.E.D</p><p>由定理4，在两阶段抽样过程中，实验组和对照组观测到的反应的期望差异可以表示为</p><script type="math/tex; mode=display">\begin{align*}E_{b(x)}\{E\{r_{1} \mid b(x), z=1\}-E\{r_{0} \mid b(x), z=0\}\}&=E_{b(x)}\{E\{r_{1}-r_{0} \mid b(x)\}\}\\&=E(r_{1}-r_{0})\end{align*}</script><p>即实验组与对照组总体的平均处理效应（ATE）</p><h3 id="1-3-Inverse-Propensity-Weighting"><a href="#1-3-Inverse-Propensity-Weighting" class="headerlink" title="1.3 Inverse Propensity Weighting"></a>1.3 Inverse Propensity Weighting</h3><p>假设有限总体$N$划被分为$S$组（例如根据性别划分），组标记为$s=1,2,\cdots,S$，且每一组的总体频数$N_{s}$已知，满足$N=N_{1}+N_{2}+\cdots+N_{S}$，那么实验效应的总体均值可以被估计为</p><script type="math/tex; mode=display">\bar{r}=\frac{1}{N}\sum_{s=1}^{S}\sum_{i=1}^{N_{s}}r_{si}=\sum_{s=1}^{S}\frac{N_{s}}{N}\bar{r}_{s}</script><p>为了方便起见，引入前面的标记$z$，并假定反应只能观测在被选择的样本中，假设被观测到的样本数$n$满足$n=n_{1}+n_{2}+\cdots+n_{S}$，那么每一组实验效应的样本均值可以被估计为</p><script type="math/tex; mode=display">\bar{r}_{s}=\frac{\sum_{i=1}^{N_{s}}z_{i}^{(s)}r_{i}^{(s)}}{n_{s}}</script><p>所有组别的实验效应样本均值可以估计为</p><script type="math/tex; mode=display">\bar{r}=\sum_{s=1}^{S}\frac{N_{s}}{N}\bar{r}_{s}=\sum_{s=1}^{S}\frac{\sum_{i=1}^{N_{s}}z_{i}^{(s)}r_{i}^{(s)}}{(n_{s}/N_{s})}</script><p>在实际中，若$n_{S}$趋近于0，那么某一组$\bar{r}_{s}$估计出来的值将会趋于无穷，为了解决这个问题，Holt和Smith（1919）提出了在随机抽样的条件下，$\bar{r}$无偏的一种解决方案：</p><script type="math/tex; mode=display">\bar{r}=\frac{\sum_{s=1}^{S}\sum_{i=1}^{N_{s}}z_{i}^{(s)}r_{i}^{(s)}}{\sum_{s=1}^{S}n_{s}}</script><p>需要指出$\bar{r}$并不是<strong>条件无偏</strong>的，在给定样本总体n的情况下，$\bar{r}$是有偏的</p><p>Rosenbaum（1987）给出了一种更通用的解决方案，即</p><script type="math/tex; mode=display">\bar{r}=\frac{1}{N}\sum_{s=1}^{S}\sum_{i=1}^{N_{s}}\frac{z_{i}^{(s)}r_{i}^{(s)}}{\hat{e}_{s}}=\sum_{s=1}^{S}\frac{N_{s}}{N}\frac{n_{s}}{\hat{m}_{s}}\bar{r}_{s}</script><p>其中$\hat{e}_{s}=\frac{\hat{m}_{s}}{N_{s}}$是下式的极大似然估计</p><script type="math/tex; mode=display">\Phi=(\phi_{1},\phi_{2},\cdots,\phi_{S})^{T}=\boldsymbol{F \beta}\\\phi_{S}=log[\frac{e_{s}}{1-e_{s}}]\\\boldsymbol{F} \in R^{S \times P}(1 \leq P \leq S)</script><p>可以证实，当$n_{s} &gt;$0且$\boldsymbol{F}$列满秩时，</p><script type="math/tex; mode=display">\bar{r}=\sum_{s=1}^{S}\frac{\sum_{i=1}^{N_{s}}z_{i}^{(s)}r_{i}^{(s)}}{(n_{s}/N_{s})}</script><p>当$\boldsymbol{F}=\boldsymbol{1}$时，</p><script type="math/tex; mode=display">\bar{r}=\frac{\sum_{s=1}^{S}\sum_{i=1}^{N_{s}}z_{i}^{(s)}r_{i}^{(s)}}{\sum_{s=1}^{S}n_{s}}</script><p>借助上式，在估计平均处理效应（ATE）时，可以表示为</p><script type="math/tex; mode=display">ATE=\frac{1}{N}(\sum_{s=1}^{S}\sum_{i=1}^{N_{s}}\frac{z_{i}^{(s)}r_{i}^{(s)}}{\hat{e}_{s}}-\sum_{s=1}^{S}\sum_{i=1}^{N_{s}}\frac{(1-z_{i}^{(s)})r_{i}^{(s)}}{(1-\hat{e}_{s})})</script><h3 id="1-3-Doubly-Robust-Estimation（DR-Estimation）"><a href="#1-3-Doubly-Robust-Estimation（DR-Estimation）" class="headerlink" title="1.3 Doubly Robust Estimation（DR Estimation）"></a>1.3 Doubly Robust Estimation（DR Estimation）</h3><p>双重鲁棒性估计在上世纪统计推断中已经有使用了，但论文较为杂乱，没有能直接说清楚的。近些年来在Recommendation System或者是Reinforcement Learning开始引用，主要是用在部分组别实际反应的观测数据缺失的情况。这种估计是基于样本的<strong>半参数估计</strong>。DR Estimator可以表示为下式：</p><script type="math/tex; mode=display">\begin{align}\bar{r}_{dr}&=\frac{1}{n}\sum_{i=1}^{N}\frac{z_{i}}{\hat{e}_{i}}r_{i}+    \frac{1}{n}\sum_{i=1}^{N}(1-\frac{z_{i}}{\hat{e}_{i}})r_{i,mean} \tag{1}\\&=\frac{1}{n}\sum_{i=1}^{N}\{\frac{z_{i}}{\hat{e}_{i}}(r_{i}-r_{i,mean})+r_{i,mean}\} \tag{2}\end{align}</script><p>其中$r_{i,mean}$是利用协变量$X$和实验结果$r$估计出来的模型，可以是线性模型，也可以是非线性的。如果$\hat{e}_{s}$能够真实的反映用户参与实验的情况，那么利用$(1)$式，$1-\frac{z_{i}}{\hat{e}_{}}=0$i，剩下的部分即IPW；若模型估计的足够准确，利用$(2)$式，$r_{i}-r_{i,mean}=0$，剩余部分即模型预估出来的结果，那么同样能够达到效果。在这种条件下，平均处理效应可以被表示为（应用$(2)$式）</p><script type="math/tex; mode=display">\begin{align*}ATE&=\bar{r}(1, X)_{dr}-\bar{r}(0, X)_{dr}\\&=\frac{1}{n}\sum_{i=1}^{N}\{    r(1,X)_{i,mean}-r(0,X)_{i,mean}    +\frac{z_{i}(r_{i}-r(1,X)_{i,mean})}{\hat{e}_{i}}-\frac{(1-z_{i})(r_{i}-r(0,X)_{i,mean})}{(1-\hat{e}_{i})}\}\end{align*}</script>]]></content>
+      
+      
       <categories>
-        <category>因果推断</category>
+          
+          <category> 因果推断 </category>
+          
       </categories>
-      <tags>
-        <tag>因果推断</tag>
-        <tag>RCM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>因果推断系列:RCM（二）——倾向性得分</title>
-    <url>/2021/11/22/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97:RCM%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%80%BE%E5%90%91%E6%80%A7%E5%BE%97%E5%88%86/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在Rubin Casual Model(RCM)的第一篇讲述了模型的三个基本假设，在本文中，将主要围绕着Rubin(1983)的文章重点看一下在大样本理论倾向性得分的定义、推导及含义。</p>
-<h1 id="倾向性得分"><a href="#倾向性得分" class="headerlink" title="倾向性得分"></a>倾向性得分</h1><h2 id="数学推导"><a href="#数学推导" class="headerlink" title="数学推导"></a>数学推导</h2><h3 id="符号定义"><a href="#符号定义" class="headerlink" title="符号定义"></a>符号定义</h3><p>假设从总体中随机抽出$N$个样本。为方便起见，规定<strong>实验指派变量（treatment assigned variable， 即实验方案）</strong>$w$仅有两种，用数学符号表达为:</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-w=
-\left\{
-\begin{aligned}
-1, \mbox{if it had received treatment 1}\\
-0, \mbox{if it had received treatment 0}\\
-\end{aligned}
-\right.
-\end{equation}</script><p>为了方便起见，设置实验1为实验组，实验0为对照组。记个体$i$的潜在结果为$\{Y_{i}(w=0),Y_{i}(w=1)\}$。用$x=\{x_{1}, x_{2}, \cdots, x_{k}\}$表示一系列观测到的<strong>预处理措施或者协变量</strong>，同时，定义<strong>平衡分数</strong>$b(x)$为一类关于协变量$x$的函数，这种函数能够使得在给定$b(x)$(即给定平衡分数)的情况下，协变量$x$的条件分布与实验指派变量$w$无关，用符号表示为</p>
-<script type="math/tex; mode=display">
-x \perp w \mid b(x)</script><p>另外，假定给定协变量$x$的前提下，给用户指派到实验组的条件概率为</p>
-<script type="math/tex; mode=display">
-e(x)=pr(w=1 \mid x)</script><p>我们称$e(x)$为<strong>倾向性得分</strong>，进而我们容易得到以下的等式:</p>
-<script type="math/tex; mode=display">
-pr(w_{1}, \cdots, w_{n} \mid x_{1}, \cdots, x_{n})=\prod_{i=1}^{N}e(x_{i})^{w_{i}}  \{1-e(x_{i})\}^{1-w_{i}}</script><h3 id="基本理论（大样本）"><a href="#基本理论（大样本）" class="headerlink" title="基本理论（大样本）"></a>基本理论（大样本）</h3><p><strong>定理1</strong>：在给定倾向性得分$e(x)$ 的条件下，实验指派变量$w$和协变量$x$条件独立，用符号表示为</p>
-<script type="math/tex; mode=display">
-x \perp w \mid e(x)</script><p>定理1实际上是定理2的一个特例，因此在此略过证明</p>
-<p><strong>定理2</strong>：假定$b(x)$是关于$x$的一个函数，当且仅当$e(x)=f\{b(x)\}$时$b(x)$是平衡性分数，即</p>
-<script type="math/tex; mode=display">
-x \perp w \mid b(x)</script><p>证明：</p>
-<p>充分性：</p>
-<p>假定满足$e(x)=f\{b(x)\}$，根据$e(x)$的定义及定理1，要证明$x \perp w \mid b(x)$，可证</p>
-<script type="math/tex; mode=display">
-pr\{w=1 \mid b(x)\}=e(x)</script><p>而</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-pr\{w=1 \mid b(x)\}&=\int_{x}xg\{pr\{w=1 \mid x\} \mid b(x)\}dx\\
-&=\int_{x}xg\{e(x) \mid b(x)\}dx\\
-&=E\{e(x) \mid b(x)\}\\
-&=e(x) \quad (\mbox{b(x) is finer than e(x)})
-\end{align*}</script><p>证明成立</p>
-<p>必要性：</p>
-<p>假定$x \perp w \mid b(x)$ ，但是$e(x) \neq f\{b(x)\}$，那么必定存在$x_{1}$和$x_{2}$满足$e(x_{1}) \neq e(x_{2})$ 但是$b(x_{1})=b(x_{2})$。这样一来，根据倾向性得分的定义$pr(w=1 \mid x_{1}) \neq pr(w=1 \mid x_{2})$，那么$b(x)$一定不是平衡性分数</p>
-<p>Q.E.D</p>
-<p><strong>定理3</strong>：如果满足$\{Y(w=0),Y(w=1)\} \perp w \mid x$并且$0&lt;pr(w=1 \mid x) &lt;1$，那么一定满足$\{Y(w=0),Y(w=1)\} \perp w \mid b(x)$并且$0&lt;pr\{w=1 \mid b(x)\}&lt;1$</p>
-<p>证明：</p>
-<p>该定理即证</p>
-<script type="math/tex; mode=display">
-pr\{w=1 \mid Y(w=0),Y(w=1), b(x)\}=pr\{w=1 \mid b(x)\}</script><p>同定理2证明</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-pr\{z=1 \mid Y(w=0),Y(w=1), b(x)\}&=E\{ pr\{w=1 \mid Y(w=0),Y(w=1), x\}\mid  Y(w=0),Y(w=1), b(x)\}\\
-&=E\{ pr\{w=1 \mid x\}\mid  Y(w=0),Y(w=1), b(x)\}\\
-&=E\{e(x) \mid Y(w=0),Y(w=1), b(x)\}\\
-&=E\{e(x) \mid b(x)\}\\
-&=e(x) \quad (\mbox{b(x) is finer than e(x)})
-\end{align*}</script><p>Q.E.D</p>
-<p><strong>定理4</strong>：假定实验指派变量$w$是强可忽略的，且$b(x)$是平衡性分数，在给定平衡性分数$b(x)$下实验组和对照组观测到的反应的期望差异等于给定平衡性分数$b(x)$下的平均处理效应（ATE），即</p>
-<script type="math/tex; mode=display">
-E\{Y(w=1) \mid b(x), w=1\}-E\{Y(w=0) \mid b(x), w=0\}=E\{Y(w=1)-Y(w=0) \mid b(x)\}</script><p>证明：</p>
-<p>由定理3，</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-E\{Y(w=1) \mid b(x), w=1\}-E\{Y(w=0) \mid b(x), w=0\}&=E\{Y(w=1) \mid b(x)\}-E\{Y(w=0) \mid b(x)\}\\
-&=E\{Y(w=1)-Y(w=0) \mid b(x)\}
-\end{align*}</script><p>Q.E.D</p>
-<p>由定理4，在两阶段抽样过程中，实验组和对照组观测到的反应的期望差异可以表示为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-E_{b(x)}\{E\{Y(w=1)\mid b(x), w=1\}-E\{Y(w=0) \mid b(x), w=0\}\}
-&=E_{b(x)}\{E\{Y(w=1)-Y(w=0) \mid b(x)\}\}\\
-&=E(Y(w=1)-Y(w=0))
-\end{align*}</script><p>即实验组与对照组总体的平均处理效应（ATE）</p>
-<h2 id="理论解释"><a href="#理论解释" class="headerlink" title="理论解释"></a>理论解释</h2><p>在本章开始，先进行了关于倾向性得分的定义和数学推导做了详尽的介绍，我们认为这是有必要的，数学推导是理解倾向性得分理论正确性以及理论本质的一个重要手段，在本节，我们重点讲一下为什么要使用倾向性得分，以及如何使用它。</p>
-<p>不知道大家是否注意到上一篇中我们在讲述可忽略性（Ignorability）时的数学表述:</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-\{Y(w=0), Y(w=1)\} \perp w \mid x
-\end{align*}</script><p>可以试想一下，假如协变量组$x$的数目比较大，共有$k$个，每个协变量共有$m$类分组，那么所有分组共有$m^{k}$种，从实际角度出发，我们不可能去对每一类都进行严格的控制，不然我们要比较的组数就太多了，因此在这种情况下，<strong>降维</strong>是一种非常有效的手段。在定理3中，我们已经证明了平衡分数/倾向性得分替代协变量的可能性，这也意味着，如果我们能够利用协变量$x$去拟合一个适当的$b(x)$，同时利用$b(x)$去输出一个标签或一个标签对应的概率值，那么我们就能够把维数大大降下来，以一个相对较少的组数进行比较。</p>
-<p>问题来了，如果我们需要去拟合一个$b(x)$，因变量是什么呢？这块翻阅了大量关于因果推断的文章和博客，却无人提及这一点。实际上，我们的因变量可以是我们自定义的一个变量（只要这个变量有意义），但最常用的通常是我们的实验指派变量$w$。</p>
-<p><div id="ref1"></div></p>
-<ul>
-<li>[1] Rosenbaum, P. R., &amp; Rubin, D. B. (1983). The central role of the propensity score in observational studies for causal effects. Biometrika, 70(1), 41-55.</li>
-</ul>
-]]></content>
+      
+      
+        <tags>
+            
+            <tag> 因果推断 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Dataframe设置条件格式</title>
+      <link href="/2021/01/25/20210125_Dataframe%E6%9D%A1%E4%BB%B6%E6%A0%BC%E5%BC%8F/"/>
+      <url>/2021/01/25/20210125_Dataframe%E6%9D%A1%E4%BB%B6%E6%A0%BC%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><h1 id="设置条件格式"><a href="#设置条件格式" class="headerlink" title="设置条件格式"></a>设置条件格式</h1><h2 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h2><p><a href="https://pandas.pydata.org/pandas-docs/stable/user_guide/style.html">https://pandas.pydata.org/pandas-docs/stable/user_guide/style.html</a></p><p>rgb和十六进制颜色互转（可再写篇文章）<br><a href="https://www.sioe.cn/yingyong/yanse-rgb-16/">https://www.sioe.cn/yingyong/yanse-rgb-16/</a></p><h2 id="对于多条件的条件格式的设置（重点）"><a href="#对于多条件的条件格式的设置（重点）" class="headerlink" title="对于多条件的条件格式的设置（重点）"></a>对于多条件的条件格式的设置（重点）</h2>]]></content>
+      
+      
       <categories>
-        <category>因果推断</category>
+          
+          <category> DataFrame </category>
+          
       </categories>
-      <tags>
-        <tag>因果推断</tag>
-        <tag>RCM</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Bayesian Data Analysis（一）：概率与推断</title>
-    <url>/2021/11/27/20211128_Bayesian-Data-Analysis%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%8D%95%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[<h1 id="贝叶斯数据分析的三个步骤："><a href="#贝叶斯数据分析的三个步骤：" class="headerlink" title="贝叶斯数据分析的三个步骤："></a>贝叶斯数据分析的三个步骤：</h1><ol>
-<li>建立起一个<strong>全概率模型</strong>。问题中所有观测样本和未观测样本的联合概率密度。模型必须与科学研究问题蕴含的知识以及数据收集过程相关</li>
-<li>基于观测样本进行条件化。计算和解释合适的<strong>后验分布</strong>——在给定观测样本的条件下，关于未观测样本的条件概率分布</li>
-<li>评估模型拟合情况和结果后验分布的启示。模型是否很好地拟合了数据？实质性结论是否可信？以及模型对于前面的假设1（数据拟合程度）的敏感性如何？最终，如果不满足其一都有可能让我们修改和拓展模型，然后重新完成这三个步骤。</li>
-</ol>
-<h1 id="符号和统计推断"><a href="#符号和统计推断" class="headerlink" title="符号和统计推断"></a>符号和统计推断</h1><h2 id="两种未观测到的估计：统计推断中的未观测数据"><a href="#两种未观测到的估计：统计推断中的未观测数据" class="headerlink" title="两种未观测到的估计：统计推断中的未观测数据"></a>两种未观测到的估计：统计推断中的未观测数据</h2><ol>
-<li>潜在的观测数据（比如未来实验中会出现的，或当前实验结果未出现的）</li>
-<li>数据无法被直接观测到的，比如控制着观察数据产生的假设过程的参数（比如回归估计的系数）<h2 id="参数、数据和预测"><a href="#参数、数据和预测" class="headerlink" title="参数、数据和预测"></a>参数、数据和预测</h2>在全系列，我们使用$\theta$表示为我们关注的观测的向量或总体参数（比如每个实验中病人的生存概率），$y$表示为我们的观测数据（比如每个实验组中病人生存和死亡的数量），$\widetilde{y}$表示为我们未知的或潜在的观测数据（比如每个实验中病人的生存概率）。同时约定希腊字母表示参数。小写罗马字母表示观测或未观测的标量或向量（向量为列向量），大写罗马字母表示矩阵。不加说明$p$表示概率密度，$F$表示累计概率分布，$Pr$表示累计概率。<h2 id="可交换性"><a href="#可交换性" class="headerlink" title="可交换性"></a>可交换性</h2>对于一个有$n$个值的不确定性表述$p(y_{1}, \cdots, y_{n})$，我们认为每一个下标都是可交换的，也就是说不会收到样本顺序的影响。通常情况下我们认为$y_{i}$是满足iid假设的</li>
-</ol>
-<h1 id="贝叶斯推断"><a href="#贝叶斯推断" class="headerlink" title="贝叶斯推断"></a>贝叶斯推断</h1><h2 id="贝叶斯公式"><a href="#贝叶斯公式" class="headerlink" title="贝叶斯公式"></a>贝叶斯公式</h2><p>从全概率公式出发，我们知道$\theta$和$y$的联合概率分布可以表达为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-p(\theta, y) = p(\theta)p(y \mid \theta)
-\end{align*}</script><p>如果给定观测数据$y$，应用我们的贝叶斯法则，可以将<strong>后验密度分布</strong>表示为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-p(\theta \mid y) = \frac{p(\theta, y)}{p(y)} = \frac{p(\theta)p(y \mid \theta)}{p(y)}
-\end{align*}</script><p>其中$p(y)=\sum_{\theta}p(\theta)p(y \mid \theta)$（连续情形下为$p(y)=\int_{\theta}p(\theta)p(y \mid \theta)$）</p>
-<p>由于给定了观测数据，因此我们可以认为观测数据$y$的<strong>边缘概率密度</strong>仅仅起到一个调节作用，也就是说</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-p(\theta \mid y) \propto p(\theta)p(y \mid \theta)
-\end{align*}</script><h2 id="后验预测分布"><a href="#后验预测分布" class="headerlink" title="后验预测分布"></a>后验预测分布</h2><p>我们假定未来想要观测数据$\widetilde{y}$出现的可能的分布，我们可以表示为$p(\widetilde{y} \mid y)$，根据贝叶斯法则，在连续情形下可以表示为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-p(\widetilde{y} \mid y) &= \int p(\widetilde{y}, \theta \mid y) d\theta\\
-&= \int p(\widetilde{y} \mid y, \theta) p(\theta \mid y) d\theta\\
-&= \int p(\widetilde{y} \mid \theta) p(\theta \mid y) d\theta \quad \mbox{(未观测数据的抽取与已观测数据无关，iid假设)}\\
-\end{align*}</script><p>第2、3行表示后验预测分布可以看成是在$\theta$的后验分布下的条件预测值的平均</p>
-<h2 id="贝叶斯因子"><a href="#贝叶斯因子" class="headerlink" title="贝叶斯因子"></a>贝叶斯因子</h2><p>贝叶斯因子提供了比较后验分布的好坏的方式，其表达为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-\frac{p(\theta_{1} \mid y)}{p(\theta_{2} \mid y)} 
-= \frac{p(\theta_{1})p(y \mid \theta_{1})/p(y)}{p(\theta_{2})p(y \mid \theta_{2})/p(y)}
-=\frac{p(\theta_{1})p(y \mid \theta_{1})}{p(\theta_{2})p(y \mid \theta_{2})}
-=\frac{p(\theta_{1})}{p(\theta_{2})}\frac{p(y \mid \theta_{1})}{p(y \mid \theta_{2})}
-\end{align*}</script><p>$\frac{p(\theta_{1})}{p(\theta_{2})}$是$\theta$的先验分布比，$\frac{p(\theta_{1} \mid y)}{p(\theta_{2} \mid y)} $是后验分布比</p>
-<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="均值与方差"><a href="#均值与方差" class="headerlink" title="均值与方差"></a>均值与方差</h2><p>假定存在随机变量$u$和$v$，且两个变量具有相关性，考虑连续情形。随机变量$u$的期望和方差可以表示为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-E(u) &= \int up(u)du\\
-var(u) &=  \int (u-E(u))^{2}du = E(u^{2})-(E(u))^{2}
-\end{align*}</script><p>若随机变量$u$为向量形式，那么协方差矩阵可以表示为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-cov(u) &=  \int (u-E(u))(u-E(u))^{T}du
-\end{align*}</script><p>期望迭代公式：在给定$v$的边缘分布情形下</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-E(u) &= \iint up(u,v)dudv\\
-&= \iint up(u \mid v) p(v) dudv\\
-&= \int_{v} E(u \mid v) p(v) dv\\
-&= E_{v}(E_{u}(u \mid v))
-\end{align*}</script><p>同时关于方差，我们可以表示为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-var(u) &= E(u^{2})-(E(u))^{2}\\
-&= E(u^{2})-E\{(E(u \mid v))^{2}\}+E\{(E(u \mid v))^{2}\}-(E(u))^{2}\\
-&= E\{E(u^{2} \mid v)\}-E\{(E(u \mid v))^{2}\}+E\{(E(u \mid v))^{2}\}-(E\{E(u \mid v)\})^{2} \quad \mbox{（应用上面的期望迭代公式）}\\
-&= E\{E(u^{2} \mid v)-(E(u \mid v))^{2}\}+(E\{(E(u \mid v))^{2}\}-(E\{E(u \mid v)\})^{2})\\
-&= E(var(u \mid v)) + var(E(u \mid v))\\
-\end{align*}</script>]]></content>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> Dataframe </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Dataframe的多级索引</title>
+      <link href="/2021/01/19/20210119_DataFrame%E5%A4%9A%E7%BA%A7%E7%B4%A2%E5%BC%95%E5%A2%9E%E5%8A%A0%E8%A1%8C/"/>
+      <url>/2021/01/19/20210119_DataFrame%E5%A4%9A%E7%BA%A7%E7%B4%A2%E5%BC%95%E5%A2%9E%E5%8A%A0%E8%A1%8C/</url>
+      
+        <content type="html"><![CDATA[<h1 id="问题背景"><a href="#问题背景" class="headerlink" title="问题背景"></a>问题背景</h1><p>一般来说Dataframe的索引都是单一索引。学过数据库的话会知道有时候单个属性作为索引较为单薄，例如下面的成绩表</p><div class="table-container"><table><thead><tr><th>姓名</th><th>科目</th><th>成绩</th></tr></thead><tbody><tr><td>Mike</td><td>Math</td><td>90</td></tr><tr><td>Mike</td><td>Chinese</td><td>85</td></tr><tr><td>Bob</td><td>English</td><td>70</td></tr><tr><td>Amy</td><td>Math</td><td>99</td></tr><tr><td>Amy</td><td>English</td><td>96</td></tr></tbody></table></div><p>无论是单用姓名还是科目，都没有办法很好的发挥索引的功能（例如假设姓名可以作为索引，那么我可以利用Mike这个姓名找到唯一的一个成绩，但事实上我可以找到两个），但是（姓名，科目）却可以唯一的找到成绩。这个（姓名，科目）便是我们的联合索引。因此在实际中我们有可能会用到这样的索引形式（虽然在Dataframe中没有这个必要单独设置成这样）。</p><p>在Dataframe中我们有多级索引（multiindex）。多级索引实际上是联合索引的一种，只是将索引层级化，用前面的例子，如果我们设置的多级索引是（姓名，科目），那么我们最终得到的表的形式应该是：</p><div class="table-container"><table><thead><tr><th>姓名</th><th>科目</th><th>成绩</th></tr></thead><tbody><tr><td>Mike</td><td>Math</td><td>90</td></tr><tr><td></td><td>Chinese</td><td>85</td></tr><tr><td>Bob</td><td>English</td><td>70</td></tr><tr><td>Amy</td><td>Math</td><td>99</td></tr><tr><td></td><td>English</td><td>96</td></tr></tbody></table></div><p>但如果设置的多级索引是（科目，姓名），那么我们最终得到的表的形式应该是：</p><div class="table-container"><table><thead><tr><th>科目</th><th>姓名</th><th>成绩</th></tr></thead><tbody><tr><td>Math</td><td>Mike</td><td>90</td></tr><tr><td></td><td>Amy</td><td>99</td></tr><tr><td>Chinese</td><td>Mike</td><td>85</td></tr><tr><td>English</td><td>Bob</td><td>70</td></tr><tr><td></td><td>Amy</td><td>96</td></tr></tbody></table></div><p>但无论是哪种形式的多级索引，我们都能够用这样的索引找到对于的成绩</p><h1 id="创建多级索引"><a href="#创建多级索引" class="headerlink" title="创建多级索引"></a>创建多级索引</h1><p>在Dataframe中我们有很多种种方法创建多级索引。如果我们仔细观察不难发现当我们查看一个Dataframe（简便起见后称df）的索引时，我们得到的是一个Index对象（pandas.Index)。而多级索引则更进一步，其索引为MultiIndex对象，因此，多级索引可以利用MultiIndex对象来创建。其中最常用的方法是利用pd.MultiIndex.from_arrays和pd.MultiIndex.from_product来创建。</p><p>以我们的第一张多级索引表为例，如果我们有了分数序列(90, 85, 70, 99, 96)，我们可以使用以下代码创建出该Dataframe：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">scores = [<span class="number">90</span>, <span class="number">85</span>, <span class="number">70</span>, <span class="number">99</span>, <span class="number">96</span>]</span><br><span class="line">df = pd.DataFrame(</span><br><span class="line">        data=scores,</span><br><span class="line">        index=pd.MultiIndex.from_arrays(</span><br><span class="line">            arrays=[[<span class="string">&#x27;Mike&#x27;</span>, <span class="string">&#x27;Mike&#x27;</span>, <span class="string">&#x27;Bob&#x27;</span>, <span class="string">&#x27;Amy&#x27;</span>, <span class="string">&#x27;Amy&#x27;</span>], [<span class="string">&#x27;Math&#x27;</span>, <span class="string">&#x27;Chinese&#x27;</span>, <span class="string">&#x27;English&#x27;</span>, <span class="string">&#x27;Math&#x27;</span>, <span class="string">&#x27;English&#x27;</span>]], </span><br><span class="line">            names=[<span class="string">&#x27;姓名&#x27;</span>, <span class="string">&#x27;科目&#x27;</span>]),</span><br><span class="line">        columns=[<span class="string">&#x27;成绩&#x27;</span>]</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">print(df)</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>其中pd.MultiIndex.from_arrays的第一个参数是一个arrays，即索引的具体信息，放置在第一层的sequence是第一级索引，以此类推。不仅如此我们还可以用names参数给索引命名，像本例给索引命名为姓名和科目。</p><blockquote><p>需要注意的是，如果构建原表的话，姓名和科目是作为属性在columns中命名，但此刻我们将它作为了索引，因此只能在index中构建<br>除了行索引(index)，我们还可以建立列(columns)的多级索引，在此不再重复，感兴趣的读者可以自行尝试。<br>pd.MultiIndex.from_product其实用的是笛卡尔积的原理，例如我们想要向该方法传入&#91;&#91;&#39;A&#39;,&#39;B&#39;&#93;&#91;&#39;C&#39;,&#39;D&#39;&#93;&#93;，最终我们得到的是AC,AD,BC,BD四个索引，在此不做展示了</p></blockquote><p>除了这种方法，我们也可以从原表中设置多级索引，例如在我们获取原表后，可以用如下代码实现多级索引的构建：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建原表的DataFrame</span></span><br><span class="line">...</span><br><span class="line"><span class="comment"># 设置多级索引</span></span><br><span class="line">df.set_index([<span class="string">&#x27;姓名&#x27;</span>, <span class="string">&#x27;科目&#x27;</span>], inplace=<span class="literal">True</span>)</span><br><span class="line">print(df)</span><br><span class="line"></span><br></pre></td></tr></table></figure><h1 id="多级索引的切片"><a href="#多级索引的切片" class="headerlink" title="多级索引的切片"></a>多级索引的切片</h1><p>多级索引的切片和一般索引的切片并无二致，以我们的第一张多级索引表为例，尝试使用以下代码理解：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建第一张多级索引表的DataFrame</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">print(df.loc[<span class="string">&#x27;Mike&#x27;</span>, :])  </span><br><span class="line"><span class="comment"># 科目         </span></span><br><span class="line"><span class="comment"># Math     90</span></span><br><span class="line"><span class="comment"># Chinese  85</span></span><br><span class="line">print(df.loc[<span class="string">&#x27;Mike&#x27;</span>, :].loc[<span class="string">&#x27;Math&#x27;</span>, :])</span><br><span class="line"><span class="comment"># 成绩  90</span></span><br><span class="line"><span class="comment"># Name: (Mike, Math), dtype: int64</span></span><br><span class="line">print(df.loc[(<span class="string">&#x27;Mike&#x27;</span>, <span class="string">&#x27;Math&#x27;</span>), :])  </span><br><span class="line"><span class="comment"># 成绩  90</span></span><br><span class="line"><span class="comment"># Name: (Mike, Math), dtype: int64</span></span><br><span class="line">print(df.iloc[<span class="number">0</span>, :])</span><br><span class="line"><span class="comment"># 成绩  90</span></span><br><span class="line"><span class="comment"># Name: (Mike, Math), dtype: int64</span></span><br><span class="line"></span><br></pre></td></tr></table></figure><blockquote><p>若索引为中文可能会报错，此为pandas中文兼容性问题</p></blockquote><h1 id="多级索引增加行"><a href="#多级索引增加行" class="headerlink" title="多级索引增加行"></a>多级索引增加行</h1><p>在创建多级索引后增加行是pandas中比较bug的一个操作，后续等待修复，但目前为止仅尝试出以下方法是成立的。以我们的第一张多级索引表为例，如果我们想要在Bob的名下加上English的分数86，必须得使用以下代码:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建第一张多级索引表的DataFrame</span></span><br><span class="line">...</span><br><span class="line"><span class="comment"># 正确做法</span></span><br><span class="line">df.loc[(<span class="string">&#x27;Bob&#x27;</span>, <span class="string">&#x27;English&#x27;</span>), :] = <span class="number">86</span></span><br><span class="line"><span class="comment"># 错误做法(这些做法是将原表做了copy操作，但实际上原表并未修改)</span></span><br><span class="line">df.loc[(<span class="string">&#x27;Bob&#x27;</span>, <span class="string">&#x27;English&#x27;</span>), :] = <span class="number">86</span></span><br><span class="line">df.loc[(<span class="string">&#x27;Bob&#x27;</span>, <span class="string">&#x27;English&#x27;</span>)] = <span class="number">86</span></span><br><span class="line">df.loc[<span class="string">&#x27;Bob&#x27;</span>, :].loc[<span class="string">&#x27;English&#x27;</span>, :] = <span class="number">86</span></span><br></pre></td></tr></table></figure></p><blockquote><p>这可能是一个pandas的一个bug，需要特别注意</p></blockquote><h1 id="说在最后"><a href="#说在最后" class="headerlink" title="说在最后"></a>说在最后</h1><p>一般多级索引不会直接使用，很多情况下我们会在使用了groupby操作后产生多级索引，该篇最初的背景是作者在写毕业论文中遇到的一个小问题，虽然问题很小，但确实困扰了很久，因此特地记录一下。</p>]]></content>
+      
+      
       <categories>
-        <category>Bayesian Data Analysis</category>
+          
+          <category> DataFrame </category>
+          
       </categories>
-      <tags>
-        <tag>Bayesian Data Analysis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Bayesian Data Analysis（一）：概率与推断</title>
-    <url>/2021/11/27/20211127_Bayesian-Data-Analysis%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%A6%82%E7%8E%87%E4%B8%8E%E6%8E%A8%E6%96%AD%20copy/</url>
-    <content><![CDATA[<h1 id="贝叶斯数据分析的三个步骤："><a href="#贝叶斯数据分析的三个步骤：" class="headerlink" title="贝叶斯数据分析的三个步骤："></a>贝叶斯数据分析的三个步骤：</h1><ol>
-<li>建立起一个<strong>全概率模型</strong>。问题中所有观测样本和未观测样本的联合概率密度。模型必须与科学研究问题蕴含的知识以及数据收集过程相关</li>
-<li>基于观测样本进行条件化。计算和解释合适的<strong>后验分布</strong>——在给定观测样本的条件下，关于未观测样本的条件概率分布</li>
-<li>评估模型拟合情况和结果后验分布的启示。模型是否很好地拟合了数据？实质性结论是否可信？以及模型对于前面的假设1（数据拟合程度）的敏感性如何？最终，如果不满足其一都有可能让我们修改和拓展模型，然后重新完成这三个步骤。</li>
-</ol>
-<h1 id="符号和统计推断"><a href="#符号和统计推断" class="headerlink" title="符号和统计推断"></a>符号和统计推断</h1><h2 id="两种未观测到的估计：统计推断中的未观测数据"><a href="#两种未观测到的估计：统计推断中的未观测数据" class="headerlink" title="两种未观测到的估计：统计推断中的未观测数据"></a>两种未观测到的估计：统计推断中的未观测数据</h2><ol>
-<li>潜在的观测数据（比如未来实验中会出现的，或当前实验结果未出现的）</li>
-<li>数据无法被直接观测到的，比如控制着观察数据产生的假设过程的参数（比如回归估计的系数）<h2 id="参数、数据和预测"><a href="#参数、数据和预测" class="headerlink" title="参数、数据和预测"></a>参数、数据和预测</h2>在全系列，我们使用$\theta$表示为我们关注的观测的向量或总体参数（比如每个实验中病人的生存概率），$y$表示为我们的观测数据（比如每个实验组中病人生存和死亡的数量），$\widetilde{y}$表示为我们未知的或潜在的观测数据（比如每个实验中病人的生存概率）。同时约定希腊字母表示参数。小写罗马字母表示观测或未观测的标量或向量（向量为列向量），大写罗马字母表示矩阵。不加说明$p$表示概率密度，$F$表示累计概率分布，$Pr$表示累计概率。<h2 id="可交换性"><a href="#可交换性" class="headerlink" title="可交换性"></a>可交换性</h2>对于一个有$n$个值的不确定性表述$p(y_{1}, \cdots, y_{n})$，我们认为每一个下标都是可交换的，也就是说不会收到样本顺序的影响。通常情况下我们认为$y_{i}$是满足iid假设的</li>
-</ol>
-<h1 id="贝叶斯推断"><a href="#贝叶斯推断" class="headerlink" title="贝叶斯推断"></a>贝叶斯推断</h1><h2 id="贝叶斯公式"><a href="#贝叶斯公式" class="headerlink" title="贝叶斯公式"></a>贝叶斯公式</h2><p>从全概率公式出发，我们知道$\theta$和$y$的联合概率分布可以表达为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-p(\theta, y) = p(\theta)p(y \mid \theta)
-\end{align*}</script><p>如果给定观测数据$y$，应用我们的贝叶斯法则，可以将<strong>后验密度分布</strong>表示为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-p(\theta \mid y) = \frac{p(\theta, y)}{p(y)} = \frac{p(\theta)p(y \mid \theta)}{p(y)}
-\end{align*}</script><p>其中$p(y)=\sum_{\theta}p(\theta)p(y \mid \theta)$（连续情形下为$p(y)=\int_{\theta}p(\theta)p(y \mid \theta)$）</p>
-<p>由于给定了观测数据，因此我们可以认为观测数据$y$的<strong>边缘概率密度</strong>仅仅起到一个调节作用，也就是说</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-p(\theta \mid y) \propto p(\theta)p(y \mid \theta)
-\end{align*}</script><h2 id="后验预测分布"><a href="#后验预测分布" class="headerlink" title="后验预测分布"></a>后验预测分布</h2><p>我们假定未来想要观测数据$\widetilde{y}$出现的可能的分布，我们可以表示为$p(\widetilde{y} \mid y)$，根据贝叶斯法则，在连续情形下可以表示为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-p(\widetilde{y} \mid y) &= \int p(\widetilde{y}, \theta \mid y) d\theta\\
-&= \int p(\widetilde{y} \mid y, \theta) p(\theta \mid y) d\theta\\
-&= \int p(\widetilde{y} \mid \theta) p(\theta \mid y) d\theta \quad \mbox{(未观测数据的抽取与已观测数据无关，iid假设)}\\
-\end{align*}</script><p>第2、3行表示后验预测分布可以看成是在$\theta$的后验分布下的条件预测值的平均</p>
-<h2 id="贝叶斯因子"><a href="#贝叶斯因子" class="headerlink" title="贝叶斯因子"></a>贝叶斯因子</h2><p>贝叶斯因子提供了比较后验分布的好坏的方式，其表达为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-\frac{p(\theta_{1} \mid y)}{p(\theta_{2} \mid y)} 
-= \frac{p(\theta_{1})p(y \mid \theta_{1})/p(y)}{p(\theta_{2})p(y \mid \theta_{2})/p(y)}
-=\frac{p(\theta_{1})p(y \mid \theta_{1})}{p(\theta_{2})p(y \mid \theta_{2})}
-=\frac{p(\theta_{1})}{p(\theta_{2})}\frac{p(y \mid \theta_{1})}{p(y \mid \theta_{2})}
-\end{align*}</script><p>$\frac{p(\theta_{1})}{p(\theta_{2})}$是$\theta$的先验分布比，$\frac{p(\theta_{1} \mid y)}{p(\theta_{2} \mid y)} $是后验分布比</p>
-<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="均值与方差"><a href="#均值与方差" class="headerlink" title="均值与方差"></a>均值与方差</h2><p>假定存在随机变量$u$和$v$，且两个变量具有相关性，考虑连续情形。随机变量$u$的期望和方差可以表示为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-E(u) &= \int up(u)du\\
-var(u) &=  \int (u-E(u))^{2}du = E(u^{2})-(E(u))^{2}
-\end{align*}</script><p>若随机变量$u$为向量形式，那么协方差矩阵可以表示为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-cov(u) &=  \int (u-E(u))(u-E(u))^{T}du
-\end{align*}</script><p>期望迭代公式：在给定$v$的边缘分布情形下</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-E(u) &= \iint up(u,v)dudv\\
-&= \iint up(u \mid v) p(v) dudv\\
-&= \int_{v} E(u \mid v) p(v) dv\\
-&= E_{v}(E_{u}(u \mid v))
-\end{align*}</script><p>同时关于方差，我们可以表示为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-var(u) &= E(u^{2})-(E(u))^{2}\\
-&= E(u^{2})-E\{(E(u \mid v))^{2}\}+E\{(E(u \mid v))^{2}\}-(E(u))^{2}\\
-&= E\{E(u^{2} \mid v)\}-E\{(E(u \mid v))^{2}\}+E\{(E(u \mid v))^{2}\}-(E\{E(u \mid v)\})^{2} \quad \mbox{（应用上面的期望迭代公式）}\\
-&= E\{E(u^{2} \mid v)-(E(u \mid v))^{2}\}+(E\{(E(u \mid v))^{2}\}-(E\{E(u \mid v)\})^{2})\\
-&= E(var(u \mid v)) + var(E(u \mid v))\\
-\end{align*}</script>]]></content>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> Dataframe </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Python实现线性回归</title>
+      <link href="/2021/01/01/20210101_Python%E5%AE%9E%E7%8E%B0%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/"/>
+      <url>/2021/01/01/20210101_Python%E5%AE%9E%E7%8E%B0%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/</url>
+      
+        <content type="html"><![CDATA[<h1 id="最小二乘法求解线性回归的基本原理"><a href="#最小二乘法求解线性回归的基本原理" class="headerlink" title="最小二乘法求解线性回归的基本原理"></a>最小二乘法求解线性回归的基本原理</h1><p>如果一组自变量$x$和因变量$y$存在线性关系，那么可以用如下方程表示他们的线性关系：</p><script type="math/tex; mode=display">y_{i}=b_{0}+b_{1}x_{i1}+b_{2}x_{i2}+\dots++b_{p}x_{ip}+\epsilon_{i} \tag{1} \label{eq1}</script><p>其中$i$表示第$i$个方程，$\epsilon_{i}$是随机误差且满足$\epsilon_{i} \sim N(0, \sigma^{2})$。</p><p>如果把$y_{i}$看成关于是$\epsilon_{i}$的随机变量，那么由$\epsilon_{i}$的性质，可以得到如下关系：</p><script type="math/tex; mode=display">E(y_{i}|x_{i1}, x_{i2}, x_{ip})=b_{0}+b_{1}x_{i1}+b_{2}x_{i2}+\dots++b_{p}x_{ip} \tag{2} \label{eq2}</script><p>由公式<script type="math/tex">\eqref{eq1}\eqref{eq2}</script>可以得到：</p><script type="math/tex; mode=display">y_{i}=E(y_{i}|x_{i1}, x_{i2}, x_{ip})+\epsilon_{i}</script><p>用矩阵可以表示为</p><script type="math/tex; mode=display">\textbf{y=Xb}+\boldsymbol{\epsilon} \tag{3} \label{eq3}</script><p>其中</p><script type="math/tex; mode=display">\begin{gathered}\textbf{X}=\begin{bmatrix}1    &    x_{11}    &    \dots    &    x_{1p}    \\1    &    x_{21}    &    \dots    &    x_{2p}    \\\dots    &    \dots    &    \dots    &    \dots    \\1    &    x_{n1}    &    \dots    &    x_{np}    \\\end{bmatrix}\end{gathered}，\textbf{y}=(y_{1}, y_{2}, \dots, y_{n})^{T},\boldsymbol{\epsilon} = (\epsilon_{1}, \epsilon_{2}, \dots, \epsilon_{n})^{T}</script><p>线性回归本质上就是在估计公式$\eqref{eq3}$的参数$\textbf{b}$</p><p>对于线性回归，一般来说，最常用的方法便是最小二乘法（至于为什么不直接用$\boldsymbol{X^{-1}y}$来估计$\boldsymbol{b}$可以见另外一篇文章「待定」）</p><p>最小二乘法通过最小化误差（残差）的平方和寻找数据的最佳的函数匹配，使得这些求得的数据与实际数据之间误差的平方和为最小。用数学语言描述为：</p><script type="math/tex; mode=display">\min \quad \boldsymbol{\epsilon^{2}}=(\boldsymbol{y-E(y|X)})^{2} \tag{4} \label{eq4}</script><p>若满足以下2个条件：</p><ol><li>$\boldsymbol{X}$满秩</li><li>$\epsilon_{i}$是随机误差且满足$\epsilon_{i} \sim N(0, \sigma^{2})$</li></ol><p>则公式$\eqref{eq4}$存在解析解。</p><p>对参数$\textbf{b}$求偏导，并令其等于0:</p><script type="math/tex; mode=display">\frac{\partial \boldsymbol{\epsilon^{2}}}{\partial \boldsymbol{b}}=2\boldsymbol{X^{T}(y-Xb)} \tag{5} \label{eq5}\\\frac{\partial \boldsymbol{\epsilon^{2}}}{\partial \boldsymbol{b}}=0\\</script><p>解出：</p><script type="math/tex; mode=display">\boldsymbol{b}=\boldsymbol{(X^{T}X)^{-1}X^{T}y}</script><blockquote><p>若满足以下2个条件：</p><ol><li>$\boldsymbol{X}$满秩</li><li>$\epsilon_{i}$是随机误差且满足$\epsilon_{i} \sim N(0, \sigma^{2})$</li></ol></blockquote><p>该条件是最小二乘法存在解析解的条件，但如果满足以下6个条件：</p><ol><li>参数线性。总体回归模型是线性模型，包括变量线性和参数线性，如</li><li>随机抽样。观测值$(x_{i1}, x_{i2}, \dots, x_{ip}, y_{i})$是对总体的随机抽烟，并且遵循公式$\eqref{eq1}$</li><li>满秩。自变量之间没有完全的线性关系</li><li>零条件均值。随机误差在每个观测点的条件均值为0</li><li>同方差假定。随机干扰项的条件方差固定</li><li>无序列相关性。即不同样本的随机误差取值不相关</li></ol><p>则最小二乘法得到的解析解是BLUE，无需再找其他解析解（高斯-马尔可夫定理）</p><h1 id="常见替代方法的原理及其应用"><a href="#常见替代方法的原理及其应用" class="headerlink" title="常见替代方法的原理及其应用"></a>常见替代方法的原理及其应用</h1><p>由求解的原理可以得知使用解析解估计线性模型参数$\boldsymbol{b}$的重要条件之一便是$\boldsymbol{X}$满秩，但在实际应用中我们常常遇到这两种情况：</p><ol><li>模型线性程度低</li><li>$\boldsymbol{X}$不满秩，即存在共线性问题</li></ol><p>因此解析解通常难以进行实际应用，下面将介绍几种常用的替代方法，用于解决实际的线性回归问题</p><h2 id="梯度下降法（Gradient-Descent-GD）"><a href="#梯度下降法（Gradient-Descent-GD）" class="headerlink" title="梯度下降法（Gradient Descent, GD）"></a>梯度下降法（Gradient Descent, GD）</h2><p>梯度的本意是一个向量（矢量），表示某一函数在该点处的方向导数沿着该方向取得最大值，即函数在该点处沿着该方向（此梯度的方向）变化最快，变化率最大（为该梯度的模）<a href="#refer-anchor-1"><sup>1</sup></a></p><p>该方法要解决的问题依旧是$\eqref{eq4}$，由梯度的定义不难看出，$\eqref{eq5}$便是梯度的计算公式，与求解析解不同的是，梯度下降法通过迭代来逼近最优解，其迭代公式如下：</p><script type="math/tex; mode=display">\boldsymbol{b}=\boldsymbol{b}-\lambda \nabla_{b}\boldsymbol{\epsilon^{2}}</script><p>其中$\lambda$称为<strong>步长或者学习率</strong>，$\boldsymbol{\epsilon^{2}}=2\boldsymbol{X^{T}(y-Xb)} $，2只是常数，不影响迭代结果，可以改变成其他任意常数</p><p>如果非凸规划问题，则梯度下降法不一定找到全剧最优解而是陷入局部最优解。</p><p>根据使用样本的方法不同，梯度下降法常分为以下几种：</p><h3 id="批量梯度下降法（Batch-Gradient-Descent-BGD）"><a href="#批量梯度下降法（Batch-Gradient-Descent-BGD）" class="headerlink" title="批量梯度下降法（Batch Gradient Descent, BGD）"></a>批量梯度下降法（Batch Gradient Descent, BGD）</h3><p>批量梯度下降法在计算优化函数的梯度时利用<strong>全部样本数据</strong></p><p>迭代过程如下：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(max_iters):</span><br><span class="line">grad = gradient(loss_function, y, x, b_old)</span><br><span class="line">b_new = b_old - <span class="keyword">lambda</span>* grad</span><br><span class="line"><span class="keyword">if</span> distance(b_new, b_old) &lt; sup:</span><br><span class="line">end</span><br><span class="line">end</span><br></pre></td></tr></table></figure><p>其中sup为收敛精度</p><h3 id="随机梯度下降（Stochastic-Gradient-Descent-SGD）"><a href="#随机梯度下降（Stochastic-Gradient-Descent-SGD）" class="headerlink" title="随机梯度下降（Stochastic Gradient Descent, SGD）"></a>随机梯度下降（Stochastic Gradient Descent, SGD）</h3><p>随机梯度下降法在计算优化函数的梯度时利用随机选择的<strong>一个样本数据</strong></p><p>迭代过程如下：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(max_iters):</span><br><span class="line">  x = get_batch(x, <span class="number">1</span>)</span><br><span class="line">    y = get_batch(y, <span class="number">1</span>)</span><br><span class="line">grad = gradient(loss_function, y, x, b_old)</span><br><span class="line">b_new = b_old - <span class="keyword">lambda</span>* grad</span><br><span class="line"><span class="keyword">if</span> distance(b_new, b_old) &lt; sup:</span><br><span class="line">end</span><br><span class="line">end</span><br></pre></td></tr></table></figure><p>其中sup为收敛精度</p><h3 id="小批量梯度下降法（Mini-batch-Gradient-Descent-MBGD）"><a href="#小批量梯度下降法（Mini-batch-Gradient-Descent-MBGD）" class="headerlink" title="小批量梯度下降法（Mini-batch Gradient Descent, MBGD）"></a>小批量梯度下降法（Mini-batch Gradient Descent, MBGD）</h3><p>小批量梯度下降法在计算优化函数的梯度时利用随机选择的<strong>一部分样本数据</strong>，SGD实际上是MBGD的一个特例：</p><p>迭代过程如下：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(max_iters):</span><br><span class="line">  x = get_batch(x, batch_size)</span><br><span class="line">    y = get_batch(y, batch_size)</span><br><span class="line">grad = gradient(loss_function, y, x, b_old)</span><br><span class="line">b_new = b_old - <span class="keyword">lambda</span>* grad</span><br><span class="line"><span class="keyword">if</span> distance(b_new, b_old) &lt; sup:</span><br><span class="line">end</span><br><span class="line">end</span><br></pre></td></tr></table></figure><p>其中sup为收敛精度</p><p>一般来说，我们常用MBGD而不是SGD</p><h3 id="梯度下降法方法比较"><a href="#梯度下降法方法比较" class="headerlink" title="梯度下降法方法比较"></a>梯度下降法方法比较</h3><div class="table-container"><table><thead><tr><th></th><th>BGD</th><th>SGD</th><th>MBGD</th></tr></thead><tbody><tr><td>优点</td><td></td><td></td><td></td></tr><tr><td>缺点</td><td></td><td></td></tr></tbody></table></div><h3 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h3><p>数据集：Automobile.csv(Stata附带数据集)</p><p>属性数：12</p><p>数据预览：</p><div class="table-container"><table><thead><tr><th><strong>price</strong></th><th><strong>mpg</strong></th><th><strong>rep78</strong></th><th><strong>headroom</strong></th><th><strong>trunk</strong></th><th><strong>weight</strong></th></tr></thead><tbody><tr><td>4099</td><td>22</td><td>3</td><td>2.5</td><td>11</td><td>2930</td></tr><tr><td>4749</td><td>17</td><td>3</td><td>3</td><td>11</td><td>3350</td></tr><tr><td>3799</td><td>22</td><td></td><td>3</td><td>12</td><td>2640</td></tr><tr><td>4816</td><td>20</td><td>3</td><td>4.5</td><td>16</td><td>3250</td></tr><tr><td>7827</td><td>15</td><td>4</td><td>4</td><td>20</td><td>4080</td></tr><tr><td>5788</td><td>18</td><td>3</td><td>4</td><td>21</td><td>3670</td></tr></tbody></table></div><p>为方便起见，我们以price为因变量，mpg为自变量拟合线性模型</p><p>首先先看下散点图（stata）：</p><p><img src="../images/20210101_Python实现线性回归_1.png" alt="avatar"></p><p><strong>批量梯度下降法代码</strong></p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> scipy.spatial <span class="keyword">import</span> distance</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinearRegression</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__add_constant</span>(<span class="params">self, x, constant=<span class="literal">True</span>, predict=<span class="literal">False</span></span>):</span></span><br><span class="line">        <span class="keyword">if</span> x.ndim == <span class="number">1</span>:</span><br><span class="line">            x.shape = (<span class="built_in">len</span>(x), <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> constant:</span><br><span class="line">            cons = np.ones(<span class="built_in">len</span>(x))</span><br><span class="line">            cons.shape = (<span class="built_in">len</span>(x), <span class="number">1</span>)</span><br><span class="line">            x = np.hstack([cons, x])</span><br><span class="line">        <span class="keyword">elif</span> <span class="keyword">not</span> constant:</span><br><span class="line">            cons = np.zeros(<span class="built_in">len</span>(x))</span><br><span class="line">            cons.shape = (<span class="built_in">len</span>(x), <span class="number">1</span>)</span><br><span class="line">            x = np.hstack([cons, x])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> predict:</span><br><span class="line">            self.x_new = x</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__gradient_descent</span>(<span class="params">self, y, x, learning_rate=<span class="number">1e-8</span>, epsilon=<span class="number">1e-20</span>, max_iter=<span class="number">1000000</span></span>):</span></span><br><span class="line">        <span class="comment"># theta是回归系数向量</span></span><br><span class="line">        <span class="comment"># 不直接使用最小二乘法的原因是有可能x不满秩，无法求出其逆矩阵，而梯度下降法本质上和最小二乘法相同，因此使用该近似方法</span></span><br><span class="line">        np.random.seed(<span class="number">20000</span>)</span><br><span class="line">        theta = np.random.randn(x.shape[<span class="number">1</span>])</span><br><span class="line">        theta.shape = (<span class="built_in">len</span>(theta), <span class="number">1</span>)</span><br><span class="line">        y.shape = (<span class="built_in">len</span>(y), <span class="number">1</span>)</span><br><span class="line">        error = np.zeros(x.shape[<span class="number">1</span>])</span><br><span class="line">        theta.dtype = np.float_</span><br><span class="line">        st1 = []</span><br><span class="line">        st2 = []</span><br><span class="line">        <span class="keyword">for</span> <span class="built_in">iter</span> <span class="keyword">in</span> <span class="built_in">range</span>(max_iter):</span><br><span class="line">            sum_error = x.transpose().dot(x.dot(theta) - y) / (<span class="number">2</span> * x.shape[<span class="number">0</span>])</span><br><span class="line">            sum_error.dtype = np.float_</span><br><span class="line"></span><br><span class="line">            theta -= learning_rate * sum_error</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> distance.euclidean(theta, error) &lt; epsilon:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                error = theta.copy()</span><br><span class="line">                st1.append(<span class="built_in">abs</span>(sum_error[<span class="number">0</span>]))</span><br><span class="line">                st2.append(<span class="built_in">abs</span>(sum_error[<span class="number">1</span>]))</span><br><span class="line">        </span><br><span class="line">        a = np.array(<span class="built_in">list</span>(<span class="built_in">range</span>(<span class="built_in">iter</span>+<span class="number">1</span>)))</span><br><span class="line">        b = np.array(st1)</span><br><span class="line">        c = np.array(st2)</span><br><span class="line">        print(a.shape, b.shape)</span><br><span class="line">        fig = plt.figure(<span class="number">1</span>)</span><br><span class="line">        <span class="comment"># plt.plot(a, b)</span></span><br><span class="line">        plt.plot(a, c, c=<span class="string">&#x27;g&#x27;</span>)</span><br><span class="line">        plt.show()</span><br><span class="line">        </span><br><span class="line">        self.theta = theta</span><br><span class="line">        y_pre = x.dot(theta)</span><br><span class="line">        y_pre.dtype = np.float_</span><br><span class="line">        self.y_pre = y_pre</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__residual</span>(<span class="params">self, y, y_pre</span>):</span></span><br><span class="line">        self.res = y - y_pre</span><br><span class="line">        self.res.dtype = np.float_</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__r_square</span>(<span class="params">self, y, y_pre</span>):</span></span><br><span class="line">        sst = (y - y.mean()).transpose().dot((y - y.mean()))[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">        sse = (y_pre - y.mean()).transpose().dot((y_pre - y.mean()))[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># ssr = sst - sse</span></span><br><span class="line">        ssr = (y - y_pre).transpose().dot((y - y_pre))[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">        print(<span class="string">&quot;y.mean():&quot;</span>, y.mean())</span><br><span class="line">        print(sst)</span><br><span class="line">        print(sse)</span><br><span class="line">        print(ssr)</span><br><span class="line"></span><br><span class="line">        self.r2 = sse / sst</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">durbin_waston</span>(<span class="params">self</span>):</span></span><br><span class="line">        error_1 = self.res[<span class="number">1</span>:]</span><br><span class="line">        error_0 = self.res[:-<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">        error_s = error_1 - error_0</span><br><span class="line">        error_s.dtype = np.float_</span><br><span class="line">        error_s_sum = error_s.transpose().dot(error_s)</span><br><span class="line"></span><br><span class="line">        error_sum = self.res.transpose().dot(self.res)</span><br><span class="line"></span><br><span class="line">        dw = error_s_sum / error_sum</span><br><span class="line"></span><br><span class="line">        self.dw = dw[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fit</span>(<span class="params">self, y, x, constant=<span class="literal">True</span>, learning_rate=<span class="number">1e-6</span>, epsilon=<span class="number">1e-8</span>, max_iter=<span class="number">300000</span></span>):</span></span><br><span class="line">        y.shape = (<span class="built_in">len</span>(y), <span class="number">1</span>)</span><br><span class="line">        self.iscons = constant</span><br><span class="line">        self.x = x</span><br><span class="line">        self.y = y</span><br><span class="line">        x_new = self.__add_constant(x, constant)</span><br><span class="line"></span><br><span class="line">        self.__gradient_descent(y, x_new, constant, learning_rate, epsilon, max_iter)</span><br><span class="line">        </span><br><span class="line">        self.__residual(y, self.y_pre)</span><br><span class="line">        self.__r_square(y, self.y_pre)</span><br><span class="line">        self.durbin_waston()</span><br><span class="line">        <span class="comment"># fig = plt.figure(1)</span></span><br><span class="line">        <span class="comment"># plt.scatter(x, y, c=&#x27;g&#x27;)</span></span><br><span class="line">        <span class="comment"># plt.plot(x, self.y_pre)</span></span><br><span class="line">        <span class="comment"># plt.show()</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">regression_report</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            print(<span class="string">&quot;residual:&quot;</span>, self.res)</span><br><span class="line">            print(<span class="string">&quot;intercept = &#123;&#125;, slope = &#123;&#125;&quot;</span>.<span class="built_in">format</span>(self.theta[<span class="number">0</span>], self.theta[<span class="number">1</span>:]))</span><br><span class="line">            print(<span class="string">&quot;r_square = &#123;&#125;&quot;</span>.<span class="built_in">format</span>(self.r2))</span><br><span class="line">            print(<span class="string">&quot;dw = &#123;&#125;&quot;</span>.<span class="built_in">format</span>(self.dw))</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">raise</span> Exception(<span class="string">&quot;please fit a regression model&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">predict</span>(<span class="params">self, x_test</span>):</span></span><br><span class="line">        x_test = self.__add_constant(x_test, self.iscons, <span class="literal">True</span>)</span><br><span class="line">        <span class="keyword">return</span> x_test.dot(self.theta)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    lm = LinearRegression()</span><br><span class="line">    df = pd.read_csv(<span class="string">&quot;Automobile.csv&quot;</span>)</span><br><span class="line">    df = df.fillna(axis=<span class="number">0</span>, method=<span class="string">&#x27;ffill&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    x = df[[<span class="string">&#x27;mpg&#x27;</span>]]</span><br><span class="line">    y = df[<span class="string">&#x27;price&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    x = x.values</span><br><span class="line">    y = y.values</span><br><span class="line">    lm.fit(y, x)</span><br><span class="line">    lm.regression_report()</span><br></pre></td></tr></table></figure><p>设置学习率为1e-6，收敛精度为1e-8，最大迭代次数为300000</p><p>代码运行结果：</p><p>误差的收敛情况：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> scipy.spatial <span class="keyword">import</span> distance</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinearRegression</span>:</span></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__stochastic_gradient_descent</span>(<span class="params">self, y, x, learning_rate=<span class="number">1e-8</span>, epsilon=<span class="number">1e-20</span>, max_iter=<span class="number">1000000</span>, batch=<span class="number">64</span></span>):</span></span><br><span class="line">        <span class="comment"># theta是回归系数向量</span></span><br><span class="line">        <span class="comment"># 不直接使用最小二乘法的原因是有可能x不满秩，无法求出其逆矩阵，而梯度下降法本质上和最小二乘法相同，因此使用该近似方法</span></span><br><span class="line">        np.random.seed(<span class="number">20000</span>)</span><br><span class="line">        theta = np.random.randn(x.shape[<span class="number">1</span>])</span><br><span class="line">        theta.shape = (<span class="built_in">len</span>(theta), <span class="number">1</span>)</span><br><span class="line">        y.shape = (<span class="built_in">len</span>(y), <span class="number">1</span>)</span><br><span class="line">        </span><br><span class="line">        error = np.zeros(x.shape[<span class="number">1</span>])</span><br><span class="line">        theta.dtype = np.float_</span><br><span class="line">        st1 = []</span><br><span class="line">        st2 = []</span><br><span class="line">        print(<span class="built_in">type</span>(max_iter), max_iter)</span><br><span class="line">        <span class="keyword">for</span> <span class="built_in">iter</span> <span class="keyword">in</span> <span class="built_in">range</span>(max_iter):</span><br><span class="line">            b = np.random.choice(x.shape[<span class="number">0</span>], batch)</span><br><span class="line">            random_x = x[b]</span><br><span class="line">            random_y = y[b]</span><br><span class="line">            </span><br><span class="line">            sum_error = random_x.transpose().dot(random_x.dot(theta) - random_y) / (<span class="number">2</span> * random_x.shape[<span class="number">0</span>])</span><br><span class="line">            sum_error.dtype = np.float_</span><br><span class="line"></span><br><span class="line">            theta -= learning_rate * sum_error</span><br><span class="line">            print(<span class="string">&quot;sum_error:&quot;</span>, sum_error)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> distance.euclidean(theta, error) &lt; epsilon:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                error = theta.copy()</span><br><span class="line">                st1.append(<span class="built_in">abs</span>(sum_error[<span class="number">0</span>]))</span><br><span class="line">                st2.append(<span class="built_in">abs</span>(sum_error[<span class="number">1</span>]))</span><br><span class="line">        </span><br><span class="line">        a = np.array(<span class="built_in">list</span>(<span class="built_in">range</span>(<span class="built_in">iter</span>+<span class="number">1</span>)))</span><br><span class="line">        b = np.array(st1)</span><br><span class="line">        c = np.array(st2)</span><br><span class="line">        </span><br><span class="line">        fig = plt.figure(<span class="number">1</span>)</span><br><span class="line">        plt.plot(a, c, c=<span class="string">&#x27;g&#x27;</span>)</span><br><span class="line">        plt.show()</span><br><span class="line">        self.theta = theta</span><br><span class="line">        y_pre = x.dot(theta)</span><br><span class="line">        y_pre.dtype = np.float_</span><br><span class="line">        self.y_pre = y_pre</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">    lm = LinearRegression()</span><br><span class="line">    df = pd.read_csv(<span class="string">&quot;Automobile.csv&quot;</span>)</span><br><span class="line">    df = df.fillna(axis=<span class="number">0</span>, method=<span class="string">&#x27;ffill&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    x = df[[<span class="string">&#x27;mpg&#x27;</span>]]</span><br><span class="line">    y = df[<span class="string">&#x27;price&#x27;</span>]</span><br><span class="line"></span><br><span class="line">    x = x.values</span><br><span class="line">    y = y.values</span><br><span class="line">    lm.fit(y, x)</span><br><span class="line">    lm.regression_report()</span><br></pre></td></tr></table></figure><p>设置学习率为1e-6，收敛精度为1e-8，最大迭代次数为300000</p><p>代码运行结果：</p><p>误差的收敛情况：</p><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><div id="refer-anchor-1"></div></p><ul><li>[1]  <a href="https://baike.baidu.com/item/梯度/13014729?fr=aladdin">百度百科-梯度</a></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> statistics </tag>
+            
+            <tag> linear regression </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>hexo转义符号</title>
+      <link href="/2020/12/27/20201227_Hexo%E8%BD%AC%E4%B9%89%E7%AC%A6%E5%8F%B7/"/>
+      <url>/2020/12/27/20201227_Hexo%E8%BD%AC%E4%B9%89%E7%AC%A6%E5%8F%B7/</url>
+      
+        <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">符号 转义字符             说明</span><br><span class="line">!    &amp;#33;              惊叹号</span><br><span class="line">”    &amp;#34;(&quot;)           双引号</span><br><span class="line">#    &amp;#35;              数字标志</span><br><span class="line">$    &amp;#36;              美元标志</span><br><span class="line">%    &amp;#37;              百分号</span><br><span class="line">&amp;    &amp;#38;(&amp;)           和</span><br><span class="line">‘    &#39;                  单引号</span><br><span class="line">(    &amp;#40;              小括号左边部分</span><br><span class="line">)    &amp;#41;              小括号右边部分</span><br><span class="line">*    &amp;#42;              星号</span><br><span class="line">+    &amp;#43;              加号</span><br><span class="line">&lt;    &amp;#60;(&lt;)           小于号</span><br><span class="line">&#x3D;    &amp;#61;              等于符号</span><br><span class="line">-    &amp;#45;(&amp;minus;)     减号</span><br><span class="line">&gt;    &amp;#62;(&gt;)           大于号</span><br><span class="line">?    &amp;#63;              问号</span><br><span class="line">@    &amp;#64;              Commercial at</span><br><span class="line">[    &amp;#91;              中括号左边部分</span><br><span class="line">\    &amp;#92;              反斜杠        </span><br><span class="line">]    &amp;#93;              中括号右边部分</span><br><span class="line">&#123;    &amp;#123;             大括号左边部分</span><br><span class="line">|    &amp;#124;             竖线</span><br><span class="line">&#125;    &amp;#125;             大括号右边部分</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
       <categories>
-        <category>Bayesian Data Analysis</category>
+          
+          <category> hexo </category>
+          
       </categories>
-      <tags>
-        <tag>Bayesian Data Analysis</tag>
-      </tags>
-  </entry>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> blog </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>hexo搭建过程存在的问题以及对应的解决办法(Mac OS)</title>
+      <link href="/2020/12/27/20201227_Hexo%E6%9C%AC%E5%9C%B0%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E9%97%AE%E9%A2%98%E9%9B%86/"/>
+      <url>/2020/12/27/20201227_Hexo%E6%9C%AC%E5%9C%B0%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E9%97%AE%E9%A2%98%E9%9B%86/</url>
+      
+        <content type="html"><![CDATA[<h1 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h1><hr><p>MacBook Pro (16-inch, 2019)<br><strong>Processor</strong>：2.3 GHz 8-Core Intel Core i9<br><strong>Memory</strong>：16GB 2667 MHz DDR4<br><strong>Graphics</strong>：AMD Radeon Pro 5500M &amp;Intel UHD Graphics 630 1536 MB</p><h1 id="用hexo搭建本地博客的基本步骤"><a href="#用hexo搭建本地博客的基本步骤" class="headerlink" title="用hexo搭建本地博客的基本步骤"></a>用hexo搭建本地博客的基本步骤</h1><h2 id="1-安装Homebrew套件"><a href="#1-安装Homebrew套件" class="headerlink" title="1. 安装Homebrew套件"></a>1. 安装Homebrew套件</h2><hr><ul><li>官方安装命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/ruby -e <span class="string">&quot;<span class="subst">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>&quot;</span></span><br></pre></td></tr></table></figure></li><li>如遇到网速过慢的情况，可点击这里参看解决办法</li></ul><h2 id="2-安装Node-js"><a href="#2-安装Node-js" class="headerlink" title="2. 安装Node.js"></a>2. 安装Node.js</h2><hr><ul><li>安装命令<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install node </span><br></pre></td></tr></table></figure></li></ul><h2 id="3-安装Hexo"><a href="#3-安装Hexo" class="headerlink" title="3. 安装Hexo"></a>3. 安装Hexo</h2><hr><ul><li>安装命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure></li><li>如遇到网速过慢的情况，可点击这里参看解决办法</li></ul><h2 id="4-配置Hexo"><a href="#4-配置Hexo" class="headerlink" title="4. 配置Hexo"></a>4. 配置Hexo</h2><hr><ul><li>在任意位置创建存放本地博客的文件夹，现假定在/Users/user下<ul><li>创建文件夹命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir &lt;your folder name&gt;</span><br></pre></td></tr></table></figure></li></ul></li><li>进入博客文件夹：<ul><li>命令： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> &lt;your folder name&gt;</span><br></pre></td></tr></table></figure></li></ul></li><li>依次键入以下命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo init</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure></li><li>例外情况：<ul><li>若hexo版本为5.0及以上，安装部分主题会提示：&#34;&#123;&#37; extends &#39;_layout.swig&#39; &#37;&#125; &#123;&#37; import &#39;_macro/post.swig&#39; as post_template &#37;&#125;&#34;<ul><li>原因：swig需要自己手动安装(博主自己的版本为4.2.0，依旧需要手动安装)</li><li>解决办法：在博客文件夹下键入命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-renderer-swig</span><br></pre></td></tr></table></figure></li></ul></li></ul></li><li>搭建成功的目录：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">   .</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure></li></ul><h2 id="5-测试博客"><a href="#5-测试博客" class="headerlink" title="5. 测试博客"></a>5. 测试博客</h2><hr><ul><li>使用命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo s --debug  //启动hexo服务器，提示可以从localhost:4000访问，整个过程都可以看到调试信息</span><br></pre></td></tr></table></figure></li></ul><h2 id="6-Hexo常用命令"><a href="#6-Hexo常用命令" class="headerlink" title="6. Hexo常用命令"></a>6. Hexo常用命令</h2><hr>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">hexo init       //将当前目录初始化为hexo站点</span><br><span class="line">hexo new &lt;new blog name&gt;   //新建一篇文章。如无特殊设置会放在/<span class="built_in">source</span>/_posts中</span><br><span class="line">hexo new page &lt;new page name&gt;  //新建一个网页。生成网页后的路径将在执行命令后显示，一般在/<span class="built_in">source</span>中</span><br><span class="line">default_layout 参数代替。如果标题包含空格的话，请使用引号括起来。</span><br><span class="line">hexo clean      // 清除缓存，如果对本地文件做了修改，同步到远程验证修改的效果之前，先clean，清除缓存</span><br><span class="line">hexo generate   // 简写hexo g，根据markdown文件生成静态文件</span><br><span class="line">hexo server     // 简写hexo s，启动本地hexo 服务器，默认localhost:4000可以访问</span><br><span class="line">hexo deploy     // 简写hexo d，将本地修改，部署到远端</span><br><span class="line">hexo version    // 简写hexo v，显示hexo版本</span><br></pre></td></tr></table></figure><h1 id="问题集"><a href="#问题集" class="headerlink" title="问题集"></a>问题集</h1><hr><h2 id="1-npm下载速度慢"><a href="#1-npm下载速度慢" class="headerlink" title="1. npm下载速度慢"></a>1. npm下载速度慢</h2><hr><p>原因：国内网下载国外数据<br>解决办法：更换镜像<br>三种方式：</p><ol><li>通过config命令<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry https://registry.npm.taobao.org –global </span><br><span class="line">npm config <span class="built_in">set</span> disturl https://npm.taobao.org/dist –global</span><br></pre></td></tr></table></figure></li><li>命令行指定(推荐)<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm –registry https://registry.npm.taobao.org info underscore</span><br></pre></td></tr></table></figure></li><li>编辑 ~/.npmrc 加入下面内容<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">registry = https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure><h2 id="2-categories和tags页面不显示"><a href="#2-categories和tags页面不显示" class="headerlink" title="2. categories和tags页面不显示"></a>2. categories和tags页面不显示</h2></li></ol><hr><p>原因：默认不显示categories和tags页面，<br>解决办法：如果需要的话需要利用上面的命令新建，具体做法是(默认现在位置在博客目录下)：</p><ol><li>在博客目录下键入以下命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo new page tags</span><br><span class="line">hexo new page categories</span><br></pre></td></tr></table></figure></li><li>打开source/tags/index.md，添加type: tags，如<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: tags</span><br><span class="line">date: 2020-12-27 03:12:33</span><br><span class="line">type: tags</span><br><span class="line">---</span><br></pre></td></tr></table></figure></li><li>打开source/categories/index.md，添加type: categories，如<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: categories</span><br><span class="line">date: 2020-12-27 03:12:33</span><br><span class="line">type: categories</span><br><span class="line">---</span><br></pre></td></tr></table></figure></li><li>打开scaffolds/draft.md，添加tags: &#123; &#123;tags &#125; &#125;，如:<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">tags: &#123;&#123; tags &#125;&#125;</span><br><span class="line">---</span><br></pre></td></tr></table></figure></li><li>打开scaffolds/post.md，添加tags: &#123; &#123; tags &#125; &#125;，如：<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#123;&#123; title &#125;&#125;</span><br><span class="line">date: &#123;&#123; date &#125;&#125;</span><br><span class="line">tags: &#123;&#123; tags &#125;&#125;</span><br><span class="line">---</span><br></pre></td></tr></table></figure><h2 id="3-写hexo博客时报错Template-render-error-unknown-path"><a href="#3-写hexo博客时报错Template-render-error-unknown-path" class="headerlink" title="3. 写hexo博客时报错Template render error: (unknown path)"></a>3. 写hexo博客时报错Template render error: (unknown path)</h2></li></ol><hr><p>原因：文章中出现了hexo无法转义的字符<br>解决办法：使用转义符号，具体可参见<a href="/2020/12/27/20201227_Hexo转义符号/">Hexo转义字符</a></p><h2 id="4-使用Next主题，按照教程部署，打不开tags和categories"><a href="#4-使用Next主题，按照教程部署，打不开tags和categories" class="headerlink" title="4. 使用Next主题，按照教程部署，打不开tags和categories"></a>4. 使用Next主题，按照教程部署，打不开tags和categories</h2><hr><p>原因：教程有缺陷，出现了多余空格<br>解决办法：打开/themes/next/_config.yml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">   tags: &#x2F; || tags</span><br><span class="line">改为：</span><br><span class="line">menu:</span><br><span class="line">   tags: &#x2F;|| tags</span><br><span class="line">其他同理</span><br></pre></td></tr></table></figure></p><h2 id="5-文章多标签设置"><a href="#5-文章多标签设置" class="headerlink" title="5. 文章多标签设置"></a>5. 文章多标签设置</h2><hr><p>原因：没有参照官方文档<br>解决办法：tags: [tag1,tag2,…,tagn] (推荐)</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> blog </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="/2020/12/27/20201227_hello-world/"/>
+      <url>/2020/12/27/20201227_hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> test </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
 </search>
