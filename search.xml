@@ -81,6 +81,18 @@
       </tags>
   </entry>
   <entry>
+    <title>hexo转义符号</title>
+    <url>/2020/12/27/20201227_Hexo%E8%BD%AC%E4%B9%89%E7%AC%A6%E5%8F%B7/</url>
+    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">符号 转义字符             说明</span><br><span class="line">!    &amp;#33;              惊叹号</span><br><span class="line">”    &amp;#34;(&quot;)           双引号</span><br><span class="line">#    &amp;#35;              数字标志</span><br><span class="line">$    &amp;#36;              美元标志</span><br><span class="line">%    &amp;#37;              百分号</span><br><span class="line">&amp;    &amp;#38;(&amp;)           和</span><br><span class="line">‘    &#39;                  单引号</span><br><span class="line">(    &amp;#40;              小括号左边部分</span><br><span class="line">)    &amp;#41;              小括号右边部分</span><br><span class="line">*    &amp;#42;              星号</span><br><span class="line">+    &amp;#43;              加号</span><br><span class="line">&lt;    &amp;#60;(&lt;)           小于号</span><br><span class="line">&#x3D;    &amp;#61;              等于符号</span><br><span class="line">-    &amp;#45;(&amp;minus;)     减号</span><br><span class="line">&gt;    &amp;#62;(&gt;)           大于号</span><br><span class="line">?    &amp;#63;              问号</span><br><span class="line">@    &amp;#64;              Commercial at</span><br><span class="line">[    &amp;#91;              中括号左边部分</span><br><span class="line">\    &amp;#92;              反斜杠        </span><br><span class="line">]    &amp;#93;              中括号右边部分</span><br><span class="line">&#123;    &amp;#123;             大括号左边部分</span><br><span class="line">|    &amp;#124;             竖线</span><br><span class="line">&#125;    &amp;#125;             大括号右边部分</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>hexo</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>blog</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello World</title>
     <url>/2020/12/27/20201227_hello-world/</url>
     <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
@@ -95,18 +107,6 @@
 ]]></content>
       <tags>
         <tag>test</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hexo转义符号</title>
-    <url>/2020/12/27/20201227_Hexo%E8%BD%AC%E4%B9%89%E7%AC%A6%E5%8F%B7/</url>
-    <content><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">符号 转义字符             说明</span><br><span class="line">!    &amp;#33;              惊叹号</span><br><span class="line">”    &amp;#34;(&quot;)           双引号</span><br><span class="line">#    &amp;#35;              数字标志</span><br><span class="line">$    &amp;#36;              美元标志</span><br><span class="line">%    &amp;#37;              百分号</span><br><span class="line">&amp;    &amp;#38;(&amp;)           和</span><br><span class="line">‘    &#39;                  单引号</span><br><span class="line">(    &amp;#40;              小括号左边部分</span><br><span class="line">)    &amp;#41;              小括号右边部分</span><br><span class="line">*    &amp;#42;              星号</span><br><span class="line">+    &amp;#43;              加号</span><br><span class="line">&lt;    &amp;#60;(&lt;)           小于号</span><br><span class="line">&#x3D;    &amp;#61;              等于符号</span><br><span class="line">-    &amp;#45;(&amp;minus;)     减号</span><br><span class="line">&gt;    &amp;#62;(&gt;)           大于号</span><br><span class="line">?    &amp;#63;              问号</span><br><span class="line">@    &amp;#64;              Commercial at</span><br><span class="line">[    &amp;#91;              中括号左边部分</span><br><span class="line">\    &amp;#92;              反斜杠        </span><br><span class="line">]    &amp;#93;              中括号右边部分</span><br><span class="line">&#123;    &amp;#123;             大括号左边部分</span><br><span class="line">|    &amp;#124;             竖线</span><br><span class="line">&#125;    &amp;#125;             大括号右边部分</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>hexo</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-        <tag>blog</tag>
       </tags>
   </entry>
   <entry>
@@ -827,7 +827,7 @@ var(u) &= E(u^{2})-(E(u))^{2}\\
       </tags>
   </entry>
   <entry>
-    <title>Bayesian-Data-Analysis（二）：单参数模型【WIP】</title>
+    <title>Bayesian-Data-Analysis（二）：单参数模型</title>
     <url>/2021/11/28/20211128_Bayesian-Data-Analysis%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%8D%95%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B/</url>
     <content><![CDATA[<h1 id="一般单参数模型的贝叶斯推断过程：以女性出生率估计为例"><a href="#一般单参数模型的贝叶斯推断过程：以女性出生率估计为例" class="headerlink" title="一般单参数模型的贝叶斯推断过程：以女性出生率估计为例"></a>一般单参数模型的贝叶斯推断过程：以女性出生率估计为例</h1><p>在两百年前的欧洲，绝大数人相信女性出生率小于0.5。目前通过大量欧洲人口中估计，这个值是0.485，同上一章约定的符号，我们把女性出生率设定为$\theta$，那么男女出生性别比可以表示为$\phi=\frac{1-\theta}{\theta}$。同时我们设定在$n$个被记录的出生样本中，有$y$个是女性，那么我们可以用一个二项分布来对该问题建模，也就是</p>
 <script type="math/tex; mode=display">
@@ -888,7 +888,7 @@ Pr(\widetilde{y}=1 \mid y)
 <ol>
 <li>先验分布的选择需要符合现实情况，错误选择先验分布，可能会掩盖后验分布的实际情况</li>
 </ol>
-<h3 id="常用共轭先验分布"><a href="#常用共轭先验分布" class="headerlink" title="常用共轭先验分布"></a>常用共轭先验分布</h3><p>列举一些常用的共轭先验分布，具体证明放在附录，如感兴趣可以阅读</p>
+<h3 id="常用共轭先验分布"><a href="#常用共轭先验分布" class="headerlink" title="常用共轭先验分布"></a>常用共轭先验分布</h3><p>列举一些常用的共轭先验分布，具体证明放在<a href="#attatch2">附录2</a>，如感兴趣可以阅读</p>
 <div class="table-container">
 <table>
 <thead>
@@ -927,7 +927,26 @@ Pr(\widetilde{y}=1 \mid y)
 </tbody>
 </table>
 </div>
-<h2 id="非共轭先验分布"><a href="#非共轭先验分布" class="headerlink" title="非共轭先验分布"></a>非共轭先验分布</h2><h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="常见分布"><a href="#常见分布" class="headerlink" title="常见分布"></a>常见分布</h2><h3 id="Binormal-Distribution"><a href="#Binormal-Distribution" class="headerlink" title="Binormal Distribution"></a>Binormal Distribution</h3><p>概率函数</p>
+<h3 id="频率学派与贝叶斯学派的差异（点估计）"><a href="#频率学派与贝叶斯学派的差异（点估计）" class="headerlink" title="频率学派与贝叶斯学派的差异（点估计）"></a>频率学派与贝叶斯学派的差异（点估计）</h3><p>在贝叶斯学派观点下，以正态分布（方差已知）的情况为例，最终我们后验分布的参数满足</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mu_{n} 
+&= \frac{\frac{1}{\sigma_{0}^{2}}\mu_{0}+\frac{n}{\sigma^{2}}\bar{y}}{\frac{1}{\sigma_{0}^{2}}+\frac{n}{\sigma^{2}}}\\
+\frac{1}{\sigma_{n}^{2}} 
+&= \frac{1}{\sigma_{0}^{2}} + \frac{n}{\sigma^{2}}
+\end{align*}</script><p>如果我们令$\gamma=\frac{\frac{1}{\sigma_{0}^{2}}}{\frac{1}{\sigma_{0}^{2}}+\frac{n}{\sigma^{2}}}$，稍加变换可得</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mu_{n} 
+&= \gamma \mu_{0}+(1-\gamma)\bar{y}\\
+\frac{1}{\sigma_{n}^{2}} 
+&= \frac{1}{\sigma_{0}^{2}} + \frac{1}{\sigma^{2}/n}=\frac{1}{\sigma_{0}^{2}} + \frac{1}{s^{2}}
+\end{align*}</script><p>也就是说，<strong>后验分布的均值是先验分布均值与样本均值的加权和，而后验分布的方差的倒数是先验分布方差倒数与样本方差倒数的和</strong>。</p>
+<p>而在频率学派观点下，我们认为<strong>对总体的最好估计就是样本的估计</strong>，即总体均值的无偏估计为样本均值，总体方差的估计为样本方差的期望</p>
+<h2 id="非共轭先验分布"><a href="#非共轭先验分布" class="headerlink" title="非共轭先验分布"></a>非共轭先验分布</h2><p>在现实生活中使用共轭先验分布的机会相对较小，实际上大多情况都是用的是非共轭先验分布，那么如何确定先验分布将会是一个重要的话题，后续会再次提及。</p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><div id="attatch1"></div>
+
+<h2 id="常见分布"><a href="#常见分布" class="headerlink" title="常见分布"></a>常见分布</h2><h3 id="Binormal-Distribution"><a href="#Binormal-Distribution" class="headerlink" title="Binormal Distribution"></a>Binormal Distribution</h3><p>概率函数</p>
 <script type="math/tex; mode=display">
 \begin{align*}
 p(y \mid \theta) =  
@@ -939,67 +958,149 @@ y
 \end{align*}</script><p>期望</p>
 <script type="math/tex; mode=display">
 \begin{align*}
-E(\theta) 
-&= \sum_{y}p(y \mid \theta)\\
+E(\theta \mid y) 
+&= \sum_{y=1}^{n} yp(y \mid \theta)\\
+&= n\theta \sum_{y=1}^{n-1} \begin{pmatrix}n-1\\ y-1 \end{pmatrix} \theta^{y-1}(1-\theta)^{(n-1)-(y-1)} \\
 &= n\theta
 \end{align*}</script><p>方差</p>
 <script type="math/tex; mode=display">
 \begin{align*}
-E(\theta) 
-&= \sum_{y}(\theta-E(\theta) )^{2}\\
+var(\theta) 
+&= E(\theta \mid y^{2}) - (E(\theta \mid y))^{2}\\
+&= \sum_{y=1}^{n} y^{2}p(y \mid \theta) - (E(\theta \mid y))^{2}\\
+&= \sum_{y=1}^{n} y(y-1) p(y \mid \theta) + E(\theta \mid y) - (E(\theta \mid y))^{2}\\
+&= n(n-1)\theta^{2}\sum_{y=1}^{n-2} \begin{pmatrix}n-2\\ y-2 \end{pmatrix} \theta^{y-2}(1-\theta)^{(n-2)-(y-2)} + E(\theta \mid y) - (E(\theta \mid y))^{2}\\
+&= n(n-1)\theta^{2} + E(\theta \mid y) - (E(\theta \mid y))^{2}\\
 &= n\theta(1-\theta)
 \end{align*}</script><h3 id="Poisson-Distribution"><a href="#Poisson-Distribution" class="headerlink" title="Poisson Distribution"></a>Poisson Distribution</h3><p>概率函数</p>
 <script type="math/tex; mode=display">
 \begin{align*}
-p(y_{i} \mid \theta) =  
-\frac{\theta^{y_{i}}}{y_{i}!}e^{-\theta}
+p(y \mid \theta) =  
+\frac{\theta^{y}}{y!}e^{-\theta}
 \end{align*}</script><p>期望</p>
 <script type="math/tex; mode=display">
 \begin{align*}
-E(\theta) 
-&= \sum_{i=1}^{n}p(y_{i} \mid \theta)\\
+E(\theta \mid y) 
+&= \sum_{y=1}^{\infty} yp(y \mid \theta)\\
+&= \sum_{y=1}^{\infty} y\frac{\theta^{y}}{y!}e^{-\theta}\\
+&= \theta e^{-\theta} \sum_{y=1}^{\infty} \frac{\theta^{y-1}}{(y-1)!}\\
+&= \theta e^{-\theta} e^{\theta} \quad \mbox{(幂级数求和)}\\
 &= \theta
 \end{align*}</script><p>方差</p>
 <script type="math/tex; mode=display">
 \begin{align*}
-E(\theta) 
-&= \sum_{y}(\theta-E(\theta) )^{2}\\
+var(\theta) 
+&= E(\theta \mid y^{2}) - (E(\theta \mid y))^{2} \quad \mbox{(同二项分布做法)}\\
 &= \theta
 \end{align*}</script><h3 id="Exponential-Distribution"><a href="#Exponential-Distribution" class="headerlink" title="Exponential Distribution"></a>Exponential Distribution</h3><p>概率函数</p>
 <script type="math/tex; mode=display">
 \begin{align*}
-p(y_{i} \mid \theta) =  
-\frac{\theta^{y_{i}}}{y_{i}!}e^{-\theta}
+p(y \mid \theta) =  
+\theta e^{-\theta y} \quad y \gt 0
 \end{align*}</script><p>期望</p>
 <script type="math/tex; mode=display">
 \begin{align*}
-E(\theta) 
-&= \sum_{i=1}^{n}p(y_{i} \mid \theta)\\
-&= \theta
+E(\theta \mid y) 
+&= \int y \theta e^{-\theta y} dy\\
+&= \frac{1}{\theta}
 \end{align*}</script><p>方差</p>
 <script type="math/tex; mode=display">
 \begin{align*}
-E(\theta) 
-&= \sum_{y}(\theta-E(\theta) )^{2}\\
-&= \theta
+var(\theta) 
+&= E(\theta \mid y^{2}) - (E(\theta \mid y))^{2}\\
+&= \frac{1}{\theta^{2}}\\
 \end{align*}</script><h3 id="Normal-Distribution"><a href="#Normal-Distribution" class="headerlink" title="Normal Distribution"></a>Normal Distribution</h3><p>概率函数</p>
 <script type="math/tex; mode=display">
 \begin{align*}
-p(y_{i} \mid \theta) =  
-\frac{\theta^{y_{i}}}{y_{i}!}e^{-\theta}
+p(y \mid \mu, \sigma) =  
+\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(y-\mu)^{2}}{2\sigma^{2}}}
+\end{align*}</script><p>期望</p>
+<p>利用标准正态分布为奇函数的性质以及线性期望的性质</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+E(\mu, \sigma \mid y)
+&= \mu
+\end{align*}</script><p>方差同理</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+var(\mu, \sigma) 
+&= E(\mu, \sigma \mid y^{2}) - (E(\mu, \sigma\mid y))^{2}\\
+&= \sigma^{2}
+\end{align*}</script><h3 id="Uniform-Distribution"><a href="#Uniform-Distribution" class="headerlink" title="Uniform Distribution"></a>Uniform Distribution</h3><script type="math/tex; mode=display">
+\begin{align*}
+p(y \mid a, b) =  
+\frac{1}{b-a}
 \end{align*}</script><p>期望</p>
 <script type="math/tex; mode=display">
 \begin{align*}
-E(\theta) 
-&= \sum_{i=1}^{n}p(y_{i} \mid \theta)\\
-&= \theta
+E(a, b \mid y) 
+&= \int y p(y \mid a, b) dy\\
+&= \frac{a+b}{2}
 \end{align*}</script><p>方差</p>
 <script type="math/tex; mode=display">
 \begin{align*}
-E(\theta) 
-&= \sum_{y}(\theta-E(\theta) )^{2}\\
-&= \theta
-\end{align*}</script><h2 id="共轭先验分布的证明"><a href="#共轭先验分布的证明" class="headerlink" title="共轭先验分布的证明"></a>共轭先验分布的证明</h2><h3 id="Binormal-Distribution-1"><a href="#Binormal-Distribution-1" class="headerlink" title="Binormal Distribution"></a>Binormal Distribution</h3><p>总体分布满足</p>
+var(a, b) 
+&= E(a, b \mid y^{2}) - (E(a, b \mid y))^{2}\\
+&= \frac{(b-a)^{2}}{12}\\
+\end{align*}</script><h3 id="Gamma-Distribution"><a href="#Gamma-Distribution" class="headerlink" title="Gamma Distribution"></a>Gamma Distribution</h3><p>Gamma函数</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\Gamma(\alpha) = \int_{0}^{\infty} y^{\alpha-1}e^{-y}dy
+\end{align*}</script><p>Gamma函数的性质：</p>
+<ol>
+<li>余元公式：$\Gamma(1-\alpha)\Gamma(\alpha)=\frac{\pi}{\sin \pi x}$</li>
+<li>$\Gamma(1)=1, \Gamma(\frac{1}{2})=\sqrt{\pi}$</li>
+<li>$\Gamma(\alpha+1)=\alpha\Gamma(\alpha)$</li>
+</ol>
+<p>概率函数</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(y \mid \lambda, \alpha) =  
+\frac{\lambda^{\alpha}}{\Gamma(\alpha)}y^{\alpha-1}e^{-\lambda y}
+\end{align*}</script><p>期望</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+E(\lambda, \alpha \mid y) 
+&= \frac{\lambda^{\alpha}}{\Gamma(\alpha)} \int_{0}^{\infty} y^{\alpha}e^{-\lambda y}dy\\
+&= \frac{\lambda^{\alpha}}{\Gamma(\alpha)} \frac{1}{\lambda^{\alpha}} \int_{0}^{\infty} (\lambda y)^{\alpha}e^{-\lambda y}d(\lambda y)\\
+&= \frac{\lambda^{\alpha}}{\Gamma(\alpha)} \frac{\Gamma(\alpha+1)}{\lambda^{\alpha+1}} \\
+&= \frac{\alpha}{\lambda}
+\end{align*}</script><p>方差</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+var(\lambda, \alpha) 
+&= E(\lambda, \alpha \mid y^{2}) - (E(\lambda, \alpha \mid y))^{2}\\
+&= \frac{\alpha}{\lambda^{2}}
+\end{align*}</script><h3 id="Beta-Distribution"><a href="#Beta-Distribution" class="headerlink" title="Beta Distribution"></a>Beta Distribution</h3><p>Beta函数</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+Beta(a, b) = \int_{0}^{1} y^{\alpha-1}(1-y)^{b-1}dy
+\end{align*}</script><p>Beta函数的性质：</p>
+<ol>
+<li>$Beta(a, b)=Beta(b, a)$</li>
+<li>$Beta(a, b)=\frac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}$</li>
+</ol>
+<p>概率函数</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(y \mid a, b) =  
+\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}y^{\alpha-1}(1-y)^{b-1} \quad y\in (0,1)
+\end{align*}</script><p>期望</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+E(a, b \mid y) 
+&= \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \int_{0}^{1} y^{\alpha}(1-y)^{b-1}dy\\
+&= \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \frac{\Gamma(a+1)\Gamma(b)}{\Gamma(a+b+1)}\\
+&=\frac{a}{a+b}
+\end{align*}</script><p>方差</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+var(a, b) 
+&= E(a, b \mid y^{2}) - (E(a, b \mid y))^{2}\\
+&= \frac{ab}{(a+b)^{2}(a+b+1)}
+\end{align*}</script><div id="attatch2"></div>
+
+<h2 id="共轭先验分布的证明"><a href="#共轭先验分布的证明" class="headerlink" title="共轭先验分布的证明"></a>共轭先验分布的证明</h2><h3 id="Binormal-Distribution-1"><a href="#Binormal-Distribution-1" class="headerlink" title="Binormal Distribution"></a>Binormal Distribution</h3><p>正态分布相对比较简单，在此不考虑多观测值的情况直接证明<br>总体分布满足</p>
 <script type="math/tex; mode=display">
 \begin{align*}
 p(y \mid \theta) \propto \theta^{y}(1-\theta)^{n-y}
@@ -1014,27 +1115,12 @@ p(\theta \mid y)
 &\propto \theta^{y}(1-\theta)^{n-y}\theta^{\alpha-1}(1-\theta)^{\beta-1}\\
 &=\theta^{y+\alpha-1}(1-\theta)^{n-y+\beta-1}\\
 &=Beta(\alpha+y, n-y+\beta)
-\end{align*}</script><h3 id="Binormal-Distribution-2"><a href="#Binormal-Distribution-2" class="headerlink" title="Binormal Distribution"></a>Binormal Distribution</h3><p>总体分布满足</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-p(y \mid \theta) \propto \theta^{y}(1-\theta)^{n-y}
-\end{align*}</script><p>取先验分布$p(\theta)$为$Beta(\alpha, \beta)$</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-p(\theta) \propto \theta^{\alpha-1}(1-\theta)^{\beta-1}
-\end{align*}</script><p>那么后验分布$p(\theta \mid y)$满足</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-p(\theta \mid y) 
-&\propto \theta^{y}(1-\theta)^{n-y}\theta^{\alpha-1}(1-\theta)^{\beta-1}\\
-&=\theta^{y+\alpha-1}(1-\theta)^{n-y+\beta-1}\\
-&=Beta(\alpha+y, n-y+\beta)
-\end{align*}</script><p>概率函数</p>
+\end{align*}</script><h3 id="Poisson-Distribution-1"><a href="#Poisson-Distribution-1" class="headerlink" title="Poisson Distribution"></a>Poisson Distribution</h3><p>总体分布满足</p>
 <script type="math/tex; mode=display">
 \begin{align*}
 p(y_{i} \mid \theta) =  
 \frac{\theta^{y_{i}}}{y_{i}!}e^{-\theta}
-\end{align*}</script><p>设观测数据为$y=\{y_{1}, \cdot, y_{n}\}$，利用最大似然法可得</p>
+\end{align*}</script><p>设观测数据为$y=\{y_{1}, \cdots, y_{n}\}$，利用最大似然法可得</p>
 <script type="math/tex; mode=display">
 \begin{align*}
 p(y \mid \theta) 
@@ -1042,6 +1128,113 @@ p(y \mid \theta)
 &=   \frac{\theta^{\sum_{i=1}^{n} y_{i}}}{\prod_{i=1}^{n}y_{i}!}e^{-n\theta}\\
 &\propto \theta^{t}e^{-n\theta}
 \end{align*}</script><p>其中$t=\sum_{i=1}^{n} y_{i}$</p>
+<p>取先验分布$p(\theta)$为$Gamma(\alpha, \lambda)$</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta \mid \lambda, \alpha) 
+&=  \frac{\lambda^{\alpha}}{\Gamma(\alpha)}\theta^{\alpha-1}e^{-\lambda \theta}\\
+&\propto \theta^{\alpha-1}e^{-\lambda \theta}
+\end{align*}</script><p>那么后验分布$p(\theta \mid y)$满足</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta \mid y) 
+&\propto \theta^{t}e^{-n\theta} \theta^{\alpha-1}e^{-\lambda \theta}\\
+&=\theta^{t+\alpha-1}e^{-(\lambda+n)\theta}\\
+&\propto Gamma(t+\alpha, \lambda+n)
+\end{align*}</script><h3 id="Exponential-Distribution-1"><a href="#Exponential-Distribution-1" class="headerlink" title="Exponential Distribution"></a>Exponential Distribution</h3><p>总体分布满足</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(y_{i} \mid \theta) =  
+\theta e^{-\theta y_{i}} \quad y_{i} \gt 0
+\end{align*}</script><p>设观测数据为$y=\{y_{1}, \cdots, y_{n}\}$，利用最大似然法可得</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(y \mid \theta) 
+&=  \prod_{i=1}^{n} \theta e^{-\theta y_{i}}\\
+&=   \theta^{n} e^{-\theta \sum_{i=1}^{n} y_{i}}\\
+&\propto \theta^{n}e^{-\theta t}
+\end{align*}</script><p>其中$t=\sum_{i=1}^{n} y_{i}$</p>
+<p>取先验分布$p(\theta)$为$Gamma(\alpha, \lambda)$</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta \mid \lambda, \alpha) 
+&=  \frac{\lambda^{\alpha}}{\Gamma(\alpha)}\theta^{\alpha-1}e^{-\lambda \theta}\\
+&\propto \theta^{\alpha-1}e^{-\lambda \theta}
+\end{align*}</script><p>那么后验分布$p(\theta \mid y)$满足</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta \mid y) 
+&\propto\theta^{n}e^{-\theta t} \theta^{\alpha-1}e^{-\lambda \theta}\\
+&=\theta^{n+\alpha-1}e^{-(\lambda+t)\theta}\\
+&\propto Gamma(n+\alpha, \lambda+t)
+\end{align*}</script><h3 id="Normal-Distribution-with-Known-Variance"><a href="#Normal-Distribution-with-Known-Variance" class="headerlink" title="Normal Distribution with Known Variance"></a>Normal Distribution with Known Variance</h3><p>总体分布满足</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(y_{i} \mid \theta) =  
+\frac{1}{\sqrt{2\pi}\sigma}e^{\frac{(y_{i}-\theta)^{2}}{2\sigma^{2}}}
+\end{align*}</script><p>设观测数据为$y=\{y_{1}, \cdots, y_{n}\}$，利用最大似然法可得</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(y \mid \theta) 
+&=  \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi}\sigma}e^{\frac{(y_{i}-\theta)^{2}}{2\sigma^{2}}}\\
+& \propto  e^{-\frac{\sum_{i=1}^{n} (y_{i}-\theta)^{2}}{2\sigma^{2}}}\\
+\end{align*}</script><p>取先验分布$p(\theta)$为$N(\mu_{0}, \sigma_{0})$</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta \mid \mu_{0}, \sigma_{0}) 
+& \propto  e^{-\frac{(\theta-\mu_{0})^{2}}{2\sigma_{0}^{2}}}\\
+\end{align*}</script><p>那么后验分布$p(\theta \mid y)$满足</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta \mid y) 
+&\propto 
+e^{-\frac{1}{2\sigma^{2}}\sum_{i=1}^{n} (y_{i}-\theta)^{2}} 
+e^{-\frac{1}{2\sigma_{0}^{2}}(\theta-\mu_{0})^{2}}\\
+&\propto 
+e^{-\frac{1}{2\sigma^{2}}n(\theta^{2}-2\bar{y})} 
+e^{-\frac{1}{2\sigma_{0}^{2}}(\theta^{2}-2\mu_{0}\theta)}\\
+\end{align*}</script><p>令</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mu_{n} 
+&= \frac{\frac{1}{\sigma_{0}^{2}}\mu_{0}+\frac{n}{\sigma^{2}}\bar{y}}{\frac{1}{\sigma_{0}^{2}}+\frac{n}{\sigma^{2}}}\\
+\frac{1}{\sigma_{n}^{2}} 
+&= \frac{1}{\sigma_{0}^{2}} + \frac{n}{\sigma^{2}}
+\end{align*}</script><p>上式可以改写成</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta \mid y) 
+&\propto 
+e^{-\frac{1}{2\sigma_{n}^{2}}(\theta-\mu_{n})^{2}}\\
+\end{align*}</script><h3 id="Normal-Distribution-with-Known-Mean"><a href="#Normal-Distribution-with-Known-Mean" class="headerlink" title="Normal Distribution with Known Mean"></a>Normal Distribution with Known Mean</h3><p>总体分布满足</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(y_{i} \mid \theta) =  
+\frac{1}{\sqrt{2\pi \theta}}e^{\frac{(y_{i}-\mu)^{2}}{2\theta}}
+\end{align*}</script><p>设观测数据为$y=\{y_{1}, \cdots, y_{n}\}$，利用最大似然法可得</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(y \mid \theta) 
+&=  \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi\theta}}e^{\frac{(y_{i}-\mu)^{2}}{2\theta^{2}}}\\
+& \propto  \theta^{-\frac{n}{2}}e^{-\frac{t}{2\theta}}\\
+\end{align*}</script><p>其中$t=\sum_{i=1}^{n} (y_{i}-\mu)^{2}$</p>
+<p>取先验分布$p(\theta)$为倒Gamma分布$I-Gamma(\alpha, \lambda)$</p>
+<blockquote>
+<p>$p(y \mid \alpha, \lambda) = \frac{\lambda^{\alpha}}{\Gamma(\alpha)}y^{-\alpha-1}e^{-\frac{\lambda}{y}}$<br>$E(\alpha, \lambda \mid y) = \frac{\Gamma(\alpha-1)}{\Gamma(\alpha)}\lambda$<br>$var(\alpha, \lambda) = \frac{\lambda^{2}}{(\alpha-1)^{2}(\alpha-2)}$</p>
+</blockquote>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta) 
+& \propto  (\theta)^{-\alpha-1}e^{-\frac{\lambda}{\theta}}\\
+\end{align*}</script><p>那么后验分布$p(\theta \mid y)$满足</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta \mid y) 
+&\propto 
+\theta^{-\frac{n}{2}}e^{-\frac{t}{2\theta}}
+\theta^{-\alpha-1}e^{-\frac{\lambda}{\theta}}\\
+&= \theta^{-\frac{n}{2}-\alpha-1}e^{-\frac{\lambda}{\theta}-\frac{t}{2\theta}}\\
+\end{align*}</script><p>即同样为倒Gamma分布</p>
 ]]></content>
       <categories>
         <category>Bayesian Data Analysis</category>
