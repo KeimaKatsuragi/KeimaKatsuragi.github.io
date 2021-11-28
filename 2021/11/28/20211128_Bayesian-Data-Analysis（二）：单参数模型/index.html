@@ -87,7 +87,7 @@
 <meta property="og:description" content="一般单参数模型的贝叶斯推断过程：以女性出生率估计为例在两百年前的欧洲，绝大数人相信女性出生率小于0.5。目前通过大量欧洲人口中估计，这个值是0.485，同上一章约定的符号，我们把女性出生率设定为$\theta$，那么男女出生性别比可以表示为$\phi&#x3D;\frac{1-\theta}{\theta}$。同时我们设定在$n$个被记录的出生样本中，有$y$个是女性，那么我们可以用一个二项分布来对该问题建">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-11-27T17:39:44.000Z">
-<meta property="article:modified_time" content="2021-11-28T09:49:56.930Z">
+<meta property="article:modified_time" content="2021-11-28T16:22:23.255Z">
 <meta property="article:author" content="LingZhi Du">
 <meta property="article:tag" content="Bayesian Data Analysis">
 <meta name="twitter:card" content="summary">
@@ -421,7 +421,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3.2k
+                  4.2k
                 </span>
               
 
@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  16
+                  20
                 </span>
               
             </div>
@@ -506,7 +506,10 @@ Pr(\widetilde{y}=1 \mid y)
 \end{align*}</script><h1 id="信息先验分布"><a href="#信息先验分布" class="headerlink" title="信息先验分布"></a>信息先验分布</h1><h2 id="共轭先验分布"><a href="#共轭先验分布" class="headerlink" title="共轭先验分布"></a>共轭先验分布</h2><p>通过Beta分布的表达式，我们可以把区间$(0, 1)$的均匀分布看成是$Beta(1, 1)$。那么上面的例子则变得有意思起来。如果我们取先验分布为$\theta  \sim Beta(1, 1)$，在总体分布为$y \mid \theta \sim Bin(n, \theta)$的情况下，后验分布也是一类Beta分布，即$\theta \mid y \sim Beta(y+1, n-y+1)$。这也就意味着，<strong>对于某一些总体分布，如果我们能够取适当的先验分布，那么我们的后验分布和先验分布会在同一类分布簇</strong>，我们只需要稍加调整参数值就可以非常方便的去进行后验分布的计算。</p>
 <h3 id="共轭先验分布的定义"><a href="#共轭先验分布的定义" class="headerlink" title="共轭先验分布的定义"></a>共轭先验分布的定义</h3><p>设$\theta$为总体分布中的参数，其抽样分布属于$\mathcal{F}$分布簇，$p(\theta)$是$\theta$的先验密度函数，分布属于$\mathcal{P}$分布簇，若抽样后计算的后验密度函数和$p(\theta)$处于同一分布簇中，那么我们认为$\mathcal{P}$和$\mathcal{F}$是共轭的</p>
 <blockquote>
-<p>需要强调，共轭先验分布是<strong>针对某一分布中的参数而言的</strong>，如正态分布中的均值和方差参数，泊松分布的均值参数等。</p>
+<ol>
+<li>需要强调，共轭先验分布是<strong>针对某一分布中的参数而言的</strong>，如正态分布中的均值和方差参数，泊松分布的均值参数等。</li>
+<li>在现实生活中使用共轭先验分布的机会相对较小，实际上大多情况都是用的是非共轭先验分布</li>
+</ol>
 </blockquote>
 <h3 id="共轭先验分布的优缺点"><a href="#共轭先验分布的优缺点" class="headerlink" title="共轭先验分布的优缺点"></a>共轭先验分布的优缺点</h3><p>优点：</p>
 <ol>
@@ -572,7 +575,41 @@ Pr(\widetilde{y}=1 \mid y)
 &= \frac{1}{\sigma_{0}^{2}} + \frac{1}{\sigma^{2}/n}=\frac{1}{\sigma_{0}^{2}} + \frac{1}{s^{2}}
 \end{align*}</script><p>也就是说，<strong>后验分布的均值是先验分布均值与样本均值的加权和，而后验分布的方差的倒数是先验分布方差倒数与样本方差倒数的和</strong>。</p>
 <p>而在频率学派观点下，我们认为<strong>对总体的最好估计就是样本的估计</strong>，即总体均值的无偏估计为样本均值，总体方差的估计为样本方差的期望</p>
-<h2 id="非共轭先验分布"><a href="#非共轭先验分布" class="headerlink" title="非共轭先验分布"></a>非共轭先验分布</h2><p>在现实生活中使用共轭先验分布的机会相对较小，实际上大多情况都是用的是非共轭先验分布，那么如何确定先验分布将会是一个重要的话题，后续会再次提及。</p>
+<h1 id="无信息先验分布"><a href="#无信息先验分布" class="headerlink" title="无信息先验分布"></a>无信息先验分布</h1><h2 id="Jeffrey不变性法则"><a href="#Jeffrey不变性法则" class="headerlink" title="Jeffrey不变性法则"></a>Jeffrey不变性法则</h2><p>设$\theta$的一个单射是$\phi=h(\theta)$，则有</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\phi) = p(\theta) \vert \frac{d\theta}{d\phi} \vert = p(\theta) \vert h^{'}(\theta) \vert^{-1}
+\end{align*}</script><p>Jeffrey无偏法则试图找到一个无信息先验密度类似于$p(\theta) \propto [J(\theta)]^{\frac{1}{2}}$，这个分布不会随着$\theta$的变化发生变化，其中$J(\theta)$是$\theta$的<strong>Fisher信息矩阵</strong>：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+J(\theta) 
+&= E\{(\frac{d \log p(y \mid \theta)}{d\theta})^{2} \mid \theta\}\\
+&= -E\{\frac{d^{2} \log p(y \mid \theta)}{d\theta^{2}} \mid \theta\}
+\end{align*}</script><p>关于$J(\theta)$的先验分布不变性的证明，详见<a href="#attatch3">附录3</a></p>
+<h2 id="关键数量法"><a href="#关键数量法" class="headerlink" title="关键数量法"></a>关键数量法</h2><h3 id="位置参数"><a href="#位置参数" class="headerlink" title="位置参数"></a>位置参数</h3><p>假设$y$的密度$p(y-\theta \mid \theta)$不受$\theta$和$y$的影响，我们暂且假定为$f(u)$，其中$u=y-\theta$，那么$y-\theta$称为<strong>不变数量</strong>，$\theta$被称为<strong>位置参数</strong>。在这种情形下，针对$\theta$，我们利用$f(u)$去得到后验分布$p(y-\theta \mid y)$，此时$y-\theta$依旧是不变的。在这种条件下，应用贝叶斯法则可得$p(y-\theta \mid y)\propto p(\theta)p(y-\theta \mid \theta)$，这也就暗示着$\theta$的无信息先验分布是一个均匀分布，且在$\mathbb{R}$上满足$p(\theta)\propto constant$</p>
+<h3 id="尺度参数"><a href="#尺度参数" class="headerlink" title="尺度参数"></a>尺度参数</h3><p>假设$y$的密度$p(\frac{y}{\theta} \mid \theta)$不受$\theta$和$y$的影响，我们暂且假定为$g(u)$，其中$u=\frac{y}{\theta}$，那么$\frac{y}{\theta}$称为<strong>不变数量</strong>，$\theta$被称为<strong>尺度参数</strong>。在这种情形下，针对$\theta$，我们利用$g(u)$去得到后验分布$p(\frac{y}{\theta} \mid y)$，此时$\frac{y}{\theta}$依旧是不变的。在这种条件下，通过变量代换，给定$\theta$时$y$的条件分布满足</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(y \mid \theta) = \frac{1}{\theta}p(u \mid \theta)
+\end{align*}</script><p>后验分布满足</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta \mid y) = \frac{y}{\theta^{2}}p(u \mid \theta)
+\end{align*}</script><p>让$p(\theta \mid y)$和$p(y \mid \theta)$都等于$g(u)$，那么可得$p(\theta \mid y)=\frac{y}{\theta}p(y \mid \theta)$，因此这个参考的先验分布$p(\theta)\propto \frac{1}{\theta}$（或写成$p(\theta^{2})\propto \frac{1}{\theta^{2}}$/$p(\log \theta)\propto 1$）</p>
+<h2 id="无信息先验分布-1"><a href="#无信息先验分布-1" class="headerlink" title="无信息先验分布"></a>无信息先验分布</h2><ol>
+<li><strong>寻找一个总是模糊的先验分布似乎是错误的</strong>。比如似然估计在一个特定问题中占据着主要地位，那么使用一个平滑的无信息先验分布就是一种误导行为</li>
+<li>对于大量的问题，使用哪一种模糊的先验分布没有一个明确的答案，在参数化过程中密度是平滑的还是均匀的只可能是一种情况。比如正态分布的方差，我们假定$p(\sigma^{2})\propto \frac{1}{\sigma^{2}}$似乎是合理的，但如果我们定义$\phi=\log \sigma^{2}$则有：</li>
+</ol>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\phi) 
+&= p(\theta) \vert \frac{d\theta}{d\phi} \vert\\
+&\propto \frac{1}{\sigma^{2}}\sigma^{2}\\
+&=1\\
+\end{align*}</script><p>这也就是说在$\phi=\log \sigma^{2}$，密度是均匀的，这看起来似乎并不是很合理</p>
+<ol>
+<li>当我们在对一组竞争性模型平均化石会带来很多困难</li>
+</ol>
 <h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><div id="attatch1"></div>
 
 <h2 id="常见分布"><a href="#常见分布" class="headerlink" title="常见分布"></a>常见分布</h2><h3 id="Binormal-Distribution"><a href="#Binormal-Distribution" class="headerlink" title="Binormal Distribution"></a>Binormal Distribution</h3><p>概率函数</p>
@@ -864,6 +901,26 @@ p(\theta \mid y)
 \theta^{-\alpha-1}e^{-\frac{\lambda}{\theta}}\\
 &= \theta^{-\frac{n}{2}-\alpha-1}e^{-\frac{\lambda}{\theta}-\frac{t}{2\theta}}\\
 \end{align*}</script><p>即同样为倒Gamma分布</p>
+<p><div id="attatch3"></div></p>
+<h2 id="Jeffrey先验分布不变性的证明"><a href="#Jeffrey先验分布不变性的证明" class="headerlink" title="Jeffrey先验分布不变性的证明"></a>Jeffrey先验分布不变性的证明</h2><p>考虑单参数情形</p>
+<p>证明1:<br>验证在$\theta=h^{-1}(\phi)$情形下的J(\phi)：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+J(\phi) 
+&= -E\{\frac{d^{2} \log p(y \mid \phi)}{d\phi^{2}} \mid \phi\}\\
+&= -E\{\frac{d^{2} \log p(y \mid \theta=h^{-1}(\phi))}{d\theta^{2}} \vert \frac{d\theta}{d\phi} \vert^{2} \} \quad \mbox{（应用}p(\phi) = p(\theta) \vert \frac{d\theta}{d\phi} \vert = p(\theta) \vert h^{'}(\theta) \vert^{-1} \mbox{）}\\
+&= J(\theta) \vert \frac{d\theta}{d\phi} \vert^{2}
+\end{align*}</script><p>说明$J(\theta)$同样满足$p(\phi) = p(\theta) \vert \frac{d\theta}{d\phi} \vert = p(\theta) \vert h^{‘}(\theta) \vert^{-1}$</p>
+<p>证明2:</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\phi) 
+&= p(\theta) \vert \frac{d\theta}{d\phi} \vert\\
+&\propto \sqrt{J(\theta) \vert \frac{d\theta}{d\phi} \vert^{2}}\\
+&= \sqrt{E\{(\frac{d \log p(y \mid \theta)}{d\theta})^{2} \mid \theta\} \vert \frac{d\theta}{d\phi} \vert^{2}}\\
+&= \sqrt{E\{(\frac{d \log p(y \mid \theta)}{d\theta}\frac{d\theta}{d\phi})^{2} \mid \theta\}}\\
+&= \sqrt{J(\phi)}
+\end{align*}</script><p>Q.E.D</p>
 
       
     </div>
@@ -1064,7 +1121,7 @@ p(\theta \mid y)
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E5%8D%95%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%8E%A8%E6%96%AD%E8%BF%87%E7%A8%8B%EF%BC%9A%E4%BB%A5%E5%A5%B3%E6%80%A7%E5%87%BA%E7%94%9F%E7%8E%87%E4%BC%B0%E8%AE%A1%E4%B8%BA%E4%BE%8B"><span class="nav-text">一般单参数模型的贝叶斯推断过程：以女性出生率估计为例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83"><span class="nav-text">信息先验分布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83"><span class="nav-text">共轭先验分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-text">共轭先验分布的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-text">共轭先验分布的优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83"><span class="nav-text">常用共轭先验分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%91%E7%8E%87%E5%AD%A6%E6%B4%BE%E4%B8%8E%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AD%A6%E6%B4%BE%E7%9A%84%E5%B7%AE%E5%BC%82%EF%BC%88%E7%82%B9%E4%BC%B0%E8%AE%A1%EF%BC%89"><span class="nav-text">频率学派与贝叶斯学派的差异（点估计）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83"><span class="nav-text">非共轭先验分布</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%88%86%E5%B8%83"><span class="nav-text">常见分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Binormal-Distribution"><span class="nav-text">Binormal Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Poisson-Distribution"><span class="nav-text">Poisson Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exponential-Distribution"><span class="nav-text">Exponential Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Normal-Distribution"><span class="nav-text">Normal Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Uniform-Distribution"><span class="nav-text">Uniform Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gamma-Distribution"><span class="nav-text">Gamma Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Beta-Distribution"><span class="nav-text">Beta Distribution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83%E7%9A%84%E8%AF%81%E6%98%8E"><span class="nav-text">共轭先验分布的证明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Binormal-Distribution-1"><span class="nav-text">Binormal Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Poisson-Distribution-1"><span class="nav-text">Poisson Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exponential-Distribution-1"><span class="nav-text">Exponential Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Normal-Distribution-with-Known-Variance"><span class="nav-text">Normal Distribution with Known Variance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Normal-Distribution-with-Known-Mean"><span class="nav-text">Normal Distribution with Known Mean</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E5%8D%95%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%8E%A8%E6%96%AD%E8%BF%87%E7%A8%8B%EF%BC%9A%E4%BB%A5%E5%A5%B3%E6%80%A7%E5%87%BA%E7%94%9F%E7%8E%87%E4%BC%B0%E8%AE%A1%E4%B8%BA%E4%BE%8B"><span class="nav-text">一般单参数模型的贝叶斯推断过程：以女性出生率估计为例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83"><span class="nav-text">信息先验分布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83"><span class="nav-text">共轭先验分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-text">共轭先验分布的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-text">共轭先验分布的优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83"><span class="nav-text">常用共轭先验分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%91%E7%8E%87%E5%AD%A6%E6%B4%BE%E4%B8%8E%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AD%A6%E6%B4%BE%E7%9A%84%E5%B7%AE%E5%BC%82%EF%BC%88%E7%82%B9%E4%BC%B0%E8%AE%A1%EF%BC%89"><span class="nav-text">频率学派与贝叶斯学派的差异（点估计）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%A0%E4%BF%A1%E6%81%AF%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83"><span class="nav-text">无信息先验分布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Jeffrey%E4%B8%8D%E5%8F%98%E6%80%A7%E6%B3%95%E5%88%99"><span class="nav-text">Jeffrey不变性法则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E6%95%B0%E9%87%8F%E6%B3%95"><span class="nav-text">关键数量法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="nav-text">位置参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%BA%E5%BA%A6%E5%8F%82%E6%95%B0"><span class="nav-text">尺度参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E4%BF%A1%E6%81%AF%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83-1"><span class="nav-text">无信息先验分布</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%88%86%E5%B8%83"><span class="nav-text">常见分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Binormal-Distribution"><span class="nav-text">Binormal Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Poisson-Distribution"><span class="nav-text">Poisson Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exponential-Distribution"><span class="nav-text">Exponential Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Normal-Distribution"><span class="nav-text">Normal Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Uniform-Distribution"><span class="nav-text">Uniform Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gamma-Distribution"><span class="nav-text">Gamma Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Beta-Distribution"><span class="nav-text">Beta Distribution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83%E7%9A%84%E8%AF%81%E6%98%8E"><span class="nav-text">共轭先验分布的证明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Binormal-Distribution-1"><span class="nav-text">Binormal Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Poisson-Distribution-1"><span class="nav-text">Poisson Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exponential-Distribution-1"><span class="nav-text">Exponential Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Normal-Distribution-with-Known-Variance"><span class="nav-text">Normal Distribution with Known Variance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Normal-Distribution-with-Known-Mean"><span class="nav-text">Normal Distribution with Known Mean</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jeffrey%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83%E4%B8%8D%E5%8F%98%E6%80%A7%E7%9A%84%E8%AF%81%E6%98%8E"><span class="nav-text">Jeffrey先验分布不变性的证明</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1098,7 +1155,7 @@ p(\theta \mid y)
     
       <span class="post-meta-item-text">全站字数&#58;</span>
     
-    <span title="全站字数">15.6k</span>
+    <span title="全站字数">16.5k</span>
   
 </div>
 
