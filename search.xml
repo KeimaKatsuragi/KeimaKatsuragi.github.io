@@ -827,7 +827,7 @@ var(u) &= E(u^{2})-(E(u))^{2}\\
       </tags>
   </entry>
   <entry>
-    <title>Bayesian Data Analysis（三）：多参数模型【WIP】</title>
+    <title>Bayesian Data Analysis（三）：多参数模型</title>
     <url>/2021/11/29/20211129_Bayesian-Data-Analysis%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E5%A4%9A%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B/</url>
     <content><![CDATA[<h1 id="多参数模型简介"><a href="#多参数模型简介" class="headerlink" title="多参数模型简介"></a>多参数模型简介</h1><p>为了在数学上表示联合概率分布和边缘概率分布的思想，假如说我们的参数$\theta$包含两部分，即$\theta=(\theta_{1}, \theta_{2})^{T}$，如果在推断过程中，我对关心的是$\theta_{1}$， 那么$\theta_{2}$就会被看成是一个<strong>冗杂参数（nuisance parameter）</strong>，为简化起见，以正态分布为例</p>
 <script type="math/tex; mode=display">
@@ -978,6 +978,91 @@ p(\theta \mid y, \alpha)
 &\propto \prod_{i=1}^{n}\theta_{i}^{y_{i}+\alpha_{i}-1}\\
 &=Dirichlet(\theta, y+\alpha)
 \end{align*}</script>]]></content>
+      <categories>
+        <category>Bayesian Data Analysis</category>
+      </categories>
+      <tags>
+        <tag>Bayesian Data Analysis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>20211205_Bayesian Data Analysis（四）：假设检验【WIP】</title>
+    <url>/2021/12/05/20211205-Bayesian-Data-Analysis%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E5%81%87%E8%AE%BE%E6%A3%80%E9%AA%8C/</url>
+    <content><![CDATA[<h1 id="贝叶斯假设检验简介"><a href="#贝叶斯假设检验简介" class="headerlink" title="贝叶斯假设检验简介"></a>贝叶斯假设检验简介</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在统计学课程中讲授的一般是频率学派下假设检验的方法，事实上在贝叶斯推断里也存在着假设检验这一套方法。在贝叶斯推断中，一个基本观点是“条件方法”。回想之前提到过的，给定一个先验分布$p(\theta$，我们可以通过抽样信息，求出后验分布$p(\theta \mid y)$，而贝叶斯推断框架下，进行统计推断的最主要依据，就是我们的后验分布$p(\theta \mid y)$。</p>
+<h2 id="两个概念"><a href="#两个概念" class="headerlink" title="两个概念"></a>两个概念</h2><h3 id="最大似然估计（Maximum-Likelihood-Estimate-MLE）"><a href="#最大似然估计（Maximum-Likelihood-Estimate-MLE）" class="headerlink" title="最大似然估计（Maximum Likelihood Estimate, MLE）"></a>最大似然估计（Maximum Likelihood Estimate, MLE）</h3><p>假设我们观测到的样本$y=\{y_{1}, \cdots, y_{n}\}$，我们的采样分布为$p(y\mid \theta)$，那么对总体参数最好的估计，就是似然函数取值最大时的参数值</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\theta_{MLE}=\arg \max_{\theta} \prod_{i=1}^{n} p(y_{i}\mid \theta)
+\end{align*}</script><h3 id="最大后验估计（Maximum-A-Posteriori-MAP）"><a href="#最大后验估计（Maximum-A-Posteriori-MAP）" class="headerlink" title="最大后验估计（Maximum A Posteriori, MAP）"></a>最大后验估计（Maximum A Posteriori, MAP）</h3><p>假设我们的先验分布为$p(\theta)$，总体采样分布为$p(y \mid \theta)$，最大后验分布，即使后验分布概率密度取值最大的参数值（恰好为后验分布的众数）</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\theta_{MAP}
+&=\arg \max_{\theta} \frac{p(\theta)p(y \mid \theta)}{\int_{\theta} p(\theta)p(y \mid \theta)}\\
+&=\arg \max_{\theta} p(\theta \mid y)
+\end{align*}</script><h1 id="点估计"><a href="#点估计" class="headerlink" title="点估计"></a>点估计</h1><p>正如简介里所讲的那样，贝叶斯推断的点估计与后验分布密切相关，最常用的三种点估计方式是<strong>最大后验估计、最大中位数估计和最大均值估计</strong>。在下文，不加说明的情况下，均以最大后验估计为基准</p>
+<h2 id="频率学派-vs-贝叶斯学派"><a href="#频率学派-vs-贝叶斯学派" class="headerlink" title="频率学派 vs 贝叶斯学派"></a>频率学派 vs 贝叶斯学派</h2><p>在上学时，老师会告诉大家一个关于无偏性的概念，无偏性可以用如下数学表达式表示</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+E(\hat{\theta})=\int_{y} p(y)p(y\mid \theta) dy = \theta
+\end{align*}</script><p>从含义上看，无偏性表示在多次实验中所得到的估计量的平均值与参数的真实值相吻合。</p>
+<p>但实际上，无偏性只在频率学派的统计推断里出现，而在贝叶斯学派里没有出现，这是为什么呢？答案还得从两个学派的差异开始找起。</p>
+<h3 id="频率学派"><a href="#频率学派" class="headerlink" title="频率学派"></a>频率学派</h3><p>在频率学派下，对参数的估计形式为$\hat{\theta}=\hat{\theta}(Y)$。这样的一种估计形式是<strong>以样本为基础</strong>的一个函数。但需要注意的是我们这里的$Y$是<strong>随机变量而非样本</strong>，这是因为在频率学派下认为在对参数进行估计时，<strong>既要考虑我们的抽样信息($y$)，还要考虑未观测到的其他所有样本信息($\hat{y}$)</strong>。</p>
+<p>在实际估计时，由于样本与总体是独立同分布的，因此样本可以代表总体带入到函数中进行拟合。</p>
+<h3 id="贝叶斯学派"><a href="#贝叶斯学派" class="headerlink" title="贝叶斯学派"></a>贝叶斯学派</h3><p>贝叶斯学派下，对参数的估计形式为$\hat{\theta}=\hat{\theta}(y)$。这个估计形式表示贝叶斯推断是依赖于抽样信息，而与未观测到的抽样信息无关。</p>
+<p>回到我们之前的问题上来，无偏性只出现在频率学派中是因为<strong>需要考虑样本空间内所有可能的取值</strong>，也就是说无论是否在本次抽样中被采集到都需要去考虑。而在贝叶斯学派下则认为参数的取值仅跟当前的抽样信息有关</p>
+<h2 id="两个例子"><a href="#两个例子" class="headerlink" title="两个例子"></a>两个例子</h2><p>例子来自于茆诗松老师的《贝叶斯统计》：</p>
+<h3 id="例1：智商估计"><a href="#例1：智商估计" class="headerlink" title="例1：智商估计"></a>例1：智商估计</h3><p>假设儿童智力测验结果满足$p(y)=N(\theta, 100)$， 其中$\theta$被定义为儿童的智商，根据之前的多次实验，可以假设$p(\theta)=N(100, 225)$，加入我们现在 对一名儿童进行智力测验，希望能够得到这名儿童智商的估计，若儿童的测验分数为115分，结果是怎样的呢？</p>
+<p><strong>频率学派的观点</strong><br>在频率学派的观点下，对这名儿童的智商$\theta$的最好估计实际上就是样本均值（用样本均值估计总体均值），即</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\theta_{MLE}=\bar{y}=y=115
+\end{align*}</script><p>进一步，其方差的最好估计即总体方差，即$\sigma^{2}=100$</p>
+<p><strong>贝叶斯学派的观点</strong><br>此前提到过方差已知的情况下，正态分布的后验估计也是正态分布</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta \mid y) 
+&\propto 
+e^{-\frac{1}{2\sigma_{n}^{2}}(\theta-\mu_{n})^{2}}\\
+\end{align*}</script><p>其中</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mu_{n} 
+&= \frac{\frac{1}{\sigma_{0}^{2}}\mu_{0}+\frac{n}{\sigma^{2}}\bar{y}}{\frac{1}{\sigma_{0}^{2}}+\frac{n}{\sigma^{2}}}
+\frac{1}{\sigma_{n}^{2}} = \gamma \mu_{0}+(1-\gamma)\bar{y}\\
+\sigma_{n}^{2}&= \frac{1}{\sigma_{0}^{2}} + \frac{n}{\sigma^{2}}\\
+\mu_{0}&=100\\
+\sigma_{0}^{2}&=225\\
+\sigma^{2}&=100\\
+n&=1\\
+\end{align*}</script><p>由正态分布的性质可知，最大后验估计即最大后验分布的均值处，即</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\theta_{MAP}=\mu_{n} 
+&= \frac{\frac{1}{\sigma_{0}^{2}}\mu_{0}+\frac{n}{\sigma^{2}}\bar{y}}{\frac{1}{\sigma_{0}^{2}}+\frac{n}{\sigma^{2}}}
+\frac{1}{\sigma_{n}^{2}} = \frac{400+9y}{13}=110.38\\
+\end{align*}</script><p>进一步，其方差的估计为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\sigma_{n}^{2}&= \frac{1}{\sigma_{0}^{2}} + \frac{n}{\sigma^{2}}=69.23\\
+\end{align*}</script><p>从这个例子可以看出贝叶斯估计结合了先验信息、总体信息和抽样信息，修正了这名儿童的测试结果，而同时又修正了结果的方差，而频率学派则没有做出修正（因为它是站在总体的角度去看待问题）</p>
+<h3 id="例2：不合格率估计"><a href="#例2：不合格率估计" class="headerlink" title="例2：不合格率估计"></a>例2：不合格率估计</h3><p>为估计不合格品率$\theta$，现从一批产品中随机抽取$n$件，设不合格件数$y$服从二项分布，在历史上常用$Beta(\alpha, \beta)$作为$\theta$的先验分布，为方便起见，假定为$Beta(1, 1)$。</p>
+<p><strong>频率学派的观点</strong><br>在频率学派的观点下，不合格率$\theta$实际上是总体不合格情况的一个均值，而对总体均值的最好估计是样本均值，因此可以用样本均值来作为一个点估计。</p>
+<p>另一种角度看，假设观测到的样本$y=\{y_{1}, \cdots, y_{n}\}$，通过最大似然估计，即求</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\theta_{MLE}
+&=\arg \max_{\theta} p(y\mid \theta)\\
+&\propto \arg \max_{\theta}  \theta^{y}(1-\theta)^{n-y}\\
+&=\frac{y}{n}
+\end{align*}</script><p><strong>贝叶斯学派的观点</strong><br>在$Beta(1, 1)$的先验分布下（也就是$[0,1]$的均匀分布），假设观测到的样本$y=\{y_{1}, \cdots, y_{n}\}$，通过最大后验估计，我们有</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\theta_{MAP}
+&=\arg \max_{\theta} \frac{p(\theta)p(y \mid \theta)}{\int_{\theta} p(\theta)p(y \mid \theta)}\\
+&\propto \arg \max_{\theta} p(\theta)p(y \mid \theta)\\
+&\propto \arg \max_{\theta} \theta^{y}(1-\theta)^{n-y}\\
+&=\frac{y}{n}
+\end{align*}</script><h1 id="区间估计"><a href="#区间估计" class="headerlink" title="区间估计"></a>区间估计</h1>]]></content>
       <categories>
         <category>Bayesian Data Analysis</category>
       </categories>
