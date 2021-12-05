@@ -827,7 +827,166 @@ var(u) &= E(u^{2})-(E(u))^{2}\\
       </tags>
   </entry>
   <entry>
-    <title>Bayesian-Data-Analysis（二）：单参数模型</title>
+    <title>Bayesian Data Analysis（三）：多参数模型【WIP】</title>
+    <url>/2021/11/29/20211129_Bayesian-Data-Analysis%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E5%A4%9A%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<h1 id="多参数模型简介"><a href="#多参数模型简介" class="headerlink" title="多参数模型简介"></a>多参数模型简介</h1><p>为了在数学上表示联合概率分布和边缘概率分布的思想，假如说我们的参数$\theta$包含两部分，即$\theta=(\theta_{1}, \theta_{2})^{T}$，如果在推断过程中，我对关心的是$\theta_{1}$， 那么$\theta_{2}$就会被看成是一个<strong>冗杂参数（nuisance parameter）</strong>，为简化起见，以正态分布为例</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+y \mid \mu, \sigma^{2} \sim N(\mu, \sigma^{2})
+\end{align*}</script><p>假定$\mu, \sigma^{2}$均为未知参数，但我们目前推断仅关心$\mu$，那么$\sigma^{2}$就会被我们认定为是一个冗杂参数。</p>
+<p>回到最初的表达式，如果说我们需要知道$\theta_{1}$的后验密度，那么我们可以表示为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta_{1} \mid y) 
+&= \int p(\theta_{1}, \theta_{2} \mid y) d\theta_{2}\\
+&= \int p(\theta_{1} \mid y, \theta_{2})p(\theta_{2} \mid y) d\theta_{2}\\
+\end{align*}</script><p>这个式子表明$\theta_{1}$的后验密度实际上是以$\theta_{2}$的后验分布加权的混合分布</p>
+<p>同时我们还有</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta_{1}, \theta_{2} \mid y) 
+&= \frac{p(\theta_{1}, \theta_{2}, y)}{p(y)}\\
+&= \frac{p(y \mid \theta_{1}, \theta_{2})p(\theta_{1}, \theta_{2})}{p(y)}\\
+&\propto p(y \mid \theta_{1}, \theta_{2})p(\theta_{1}, \theta_{2})\\
+\end{align*}</script><p>可以得到</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta_{1} \mid y) 
+&\propto \int p(y \mid \theta_{1}, \theta_{2})p(\theta_{1}, \theta_{2}) d\theta_{2}
+\end{align*}</script><p>多参数模型部分总体还是比较难的，以了解思想为主</p>
+<h1 id="在无信息先验分布下的正态数据"><a href="#在无信息先验分布下的正态数据" class="headerlink" title="在无信息先验分布下的正态数据"></a>在无信息先验分布下的正态数据</h1><h2 id="联合先验分布"><a href="#联合先验分布" class="headerlink" title="联合先验分布"></a>联合先验分布</h2><p>在$\mu, \sigma^{2}$均为未知参数的情况下，利用位置参数和尺度参数，我们可以知道$p(\mu)\propto constant$和 $p(\sigma^{2})\propto \frac{1}{\sigma^{2}}$（等价于$p(\log \sigma) \propto 1$），那么我们可以得到$\mu, \sigma^{2}$的联合概率密度</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\mu, \sigma^{2}) 
+&= p(\sigma^{2} \mid \mu)p(\mu)\\
+&\propto p(\sigma^{2} \mid \mu)\\
+&=\frac{1}{\sigma^{2}}\\
+\end{align*}</script><h2 id="联合后验分布"><a href="#联合后验分布" class="headerlink" title="联合后验分布"></a>联合后验分布</h2><p>在这个不恰当的先验分布情形下，仿照前文的推导，设观测数据为$y=\{y_{1}, \cdots, y_{n}\}$，利用最大似然法可得</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\mu, \sigma^{2}\mid y)
+&\propto \prod_{i=1}^{n} p(y_{i} \mid \mu, \sigma^{2})p(\mu, \sigma^{2})\\
+&\propto \frac{1}{\sigma^{2}}\prod_{i=1}^{n} \frac{1}{\sigma}e^{-\frac{(y_{i}-\mu)^{2}}{2\sigma^{2}}}\\
+&=\frac{1}{\sigma^{n+2}}e^{-\sum_{i=1}^{n} \frac{(y_{i}-\mu)^{2}}{2\sigma^{2}}}\\
+&=\frac{1}{\sigma^{n+2}}e^{-\sum_{i=1}^{n} \frac{(y_{i}-\bar{y}+\bar{y}-\mu)^{2}}{2\sigma^{2}}}\\
+&=\frac{1}{\sigma^{n+2}}e^{- \frac{1}{2\sigma^{2}}[n(\bar{y}-\mu)^{2}+\sum_{i=1}^{n}(y_{i}-\bar{y})^{2}]} \quad \mbox{（应用了$\sum (y_{i}-\bar{y})=0$）}\\
+&=\frac{1}{\sigma^{n+2}}e^{- \frac{1}{2\sigma^{2}}[n(\bar{y}-\mu)^{2}+(n-1)s^{2}]}\\
+\end{align*}</script><p>其中$s^{2}=\frac{1}{n-1}\sum_{i=1}^{n}(y_{i}-\bar{y})^{2}$</p>
+<h2 id="参数边缘后验分布"><a href="#参数边缘后验分布" class="headerlink" title="参数边缘后验分布"></a>参数边缘后验分布</h2><h3 id="sigma-2-的后验分布"><a href="#sigma-2-的后验分布" class="headerlink" title="$\sigma^{2}$的后验分布"></a>$\sigma^{2}$的后验分布</h3><p>如果我们所关心的参数是$\sigma^{2}$，那么利用我们第一部分的内容，对于$\sigma^{2}$的后验分布我们有</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\sigma^{2} \mid y) 
+& \propto \int p(\mu, \sigma^{2}\mid y) d\mu\\ 
+& \propto \frac{1}{\sigma^{n+1}}e^{- \frac{1}{2\sigma^{2}}(n-1)s^{2}}\\ 
+\end{align*}</script><p>这个分布也就是$I-\chi^{2}$分布，满足$p(\sigma^{2} \mid y) =I-\chi^{2}(n-1, s^{2})$</p>
+<!-- 同时在此前附录提到过若方差已知的情况下，当$n \rightarrow \infty$时，$p(\mu \mid \sigma^{2}, y)=N(\bar{y}, \frac{\sigma^{2}}{n})$
+
+在以上条件下，我们已经尝试建立起了一个联合后验分布表达式：
+$$
+\begin{align*}
+p(\mu, \sigma^{2}\mid y) = p(\sigma^{2} \mid y) p(\mu \mid \sigma^{2}, y)
+\end{align*}
+$$ -->
+<h3 id="mu-的后验分布"><a href="#mu-的后验分布" class="headerlink" title="$\mu$的后验分布"></a>$\mu$的后验分布</h3><p>进一步，求$\mu$的后验分布：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\mu \mid y) 
+&= \int_{0}^{\infty} p(\mu, \sigma^{2}\mid y) d \sigma^{2}\\
+&\propto [1+ \frac{1}{(n-1)}\frac{(\bar{y}-\mu)^{2}}{s^{2}/n}]^{-\frac{n}{2}}
+\end{align*}</script><p>这实际上就是$t_{n-1}(\bar{y}, \frac{s^{2}}{n})$的密度函数<br>也就是说，在$(\mu, \log \sigma)$的无信息先验分布下，$\mu$的后验分布是一个t分布</p>
+<h1 id="在共轭先验分布下的正态数据"><a href="#在共轭先验分布下的正态数据" class="headerlink" title="在共轭先验分布下的正态数据"></a>在共轭先验分布下的正态数据</h1><h2 id="在共轭先验分布下的正态数据-1"><a href="#在共轭先验分布下的正态数据-1" class="headerlink" title="在共轭先验分布下的正态数据"></a>在共轭先验分布下的正态数据</h2><p>假定</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\mu \mid \sigma^{2}) &= N(\mu_{0}, \frac{\sigma^{2}}{\kappa_{0}})\\
+p(\sigma^{2}) &= I-\chi^{2}(\nu_{0}, \sigma_{0}^{2}) \quad \mbox{（借助前文的知识可得）}\\
+\end{align*}</script><p>那么联合先验分布可以表示为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\mu, \sigma^{2}) 
+&=p(\mu \mid \sigma^{2})p(\sigma^{2})\\
+&\propto \sigma^{-1}(\sigma^{2})^{-(\frac{\nu_{0}}{2}+1)}e^{-\frac{1}{2\sigma^{2}}[\nu_{0}\sigma_{0}^{2}+\kappa_{0}(\mu_{0}-\mu)^{2}]}\\
+&=N-I-\chi^{2}(\mu, \sigma^{2} \mid \mu_{0}, \frac{\sigma^{2}}{\kappa_{0}}; \nu_{0}, \sigma_{0}^{2})\\
+\end{align*}</script><blockquote>
+<p>注：</p>
+<ol>
+<li>$p(\mu, \sigma^{2}) =N-I-\chi^{2}(\mu, \sigma^{2} \mid \mu_{0}, \frac{\sigma^{2}}{\kappa_{0}}; \nu_{0}, \sigma_{0}^{2})$表示正态-逆卡方分布</li>
+<li>正态-逆卡方分布可以拆成两个部分，即最开始假定的：$\sigma^{2} \sim I-\chi^{2}(\nu_{0}, \sigma_{0}^{2})$和$\mu \mid \sigma^{2} \sim N(\mu_{0}, \frac{\sigma^{2}}{\kappa_{0}})$</li>
+</ol>
+</blockquote>
+<p>设观测数据为$y=\{y_{1}, \cdots, y_{n}\}$，利用最大似然法可得</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\mu, \sigma^{2}\mid y)
+&\propto \prod_{i=1}^{n} p(y_{i} \mid \mu, \sigma^{2})p(\mu, \sigma^{2})\\
+&\propto 
+\sigma^{-1}(\sigma^{2})^{-(\frac{\nu_{0}}{2}+1)}e^{-\frac{1}{2\sigma^{2}}[\nu_{0}\sigma_{0}^{2}+\kappa_{0}(\mu_{0}-\mu)^{2}]}
+\prod_{i=1}^{n} \frac{1}{\sigma}e^{-\frac{(y_{i}-\mu)^{2}}{2\sigma^{2}}}\\
+&=
+\sigma^{-(n+1)}(\sigma^{2})^{-(\frac{\nu_{0}}{2}+1)}e^{-\frac{1}{2\sigma^{2}}[\nu_{0}\sigma_{0}^{2}+\kappa_{0}(\mu_{0}-\mu)^{2}]}
+e^{-\sum_{i=1}^{n} \frac{(y_{i}-\mu)^{2}}{2\sigma^{2}}}\\
+&=
+\sigma^{-(n+1)}(\sigma^{2})^{-(\frac{\nu_{0}}{2}+1)}e^{-\frac{1}{2\sigma^{2}}[\nu_{0}\sigma_{0}^{2}+\kappa_{0}(\mu_{0}-\mu)^{2}]}
+e^{- \frac{1}{2\sigma^{2}}[n(\bar{y}-\mu)^{2}+(n-1)s^{2}]}\\
+&=
+\sigma^{-(n+1)}(\sigma^{2})^{-(\frac{\nu_{0}}{2}+1)}
+e^{-\frac{1}{2\sigma^{2}}[\nu_{0}\sigma_{0}^{2}+\kappa_{0}(\mu_{0}-\mu)^{2}+n(\bar{y}-\mu)^{2}+(n-1)s^{2}]}\\
+&=
+\sigma^{-1}(\sigma^{2})^{-(\frac{\nu_{0}+n}{2}+1)}
+e^{-\frac{1}{2\sigma^{2}}[\nu_{0}\sigma_{0}^{2}+(n-1)s^{2}+\frac{n\kappa_{0}(\bar{y}-\mu_{0})^{2}}{\kappa_{0}+n}+(\kappa_{0}+n)(\mu-\frac{\mu_{0}\kappa_{0}+n\bar{y}}{\kappa_{0}+n})^{2}]}\\
+&=N-I-\chi^{2}(\mu, \sigma^{2} \mid \mu_{n}, \frac{\sigma^{2}}{\kappa_{n}}; \nu_{n}, \sigma_{n}^{2})\\
+\end{align*}</script><p>其中</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\mu_{n}&=\frac{\kappa_{0}}{\kappa_{0}+n}\mu_{0}+\frac{n}{\kappa_{0}+n}\bar{y}\\
+\kappa_{n}&=\kappa_{0}+n\\
+\nu{n}&=\nu_{0}+n\\
+\nu_{n}\sigma_{n}^{2}&=\nu_{0}\sigma_{0}^{2}+(n-1)s^{2}+\frac{\kappa_{0}n}{\kappa_{0}+n}(\bar{y}-\mu_{0})^{2}\\
+\sigma_{n}^{2}&=\frac{\nu_{0}\sigma_{0}^{2}+(n-1)s^{2}+\frac{\kappa_{0} n}{\kappa_{0}+n}(\bar{y}-\mu_{0})^{2}}{\nu_{0}+n}\\
+\end{align*}</script><p>由上面的结果可以拆解为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\mu \mid y, \sigma^{2}) &= N(\mu_{n}, \frac{\sigma^{2}}{\kappa_{n}})\\
+p(\sigma^{2} \mid y) &= I-\chi^{2}(\nu_{n}, \sigma_{n}^{2}))\\
+\end{align*}</script><p>进一步，$\mu$的边缘概率密度为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\mu \mid y) 
+&= \int p(\mu \mid y, \sigma^{2}) d\sigma^{2}\\
+&= (1+\frac{\kappa_{n}(\mu-\mu_{n})^{2}}{\nu_{n}\sigma_{n}^{2}})^{-\frac{\nu_{n}+1}{2}}\\
+&= t_{\nu_{n}}(\mu \mid \mu_{n}, \frac{\sigma_{n}^{2}}{\kappa_{n}})\\
+\end{align*}</script><h2 id="多元选择模型"><a href="#多元选择模型" class="headerlink" title="多元选择模型"></a>多元选择模型</h2><p>总体密度满足</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(y \mid \theta) \propto \prod_{i=1}^{n}\theta_{i}^{y_{i}}
+\end{align*}</script><p>其中</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\sum_{i=1}^{n} \theta_{i} &= 1\\
+\sum_{i=1}^{n} y_{i} &= n\\
+\end{align*}</script><p>共轭先验分布为狄利克雷分布</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta \mid \alpha) \propto \prod_{i=1}^{n}\theta_{i}^{\alpha_{i}-1}
+\end{align*}</script><p>其中</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\sum_{i=1}^{n} \theta_{i} &= 1\\
+\end{align*}</script><p>则后验分布满足</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta \mid y, \alpha) 
+&\propto \prod_{i=1}^{n}\theta_{i}^{y_{i}+\alpha_{i}-1}\\
+&=Dirichlet(\theta, y+\alpha)
+\end{align*}</script>]]></content>
+      <categories>
+        <category>Bayesian Data Analysis</category>
+      </categories>
+      <tags>
+        <tag>Bayesian Data Analysis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Bayesian Data Analysis（二）：单参数模型</title>
     <url>/2021/11/28/20211128_Bayesian-Data-Analysis%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%8D%95%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B/</url>
     <content><![CDATA[<h1 id="一般单参数模型的贝叶斯推断过程：以女性出生率估计为例"><a href="#一般单参数模型的贝叶斯推断过程：以女性出生率估计为例" class="headerlink" title="一般单参数模型的贝叶斯推断过程：以女性出生率估计为例"></a>一般单参数模型的贝叶斯推断过程：以女性出生率估计为例</h1><p>在两百年前的欧洲，绝大数人相信女性出生率小于0.5。目前通过大量欧洲人口中估计，这个值是0.485，同上一章约定的符号，我们把女性出生率设定为$\theta$，那么男女出生性别比可以表示为$\phi=\frac{1-\theta}{\theta}$。同时我们设定在$n$个被记录的出生样本中，有$y$个是女性，那么我们可以用一个二项分布来对该问题建模，也就是</p>
 <script type="math/tex; mode=display">
@@ -1029,7 +1188,37 @@ E(\theta \mid y)
 var(\theta) 
 &= E(\theta \mid y^{2}) - (E(\theta \mid y))^{2} \quad \mbox{(同二项分布做法)}\\
 &= \theta
-\end{align*}</script><h3 id="Exponential-Distribution"><a href="#Exponential-Distribution" class="headerlink" title="Exponential Distribution"></a>Exponential Distribution</h3><p>概率函数</p>
+\end{align*}</script><h3 id="Chi-Square-Distribution"><a href="#Chi-Square-Distribution" class="headerlink" title="Chi-Square Distribution"></a>Chi-Square Distribution</h3><p>若n个随机变量$\xi{1}, \cdots,\xi{\nu}$<strong>独立同分布于标准正态分布</strong>，则$Z=\sum_{i=1}^{n}\xi_{i}$服从一个新的分布，即$\chi^{2}$分布，且满足$Z \sim \chi_{\nu}^{2}$（或称为$Z \sim \chi^{2}(\nu)$），其中$\nu$为自由度，$\chi^{2}$分布也等价于$Gamma(\frac{\nu}{2}, \frac{1}{2})$</p>
+<p>对于$\chi^{2}$分布，其概率函数为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(y \mid \nu) 
+&=  \chi_{\nu}^{2}(y)\\
+&=\frac{2^{-\frac{\nu}{2}}}{\Gamma(\frac{\nu}{2})}y^{\frac{\nu}{2}-1}e^{-\frac{y}{2}}
+\end{align*}</script><p>期望</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+E(\nu \mid y) 
+&= \int y \frac{2^{-\frac{\nu}{2}}}{\Gamma(\frac{\nu}{2})}y^{\frac{\nu}{2}-1}e^{-\frac{y}{2}} dy\\
+&= \nu
+\end{align*}</script><p>方差</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+var(\nu) 
+&= E(\nu \mid y^{2}) - (E(\nu \mid y))^{2}\\
+&= 2\nu\\
+\end{align*}</script><p>P.S.  更常用的方法是利用标准正态分布及期望算子线性性的性质进行简化计算，例如</p>
+<p>期望</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+E(\nu \mid y) 
+&= E(\sum_{i=1}^{\nu}y_{i}^{2})\\
+&= \sum_{i=1}^{\nu}E(y_{i}^{2})\\
+&= \sum_{i=1}^{\nu}[D(y_{i})+(E(y_{i})^{2})] \quad \mbox{（应用方差计算公式）}\\
+&= \sum_{i=1}^{\nu}(1+0)\\
+&=\nu
+\end{align*}</script><p>方差可同理计算</p>
+<h3 id="Exponential-Distribution"><a href="#Exponential-Distribution" class="headerlink" title="Exponential Distribution"></a>Exponential Distribution</h3><p>概率函数</p>
 <script type="math/tex; mode=display">
 \begin{align*}
 p(y \mid \theta) =  
@@ -1135,6 +1324,26 @@ E(a, b \mid y)
 var(a, b) 
 &= E(a, b \mid y^{2}) - (E(a, b \mid y))^{2}\\
 &= \frac{ab}{(a+b)^{2}(a+b+1)}
+\end{align*}</script><h3 id="Dirichlet-Distribution"><a href="#Dirichlet-Distribution" class="headerlink" title="Dirichlet Distribution"></a>Dirichlet Distribution</h3><p>狄利克雷分布（也叫多元Beta分布）是一类在实数域以正单纯形（standard simplex）为支撑集（support）的高维连续概率分布，是Beta分布在高维情形的推广。</p>
+<p>概率函数</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta \mid \alpha_{1}, \cdots, \alpha_{n}) = \frac{\Gamma(\sum_{i=1}^{n}\alpha_{i})}{\prod_{i=1}^{n}\Gamma(\alpha_{i})}\theta_{i}^{\alpha_{i}-1}
+\end{align*}</script><p>期望</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+E(\theta_{i}) 
+&= \frac{\alpha_{i}}{\alpha_{0}}
+\end{align*}</script><p>方差</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+var(\theta_{i}) 
+&= \frac{\alpha_{i}(\alpha_{0}-\alpha_{i})}{\alpha_{0}^{2}(\alpha_{0}+1)}
+\end{align*}</script><p>协方差</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+cov(\theta_{i}, \theta_{j}) 
+&= -\frac{\alpha_{i}\alpha_{j}}{\alpha_{0}^{2}(\alpha_{0}+1)}
 \end{align*}</script><div id="attatch2"></div>
 
 <h2 id="共轭先验分布的证明"><a href="#共轭先验分布的证明" class="headerlink" title="共轭先验分布的证明"></a>共轭先验分布的证明</h2><h3 id="Binormal-Distribution-1"><a href="#Binormal-Distribution-1" class="headerlink" title="Binormal Distribution"></a>Binormal Distribution</h3><p>正态分布相对比较简单，在此不考虑多观测值的情况直接证明<br>总体分布满足</p>
@@ -1208,12 +1417,12 @@ p(\theta \mid y)
 <script type="math/tex; mode=display">
 \begin{align*}
 p(y_{i} \mid \theta) =  
-\frac{1}{\sqrt{2\pi}\sigma}e^{\frac{(y_{i}-\theta)^{2}}{2\sigma^{2}}}
+\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(y_{i}-\theta)^{2}}{2\sigma^{2}}}
 \end{align*}</script><p>设观测数据为$y=\{y_{1}, \cdots, y_{n}\}$，利用最大似然法可得</p>
 <script type="math/tex; mode=display">
 \begin{align*}
 p(y \mid \theta) 
-&=  \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi}\sigma}e^{\frac{(y_{i}-\theta)^{2}}{2\sigma^{2}}}\\
+&=  \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(y_{i}-\theta)^{2}}{2\sigma^{2}}}\\
 & \propto  e^{-\frac{\sum_{i=1}^{n} (y_{i}-\theta)^{2}}{2\sigma^{2}}}\\
 \end{align*}</script><p>取先验分布$p(\theta)$为$N(\mu_{0}, \sigma_{0})$</p>
 <script type="math/tex; mode=display">
@@ -1243,16 +1452,17 @@ e^{-\frac{1}{2\sigma_{0}^{2}}(\theta^{2}-2\mu_{0}\theta)}\\
 p(\theta \mid y) 
 &\propto 
 e^{-\frac{1}{2\sigma_{n}^{2}}(\theta-\mu_{n})^{2}}\\
-\end{align*}</script><h3 id="Normal-Distribution-with-Known-Mean"><a href="#Normal-Distribution-with-Known-Mean" class="headerlink" title="Normal Distribution with Known Mean"></a>Normal Distribution with Known Mean</h3><p>总体分布满足</p>
+\end{align*}</script><p>特别的，当$n \rightarrow \infty$时，由上面的结果可以导出，$p(\theta \mid y)=N(\bar{y}, \frac{\sigma^{2}}{n})$</p>
+<h3 id="Normal-Distribution-with-Known-Mean"><a href="#Normal-Distribution-with-Known-Mean" class="headerlink" title="Normal Distribution with Known Mean"></a>Normal Distribution with Known Mean</h3><p>总体分布满足</p>
 <script type="math/tex; mode=display">
 \begin{align*}
 p(y_{i} \mid \theta) =  
-\frac{1}{\sqrt{2\pi \theta}}e^{\frac{(y_{i}-\mu)^{2}}{2\theta}}
+\frac{1}{\sqrt{2\pi \theta}}e^{-\frac{(y_{i}-\mu)^{2}}{2\theta}}
 \end{align*}</script><p>设观测数据为$y=\{y_{1}, \cdots, y_{n}\}$，利用最大似然法可得</p>
 <script type="math/tex; mode=display">
 \begin{align*}
 p(y \mid \theta) 
-&=  \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi\theta}}e^{\frac{(y_{i}-\mu)^{2}}{2\theta^{2}}}\\
+&=  \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi\theta}}e^{-\frac{(y_{i}-\mu)^{2}}{2\theta^{2}}}\\
 & \propto  \theta^{-\frac{n}{2}}e^{-\frac{t}{2\theta}}\\
 \end{align*}</script><p>其中$t=\sum_{i=1}^{n} (y_{i}-\mu)^{2}$</p>
 <p>取先验分布$p(\theta)$为倒Gamma分布$I-Gamma(\alpha, \lambda)$</p>

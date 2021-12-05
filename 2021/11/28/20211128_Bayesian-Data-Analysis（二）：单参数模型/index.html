@@ -81,13 +81,13 @@
 
 <meta name="description" content="一般单参数模型的贝叶斯推断过程：以女性出生率估计为例在两百年前的欧洲，绝大数人相信女性出生率小于0.5。目前通过大量欧洲人口中估计，这个值是0.485，同上一章约定的符号，我们把女性出生率设定为$\theta$，那么男女出生性别比可以表示为$\phi&#x3D;\frac{1-\theta}{\theta}$。同时我们设定在$n$个被记录的出生样本中，有$y$个是女性，那么我们可以用一个二项分布来对该问题建">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Bayesian-Data-Analysis（二）：单参数模型">
+<meta property="og:title" content="Bayesian Data Analysis（二）：单参数模型">
 <meta property="og:url" content="http://keimakatsuragi.github.io/2021/11/28/20211128_Bayesian-Data-Analysis%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%8D%95%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B/index.html">
 <meta property="og:site_name" content="Dulingzhi&#39;s Blog">
 <meta property="og:description" content="一般单参数模型的贝叶斯推断过程：以女性出生率估计为例在两百年前的欧洲，绝大数人相信女性出生率小于0.5。目前通过大量欧洲人口中估计，这个值是0.485，同上一章约定的符号，我们把女性出生率设定为$\theta$，那么男女出生性别比可以表示为$\phi&#x3D;\frac{1-\theta}{\theta}$。同时我们设定在$n$个被记录的出生样本中，有$y$个是女性，那么我们可以用一个二项分布来对该问题建">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-11-27T17:39:44.000Z">
-<meta property="article:modified_time" content="2021-11-28T16:22:23.255Z">
+<meta property="article:modified_time" content="2021-12-05T07:26:50.873Z">
 <meta property="article:author" content="LingZhi Du">
 <meta property="article:tag" content="Bayesian Data Analysis">
 <meta name="twitter:card" content="summary">
@@ -126,7 +126,7 @@
 
 
 
-  <title>Bayesian-Data-Analysis（二）：单参数模型 | Dulingzhi's Blog</title>
+  <title>Bayesian Data Analysis（二）：单参数模型 | Dulingzhi's Blog</title>
   
 
 
@@ -344,7 +344,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Bayesian-Data-Analysis（二）：单参数模型</h1>
+          <h1 class="post-title" itemprop="name headline">Bayesian Data Analysis（二）：单参数模型</h1>
         
 
         <div class="post-meta">
@@ -421,7 +421,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4.2k
+                  4.7k
                 </span>
               
 
@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  20
+                  23
                 </span>
               
             </div>
@@ -658,7 +658,37 @@ E(\theta \mid y)
 var(\theta) 
 &= E(\theta \mid y^{2}) - (E(\theta \mid y))^{2} \quad \mbox{(同二项分布做法)}\\
 &= \theta
-\end{align*}</script><h3 id="Exponential-Distribution"><a href="#Exponential-Distribution" class="headerlink" title="Exponential Distribution"></a>Exponential Distribution</h3><p>概率函数</p>
+\end{align*}</script><h3 id="Chi-Square-Distribution"><a href="#Chi-Square-Distribution" class="headerlink" title="Chi-Square Distribution"></a>Chi-Square Distribution</h3><p>若n个随机变量$\xi{1}, \cdots,\xi{\nu}$<strong>独立同分布于标准正态分布</strong>，则$Z=\sum_{i=1}^{n}\xi_{i}$服从一个新的分布，即$\chi^{2}$分布，且满足$Z \sim \chi_{\nu}^{2}$（或称为$Z \sim \chi^{2}(\nu)$），其中$\nu$为自由度，$\chi^{2}$分布也等价于$Gamma(\frac{\nu}{2}, \frac{1}{2})$</p>
+<p>对于$\chi^{2}$分布，其概率函数为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(y \mid \nu) 
+&=  \chi_{\nu}^{2}(y)\\
+&=\frac{2^{-\frac{\nu}{2}}}{\Gamma(\frac{\nu}{2})}y^{\frac{\nu}{2}-1}e^{-\frac{y}{2}}
+\end{align*}</script><p>期望</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+E(\nu \mid y) 
+&= \int y \frac{2^{-\frac{\nu}{2}}}{\Gamma(\frac{\nu}{2})}y^{\frac{\nu}{2}-1}e^{-\frac{y}{2}} dy\\
+&= \nu
+\end{align*}</script><p>方差</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+var(\nu) 
+&= E(\nu \mid y^{2}) - (E(\nu \mid y))^{2}\\
+&= 2\nu\\
+\end{align*}</script><p>P.S.  更常用的方法是利用标准正态分布及期望算子线性性的性质进行简化计算，例如</p>
+<p>期望</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+E(\nu \mid y) 
+&= E(\sum_{i=1}^{\nu}y_{i}^{2})\\
+&= \sum_{i=1}^{\nu}E(y_{i}^{2})\\
+&= \sum_{i=1}^{\nu}[D(y_{i})+(E(y_{i})^{2})] \quad \mbox{（应用方差计算公式）}\\
+&= \sum_{i=1}^{\nu}(1+0)\\
+&=\nu
+\end{align*}</script><p>方差可同理计算</p>
+<h3 id="Exponential-Distribution"><a href="#Exponential-Distribution" class="headerlink" title="Exponential Distribution"></a>Exponential Distribution</h3><p>概率函数</p>
 <script type="math/tex; mode=display">
 \begin{align*}
 p(y \mid \theta) =  
@@ -764,6 +794,26 @@ E(a, b \mid y)
 var(a, b) 
 &= E(a, b \mid y^{2}) - (E(a, b \mid y))^{2}\\
 &= \frac{ab}{(a+b)^{2}(a+b+1)}
+\end{align*}</script><h3 id="Dirichlet-Distribution"><a href="#Dirichlet-Distribution" class="headerlink" title="Dirichlet Distribution"></a>Dirichlet Distribution</h3><p>狄利克雷分布（也叫多元Beta分布）是一类在实数域以正单纯形（standard simplex）为支撑集（support）的高维连续概率分布，是Beta分布在高维情形的推广。</p>
+<p>概率函数</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta \mid \alpha_{1}, \cdots, \alpha_{n}) = \frac{\Gamma(\sum_{i=1}^{n}\alpha_{i})}{\prod_{i=1}^{n}\Gamma(\alpha_{i})}\theta_{i}^{\alpha_{i}-1}
+\end{align*}</script><p>期望</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+E(\theta_{i}) 
+&= \frac{\alpha_{i}}{\alpha_{0}}
+\end{align*}</script><p>方差</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+var(\theta_{i}) 
+&= \frac{\alpha_{i}(\alpha_{0}-\alpha_{i})}{\alpha_{0}^{2}(\alpha_{0}+1)}
+\end{align*}</script><p>协方差</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+cov(\theta_{i}, \theta_{j}) 
+&= -\frac{\alpha_{i}\alpha_{j}}{\alpha_{0}^{2}(\alpha_{0}+1)}
 \end{align*}</script><div id="attatch2"></div>
 
 <h2 id="共轭先验分布的证明"><a href="#共轭先验分布的证明" class="headerlink" title="共轭先验分布的证明"></a>共轭先验分布的证明</h2><h3 id="Binormal-Distribution-1"><a href="#Binormal-Distribution-1" class="headerlink" title="Binormal Distribution"></a>Binormal Distribution</h3><p>正态分布相对比较简单，在此不考虑多观测值的情况直接证明<br>总体分布满足</p>
@@ -837,12 +887,12 @@ p(\theta \mid y)
 <script type="math/tex; mode=display">
 \begin{align*}
 p(y_{i} \mid \theta) =  
-\frac{1}{\sqrt{2\pi}\sigma}e^{\frac{(y_{i}-\theta)^{2}}{2\sigma^{2}}}
+\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(y_{i}-\theta)^{2}}{2\sigma^{2}}}
 \end{align*}</script><p>设观测数据为$y=\{y_{1}, \cdots, y_{n}\}$，利用最大似然法可得</p>
 <script type="math/tex; mode=display">
 \begin{align*}
 p(y \mid \theta) 
-&=  \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi}\sigma}e^{\frac{(y_{i}-\theta)^{2}}{2\sigma^{2}}}\\
+&=  \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(y_{i}-\theta)^{2}}{2\sigma^{2}}}\\
 & \propto  e^{-\frac{\sum_{i=1}^{n} (y_{i}-\theta)^{2}}{2\sigma^{2}}}\\
 \end{align*}</script><p>取先验分布$p(\theta)$为$N(\mu_{0}, \sigma_{0})$</p>
 <script type="math/tex; mode=display">
@@ -872,16 +922,17 @@ e^{-\frac{1}{2\sigma_{0}^{2}}(\theta^{2}-2\mu_{0}\theta)}\\
 p(\theta \mid y) 
 &\propto 
 e^{-\frac{1}{2\sigma_{n}^{2}}(\theta-\mu_{n})^{2}}\\
-\end{align*}</script><h3 id="Normal-Distribution-with-Known-Mean"><a href="#Normal-Distribution-with-Known-Mean" class="headerlink" title="Normal Distribution with Known Mean"></a>Normal Distribution with Known Mean</h3><p>总体分布满足</p>
+\end{align*}</script><p>特别的，当$n \rightarrow \infty$时，由上面的结果可以导出，$p(\theta \mid y)=N(\bar{y}, \frac{\sigma^{2}}{n})$</p>
+<h3 id="Normal-Distribution-with-Known-Mean"><a href="#Normal-Distribution-with-Known-Mean" class="headerlink" title="Normal Distribution with Known Mean"></a>Normal Distribution with Known Mean</h3><p>总体分布满足</p>
 <script type="math/tex; mode=display">
 \begin{align*}
 p(y_{i} \mid \theta) =  
-\frac{1}{\sqrt{2\pi \theta}}e^{\frac{(y_{i}-\mu)^{2}}{2\theta}}
+\frac{1}{\sqrt{2\pi \theta}}e^{-\frac{(y_{i}-\mu)^{2}}{2\theta}}
 \end{align*}</script><p>设观测数据为$y=\{y_{1}, \cdots, y_{n}\}$，利用最大似然法可得</p>
 <script type="math/tex; mode=display">
 \begin{align*}
 p(y \mid \theta) 
-&=  \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi\theta}}e^{\frac{(y_{i}-\mu)^{2}}{2\theta^{2}}}\\
+&=  \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi\theta}}e^{-\frac{(y_{i}-\mu)^{2}}{2\theta^{2}}}\\
 & \propto  \theta^{-\frac{n}{2}}e^{-\frac{t}{2\theta}}\\
 \end{align*}</script><p>其中$t=\sum_{i=1}^{n} (y_{i}-\mu)^{2}$</p>
 <p>取先验分布$p(\theta)$为倒Gamma分布$I-Gamma(\alpha, \lambda)$</p>
@@ -941,7 +992,7 @@ p(\phi)
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://keimakatsuragi.github.io/2021/11/28/20211128_Bayesian-Data-Analysis%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%8D%95%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B/" title="Bayesian-Data-Analysis（二）：单参数模型">http://keimakatsuragi.github.io/2021/11/28/20211128_Bayesian-Data-Analysis%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%8D%95%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B/</a>
+    <a href="http://keimakatsuragi.github.io/2021/11/28/20211128_Bayesian-Data-Analysis%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%8D%95%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B/" title="Bayesian Data Analysis（二）：单参数模型">http://keimakatsuragi.github.io/2021/11/28/20211128_Bayesian-Data-Analysis%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%8D%95%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -978,6 +1029,10 @@ p(\phi)
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/11/29/20211129_Bayesian-Data-Analysis%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E5%A4%9A%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B/" rel="prev" title="Bayesian Data Analysis（三）：多参数模型【WIP】">
+                Bayesian Data Analysis（三）：多参数模型【WIP】 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -1066,7 +1121,7 @@ p(\phi)
             
               <div class="site-state-item site-state-posts">
                 <a href="/archives">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1121,7 +1176,7 @@ p(\phi)
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E5%8D%95%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%8E%A8%E6%96%AD%E8%BF%87%E7%A8%8B%EF%BC%9A%E4%BB%A5%E5%A5%B3%E6%80%A7%E5%87%BA%E7%94%9F%E7%8E%87%E4%BC%B0%E8%AE%A1%E4%B8%BA%E4%BE%8B"><span class="nav-text">一般单参数模型的贝叶斯推断过程：以女性出生率估计为例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83"><span class="nav-text">信息先验分布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83"><span class="nav-text">共轭先验分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-text">共轭先验分布的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-text">共轭先验分布的优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83"><span class="nav-text">常用共轭先验分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%91%E7%8E%87%E5%AD%A6%E6%B4%BE%E4%B8%8E%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AD%A6%E6%B4%BE%E7%9A%84%E5%B7%AE%E5%BC%82%EF%BC%88%E7%82%B9%E4%BC%B0%E8%AE%A1%EF%BC%89"><span class="nav-text">频率学派与贝叶斯学派的差异（点估计）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%A0%E4%BF%A1%E6%81%AF%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83"><span class="nav-text">无信息先验分布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Jeffrey%E4%B8%8D%E5%8F%98%E6%80%A7%E6%B3%95%E5%88%99"><span class="nav-text">Jeffrey不变性法则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E6%95%B0%E9%87%8F%E6%B3%95"><span class="nav-text">关键数量法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="nav-text">位置参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%BA%E5%BA%A6%E5%8F%82%E6%95%B0"><span class="nav-text">尺度参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E4%BF%A1%E6%81%AF%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83-1"><span class="nav-text">无信息先验分布</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%88%86%E5%B8%83"><span class="nav-text">常见分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Binormal-Distribution"><span class="nav-text">Binormal Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Poisson-Distribution"><span class="nav-text">Poisson Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exponential-Distribution"><span class="nav-text">Exponential Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Normal-Distribution"><span class="nav-text">Normal Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Uniform-Distribution"><span class="nav-text">Uniform Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gamma-Distribution"><span class="nav-text">Gamma Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Beta-Distribution"><span class="nav-text">Beta Distribution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83%E7%9A%84%E8%AF%81%E6%98%8E"><span class="nav-text">共轭先验分布的证明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Binormal-Distribution-1"><span class="nav-text">Binormal Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Poisson-Distribution-1"><span class="nav-text">Poisson Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exponential-Distribution-1"><span class="nav-text">Exponential Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Normal-Distribution-with-Known-Variance"><span class="nav-text">Normal Distribution with Known Variance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Normal-Distribution-with-Known-Mean"><span class="nav-text">Normal Distribution with Known Mean</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jeffrey%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83%E4%B8%8D%E5%8F%98%E6%80%A7%E7%9A%84%E8%AF%81%E6%98%8E"><span class="nav-text">Jeffrey先验分布不变性的证明</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E5%8D%95%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%B4%9D%E5%8F%B6%E6%96%AF%E6%8E%A8%E6%96%AD%E8%BF%87%E7%A8%8B%EF%BC%9A%E4%BB%A5%E5%A5%B3%E6%80%A7%E5%87%BA%E7%94%9F%E7%8E%87%E4%BC%B0%E8%AE%A1%E4%B8%BA%E4%BE%8B"><span class="nav-text">一般单参数模型的贝叶斯推断过程：以女性出生率估计为例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83"><span class="nav-text">信息先验分布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83"><span class="nav-text">共轭先验分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-text">共轭先验分布的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-text">共轭先验分布的优缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83"><span class="nav-text">常用共轭先验分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%91%E7%8E%87%E5%AD%A6%E6%B4%BE%E4%B8%8E%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AD%A6%E6%B4%BE%E7%9A%84%E5%B7%AE%E5%BC%82%EF%BC%88%E7%82%B9%E4%BC%B0%E8%AE%A1%EF%BC%89"><span class="nav-text">频率学派与贝叶斯学派的差异（点估计）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%A0%E4%BF%A1%E6%81%AF%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83"><span class="nav-text">无信息先验分布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Jeffrey%E4%B8%8D%E5%8F%98%E6%80%A7%E6%B3%95%E5%88%99"><span class="nav-text">Jeffrey不变性法则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E6%95%B0%E9%87%8F%E6%B3%95"><span class="nav-text">关键数量法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="nav-text">位置参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%BA%E5%BA%A6%E5%8F%82%E6%95%B0"><span class="nav-text">尺度参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E4%BF%A1%E6%81%AF%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83-1"><span class="nav-text">无信息先验分布</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%88%86%E5%B8%83"><span class="nav-text">常见分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Binormal-Distribution"><span class="nav-text">Binormal Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Poisson-Distribution"><span class="nav-text">Poisson Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Chi-Square-Distribution"><span class="nav-text">Chi-Square Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exponential-Distribution"><span class="nav-text">Exponential Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Normal-Distribution"><span class="nav-text">Normal Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Uniform-Distribution"><span class="nav-text">Uniform Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gamma-Distribution"><span class="nav-text">Gamma Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Beta-Distribution"><span class="nav-text">Beta Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dirichlet-Distribution"><span class="nav-text">Dirichlet Distribution</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E8%BD%AD%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83%E7%9A%84%E8%AF%81%E6%98%8E"><span class="nav-text">共轭先验分布的证明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Binormal-Distribution-1"><span class="nav-text">Binormal Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Poisson-Distribution-1"><span class="nav-text">Poisson Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Exponential-Distribution-1"><span class="nav-text">Exponential Distribution</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Normal-Distribution-with-Known-Variance"><span class="nav-text">Normal Distribution with Known Variance</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Normal-Distribution-with-Known-Mean"><span class="nav-text">Normal Distribution with Known Mean</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jeffrey%E5%85%88%E9%AA%8C%E5%88%86%E5%B8%83%E4%B8%8D%E5%8F%98%E6%80%A7%E7%9A%84%E8%AF%81%E6%98%8E"><span class="nav-text">Jeffrey先验分布不变性的证明</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1155,7 +1210,7 @@ p(\phi)
     
       <span class="post-meta-item-text">全站字数&#58;</span>
     
-    <span title="全站字数">16.5k</span>
+    <span title="全站字数">18.7k</span>
   
 </div>
 
@@ -1303,7 +1358,7 @@ p(\phi)
         var disqus_config = function () {
           this.page.url = 'http://keimakatsuragi.github.io/2021/11/28/20211128_Bayesian-Data-Analysis%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%8D%95%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B/';
           this.page.identifier = '2021/11/28/20211128_Bayesian-Data-Analysis（二）：单参数模型/';
-          this.page.title = 'Bayesian-Data-Analysis（二）：单参数模型';
+          this.page.title = 'Bayesian Data Analysis（二）：单参数模型';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://dlz850245.disqus.com/embed.js';
