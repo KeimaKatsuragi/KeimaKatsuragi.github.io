@@ -87,7 +87,7 @@
 <meta property="og:description" content="前言均假定总体方差已知的情形 单样本均值单样本均值，双边检验原假设和备择假设假定我们的原假设和备择假设为：  \begin{align*}     H_{0}: \mu &#x3D; \mu_{0} \longleftrightarrow H_{1}: \mu \neq \mu_{0} \end{align*}统计功效令$t&#x3D;\frac{\bar{x}-\mu_{0}}{s&#x2F;\sqrt{n}}$为我们构建的">
 <meta property="og:locale">
 <meta property="article:published_time" content="2022-01-10T14:32:14.000Z">
-<meta property="article:modified_time" content="2022-01-23T12:34:22.329Z">
+<meta property="article:modified_time" content="2022-01-23T12:42:32.620Z">
 <meta property="article:author" content="LingZhi Du">
 <meta property="article:tag" content="A&#x2F;B 实验">
 <meta name="twitter:card" content="summary">
@@ -421,7 +421,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.7k
+                  2.6k
                 </span>
               
 
@@ -601,107 +601,108 @@
     &= \Phi( \vert z \vert - z_{1-\alpha / 2})
 \end{align*}</script><p>一般情况下取$\kappa=1$</p>
 <h3 id="样本量-4"><a href="#样本量-4" class="headerlink" title="样本量"></a>样本量</h3><p>实验里，一般情况下我们考虑总体方差相等的情况，即$\sigma^{2}=\sigma_{1}^{2}=\sigma_{2}^{2}$，同时我们假定$n_{1}=\kappa n_{2}$，结合统计功效的推导公式有</p>
-<p>$<br>\begin{align<em>}<br>    z_{1-\beta}<br>    &amp;= \Phi^{-1}\{ \Phi( \vert z \vert - z_{1-\alpha / 2}) \}\\<br>    &amp;= \vert z \vert - z_{1-\alpha / 2}<br>\end{align</em>}</p>
 <script type="math/tex; mode=display">
-
-带入后我们可以计算出</script><p>\begin{align<em>}<br>    n_{2} = (1+\frac{1}{\kappa})(\frac{z_{1-\alpha / 2}+z_{1-\beta}}{\mu_{1}-\mu_{2}}s)^{2}<br>\end{align</em>}</p>
+\begin{align*}
+    z_{1-\beta} 
+    &= \Phi^{-1}\{ \Phi( \vert z \vert - z_{1-\alpha / 2}) \}\\
+    &= \vert z \vert - z_{1-\alpha / 2}
+\end{align*}</script><p>带入后我们可以计算出</p>
 <script type="math/tex; mode=display">
-
-一般取$\kappa=1$
-
-> 若方差不等，则有$n_{2} = (s_{2}^{2}+\frac{1}{\kappa}s_{1}^{2})(\frac{z_{1-\alpha / 2}+z_{1-\beta}}{\mu_{1}-\mu_{2}})^{2}$
-
-
-## 双独立样本均值，单边检验
-### 原假设和备择假设
-
-假定我们的原假设和备择假设为：</script><p>\begin{align<em>}<br>    H_{0}: \mu_{1} = \mu_{2} \longleftrightarrow H_{1}: \mu_{1} \lt \mu_{2}(\mbox{or } \mu_{1} \gt \mu_{2})<br>\end{align</em>}</p>
+\begin{align*}
+    n_{2} = (1+\frac{1}{\kappa})(\frac{z_{1-\alpha / 2}+z_{1-\beta}}{\mu_{1}-\mu_{2}}s)^{2}
+\end{align*}</script><p>一般取$\kappa=1$</p>
+<blockquote>
+<p>若方差不等，则有$n_{2} = (s_{2}^{2}+\frac{1}{\kappa}s_{1}^{2})(\frac{z_{1-\alpha / 2}+z_{1-\beta}}{\mu_{1}-\mu_{2}})^{2}$</p>
+</blockquote>
+<h2 id="双独立样本均值，单边检验"><a href="#双独立样本均值，单边检验" class="headerlink" title="双独立样本均值，单边检验"></a>双独立样本均值，单边检验</h2><h3 id="原假设和备择假设-5"><a href="#原假设和备择假设-5" class="headerlink" title="原假设和备择假设"></a>原假设和备择假设</h3><p>假定我们的原假设和备择假设为：</p>
 <script type="math/tex; mode=display">
-
-### 统计功效
-仿照单样本均值单边检验和双独立样本双边检验的方法，有统计功效的表达式为：</script><p>\begin{align<em>}<br>    power &amp;= 1-\beta\\<br>    &amp;= \Phi( \vert z \vert - z_{1-\alpha})<br>\end{align</em>}</p>
+\begin{align*}
+    H_{0}: \mu_{1} = \mu_{2} \longleftrightarrow H_{1}: \mu_{1} \lt \mu_{2}(\mbox{or } \mu_{1} \gt \mu_{2})
+\end{align*}</script><h3 id="统计功效-5"><a href="#统计功效-5" class="headerlink" title="统计功效"></a>统计功效</h3><p>仿照单样本均值单边检验和双独立样本双边检验的方法，有统计功效的表达式为：</p>
 <script type="math/tex; mode=display">
-
-其中$z=\frac{\vert \mu_{1}-\mu_{2}\vert}{\sqrt{\frac{s_{1}^{2}}{n_{1}}+\frac{s_{2}^{2}}{n_{2}}}}$
-
-
-
-### 样本量
-仿照此前的做法，可以计算出</script><p>\begin{align<em>}<br>    n_{2} = (1+\frac{1}{\kappa})(\frac{z_{1-\alpha}+z_{1-\beta}}{\mu_{1}-\mu_{2}}s)^{2}<br>\end{align</em>}</p>
+\begin{align*}
+    power &= 1-\beta\\
+    &= \Phi( \vert z \vert - z_{1-\alpha})
+\end{align*}</script><p>其中$z=\frac{\vert \mu_{1}-\mu_{2}\vert}{\sqrt{\frac{s_{1}^{2}}{n_{1}}+\frac{s_{2}^{2}}{n_{2}}}}$</p>
+<h3 id="样本量-5"><a href="#样本量-5" class="headerlink" title="样本量"></a>样本量</h3><p>仿照此前的做法，可以计算出</p>
 <script type="math/tex; mode=display">
-
-一般取$\kappa=1$
-
-> 若方差不等，则有$n_{2} = (s_{2}^{2}+\frac{1}{\kappa}s_{1}^{2})(\frac{z_{1-\alpha}+z_{1-\beta}}{\mu_{1}-\mu_{2}})^{2}$
-
-
-## 双独立样本均值，非劣性或优越性检验
-### 原假设和备择假设
-假定我们的原假设和备择假设为：</script><p>\begin{align<em>}<br>    H_{0}: \mu_{1} = \mu_{2} \leq \Delta \longleftrightarrow H_{1}: \mu_{1} = \mu_{2} \gt \Delta<br>\end{align</em>}</p>
+\begin{align*}
+    n_{2} = (1+\frac{1}{\kappa})(\frac{z_{1-\alpha}+z_{1-\beta}}{\mu_{1}-\mu_{2}}s)^{2}
+\end{align*}</script><p>一般取$\kappa=1$</p>
+<blockquote>
+<p>若方差不等，则有$n_{2} = (s_{2}^{2}+\frac{1}{\kappa}s_{1}^{2})(\frac{z_{1-\alpha}+z_{1-\beta}}{\mu_{1}-\mu_{2}})^{2}$</p>
+</blockquote>
+<h2 id="双独立样本均值，非劣性或优越性检验"><a href="#双独立样本均值，非劣性或优越性检验" class="headerlink" title="双独立样本均值，非劣性或优越性检验"></a>双独立样本均值，非劣性或优越性检验</h2><h3 id="原假设和备择假设-6"><a href="#原假设和备择假设-6" class="headerlink" title="原假设和备择假设"></a>原假设和备择假设</h3><p>假定我们的原假设和备择假设为：</p>
 <script type="math/tex; mode=display">
-
-### 统计功效
-仿照单样本均值单边检验和双独立样本双边检验的方法，有统计功效的表达式为：</script><p>\begin{align<em>}<br>    power &amp;= 1-\beta\\<br>    &amp;= \Phi( \vert z \vert - z_{1-\alpha})<br>\end{align</em>}</p>
+\begin{align*}
+    H_{0}: \mu_{1} = \mu_{2} \leq \Delta \longleftrightarrow H_{1}: \mu_{1} = \mu_{2} \gt \Delta 
+\end{align*}</script><h3 id="统计功效-6"><a href="#统计功效-6" class="headerlink" title="统计功效"></a>统计功效</h3><p>仿照单样本均值单边检验和双独立样本双边检验的方法，有统计功效的表达式为：</p>
 <script type="math/tex; mode=display">
-
-其中$z=\frac{\mu_{1}-\mu_{2} - \Delta}{\sqrt{\frac{s_{1}^{2}}{n_{1}}+\frac{s_{2}^{2}}{n_{2}}}}$
-
-
-### 样本量
-
-结合统计功效的表达式，$z_{1-\beta}$可以由下式得出</script><p>\begin{align<em>}<br>    z_{1-\beta}<br>    &amp;= \Phi^{-1}\{ \Phi( \vert z \vert - z_{1-\alpha}) \}\\<br>    &amp;= \vert z \vert - z_{1-\alpha}<br>\end{align</em>}</p>
+\begin{align*}
+    power &= 1-\beta\\
+    &= \Phi( \vert z \vert - z_{1-\alpha})
+\end{align*}</script><p>其中$z=\frac{\mu_{1}-\mu_{2} - \Delta}{\sqrt{\frac{s_{1}^{2}}{n_{1}}+\frac{s_{2}^{2}}{n_{2}}}}$</p>
+<h3 id="样本量-6"><a href="#样本量-6" class="headerlink" title="样本量"></a>样本量</h3><p>结合统计功效的表达式，$z_{1-\beta}$可以由下式得出</p>
 <script type="math/tex; mode=display">
-
-仿照此前的做法，可以计算出</script><p>\begin{align<em>}<br>    n_{2} = (1+\frac{1}{\kappa})(\frac{z_{1-\alpha}+z_{1-\beta}}{\mu-\mu_{0}-\Delta}s)^{2}<br>\end{align</em>}</p>
+\begin{align*}
+    z_{1-\beta} 
+    &= \Phi^{-1}\{ \Phi( \vert z \vert - z_{1-\alpha}) \}\\
+    &= \vert z \vert - z_{1-\alpha}
+\end{align*}</script><p>仿照此前的做法，可以计算出</p>
 <script type="math/tex; mode=display">
-
-一般取$\kappa=1$
-
-> 若方差不等，则有$n_{2} = (s_{2}^{2}+\frac{1}{\kappa}s_{1}^{2})(\frac{z_{1-\alpha}+z_{1-\beta}}{\mu-\mu_{0}-\Delta})^{2}$
-
-
-
-
-## 双独立样本均值，等效性检验
-### 原假设和备择假设
-假定我们的原假设和备择假设为：</script><p>\begin{align<em>}<br>    H_{0}: \vert \mu_{1}-\mu_{2}  \vert  \geq \Delta \longleftrightarrow H_{1}: \vert \mu_{1}-\mu_{2}  \vert \lt \Delta<br>\end{align</em>}</p>
+\begin{align*}
+    n_{2} = (1+\frac{1}{\kappa})(\frac{z_{1-\alpha}+z_{1-\beta}}{\mu-\mu_{0}-\Delta}s)^{2}
+\end{align*}</script><p>一般取$\kappa=1$</p>
+<blockquote>
+<p>若方差不等，则有$n_{2} = (s_{2}^{2}+\frac{1}{\kappa}s_{1}^{2})(\frac{z_{1-\alpha}+z_{1-\beta}}{\mu-\mu_{0}-\Delta})^{2}$</p>
+</blockquote>
+<h2 id="双独立样本均值，等效性检验"><a href="#双独立样本均值，等效性检验" class="headerlink" title="双独立样本均值，等效性检验"></a>双独立样本均值，等效性检验</h2><h3 id="原假设和备择假设-7"><a href="#原假设和备择假设-7" class="headerlink" title="原假设和备择假设"></a>原假设和备择假设</h3><p>假定我们的原假设和备择假设为：</p>
 <script type="math/tex; mode=display">
-
-### 统计功效
-
-
-和前面类似，我们有</script><p>\begin{align<em>}<br>    \beta &amp;= Pr\{\mbox{accept }H_{0} \mid H_{0}\mbox{ is not true}\}\\<br>    &amp;=\Phi(\frac{\Delta-\mu_{1}-\mu_{2}}{s/\sqrt{n}}-z_{1-\alpha})+\Phi(\frac{\mu_{1}-\mu_{2}+\Delta}{s/\sqrt{n}}-z_{1-\alpha})-1\\<br>\end{align</em>}</p>
+\begin{align*}
+    H_{0}: \vert \mu_{1}-\mu_{2}  \vert  \geq \Delta \longleftrightarrow H_{1}: \vert \mu_{1}-\mu_{2}  \vert \lt \Delta 
+\end{align*}</script><h3 id="统计功效-7"><a href="#统计功效-7" class="headerlink" title="统计功效"></a>统计功效</h3><p>和前面类似，我们有</p>
 <script type="math/tex; mode=display">
-
-
-
-### 样本量
-
-仿照此前的做法，为方便起见，我们令</script><p>\begin{align<em>}<br>    \beta<br>    &amp;= 2\Phi(\frac{\Delta-\vert \mu_{1}-\mu_{2} \vert}{s/\sqrt{n}}-z_{1-\alpha})-1<br>\end{align</em>}</p>
+\begin{align*}
+    \beta &= Pr\{\mbox{accept }H_{0} \mid H_{0}\mbox{ is not true}\}\\
+    &=\Phi(\frac{\Delta-\mu_{1}-\mu_{2}}{s/\sqrt{n}}-z_{1-\alpha})+\Phi(\frac{\mu_{1}-\mu_{2}+\Delta}{s/\sqrt{n}}-z_{1-\alpha})-1\\
+\end{align*}</script><h3 id="样本量-7"><a href="#样本量-7" class="headerlink" title="样本量"></a>样本量</h3><p>仿照此前的做法，为方便起见，我们令</p>
 <script type="math/tex; mode=display">
-
-经变形有</script><p>\begin{align<em>}<br>    1- \frac{\beta}{2}<br>    &amp;= \Phi(\frac{\Delta-\vert \mu_{1}-\mu_{2} \vert}{s/\sqrt{n}}-z_{1-\alpha})<br>\end{align</em>}</p>
+\begin{align*}
+    \beta 
+    &= 2\Phi(\frac{\Delta-\vert \mu_{1}-\mu_{2} \vert}{s/\sqrt{n}}-z_{1-\alpha})-1
+\end{align*}</script><p>经变形有</p>
 <script type="math/tex; mode=display">
-
-因此</script><p>\begin{align<em>}<br>    z_{1-\beta / 2}<br>    &amp;= \Phi^{-1}\{ \Phi( \frac{\Delta-\vert \mu_{1}-\mu_{2} \vert}{s/\sqrt{n}} - z_{1-\alpha}) \}\\<br>    &amp;= \frac{\Delta-\vert \mu_{1}-\mu_{2} \vert}{s/\sqrt{n}} - z_{1-\alpha}<br>\end{align</em>}</p>
+\begin{align*}
+    1- \frac{\beta}{2}
+    &= \Phi(\frac{\Delta-\vert \mu_{1}-\mu_{2} \vert}{s/\sqrt{n}}-z_{1-\alpha})
+\end{align*}</script><p>因此</p>
 <script type="math/tex; mode=display">
-
-进而样本量可以表示为</script><p>\begin{align<em>}<br>    n_{2} = (1+\frac{1}{\kappa})(\frac{z_{1-\alpha}+z_{1-\beta / 2}}{\Delta-\vert \mu_{1}-\mu_{2} \vert}s)^{2}<br>\end{align</em>}</p>
+\begin{align*}
+    z_{1-\beta / 2} 
+    &= \Phi^{-1}\{ \Phi( \frac{\Delta-\vert \mu_{1}-\mu_{2} \vert}{s/\sqrt{n}} - z_{1-\alpha}) \}\\
+    &= \frac{\Delta-\vert \mu_{1}-\mu_{2} \vert}{s/\sqrt{n}} - z_{1-\alpha}
+\end{align*}</script><p>进而样本量可以表示为</p>
 <script type="math/tex; mode=display">
-
-一般取$\kappa=1$
-
-> 若方差不等，则有$n_{2} = (s_{2}^{2}+\frac{1}{\kappa}s_{1}^{2})(\frac{z_{1-\alpha}+z_{1-\beta / 2}}{\Delta-\vert \mu_{1}-\mu_{2} \vert})^{2}$
-
-# 样本比例的抽样分布
-
-无论单样本比例的抽样分布的样本量推导还是双独立样本比例的抽样分布的样本量推导，本质上和前面的推导是一样的，需要注意的是，样本比例的抽样分布的的均值和方差的性质。
-
-通常情况下，我们是用样本比例$p=\frac{X}{n}$来估计总体比例$\pi$。在样本量较大的情况下，抽样可以看成是一个二项分布，假设抽到的次数$X \sim Bin(n, p)$，那么根据二项分布的性质，$E(X)=np$，$var(X)=np(1-p)$
-
-如果是样本比例，利用上述性质，可以有</script><p>\begin{align<em>}<br>    E(p)<br>    &amp;=E(\frac{X}{n})\\<br>    &amp;=\frac{1}{n}E(X)\\<br>    &amp;=p\\<br>    var(p)<br>    &amp;=var(\frac{X}{n})\\<br>    &amp;=\frac{1}{n^{2}}var(X)\\<br>    &amp;=\frac{p(1-p)}{n}\\<br>\end{align</em>}</p>
-<p>$$</p>
-<p>此外在样本量足够大的情况下，由二项分布的原理和渐进分布的理论可知，$p\stackrel{a}{\longrightarrow}N(\pi, \frac{\pi(1-\pi)}{n})$，其中$\pi$为总体比例，具体证明略</p>
+\begin{align*}
+    n_{2} = (1+\frac{1}{\kappa})(\frac{z_{1-\alpha}+z_{1-\beta / 2}}{\Delta-\vert \mu_{1}-\mu_{2} \vert}s)^{2}
+\end{align*}</script><p>一般取$\kappa=1$</p>
+<blockquote>
+<p>若方差不等，则有$n_{2} = (s_{2}^{2}+\frac{1}{\kappa}s_{1}^{2})(\frac{z_{1-\alpha}+z_{1-\beta / 2}}{\Delta-\vert \mu_{1}-\mu_{2} \vert})^{2}$</p>
+</blockquote>
+<h1 id="样本比例的抽样分布"><a href="#样本比例的抽样分布" class="headerlink" title="样本比例的抽样分布"></a>样本比例的抽样分布</h1><p>无论单样本比例的抽样分布的样本量推导还是双独立样本比例的抽样分布的样本量推导，本质上和前面的推导是一样的，需要注意的是，样本比例的抽样分布的的均值和方差的性质。</p>
+<p>通常情况下，我们是用样本比例$p=\frac{X}{n}$来估计总体比例$\pi$。在样本量较大的情况下，抽样可以看成是一个二项分布，假设抽到的次数$X \sim Bin(n, p)$，那么根据二项分布的性质，$E(X)=np$，$var(X)=np(1-p)$</p>
+<p>如果是样本比例，利用上述性质，可以有</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+    E(p)
+    &=E(\frac{X}{n})\\
+    &=\frac{1}{n}E(X)\\
+    &=p\\
+    var(p)
+    &=var(\frac{X}{n})\\
+    &=\frac{1}{n^{2}}var(X)\\
+    &=\frac{p(1-p)}{n}\\
+\end{align*}</script><p>此外在样本量足够大的情况下，由二项分布的原理和渐进分布的理论可知，$p\stackrel{a}{\longrightarrow}N(\pi, \frac{\pi(1-\pi)}{n})$，其中$\pi$为总体比例，具体证明略</p>
 
       
     </div>
@@ -906,7 +907,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC"><span class="nav-text">单样本均值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%EF%BC%8C%E5%8F%8C%E8%BE%B9%E6%A3%80%E9%AA%8C"><span class="nav-text">单样本均值，双边检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%81%87%E8%AE%BE%E5%92%8C%E5%A4%87%E6%8B%A9%E5%81%87%E8%AE%BE"><span class="nav-text">原假设和备择假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%8A%9F%E6%95%88"><span class="nav-text">统计功效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E9%87%8F"><span class="nav-text">样本量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%EF%BC%8C%E5%8D%95%E8%BE%B9%E6%A3%80%E9%AA%8C"><span class="nav-text">单样本均值，单边检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%81%87%E8%AE%BE%E5%92%8C%E5%A4%87%E6%8B%A9%E5%81%87%E8%AE%BE-1"><span class="nav-text">原假设和备择假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%8A%9F%E6%95%88-1"><span class="nav-text">统计功效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E9%87%8F-1"><span class="nav-text">样本量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%EF%BC%8C%E9%9D%9E%E5%8A%A3%E6%80%A7%E6%88%96%E4%BC%98%E8%B6%8A%E6%80%A7%E6%A3%80%E9%AA%8C"><span class="nav-text">单样本均值，非劣性或优越性检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%81%87%E8%AE%BE%E5%92%8C%E5%A4%87%E6%8B%A9%E5%81%87%E8%AE%BE-2"><span class="nav-text">原假设和备择假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%8A%9F%E6%95%88-2"><span class="nav-text">统计功效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E9%87%8F-2"><span class="nav-text">样本量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%EF%BC%8C%E7%AD%89%E6%95%88%E6%80%A7%E6%A3%80%E9%AA%8C"><span class="nav-text">单样本均值，等效性检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%81%87%E8%AE%BE%E5%92%8C%E5%A4%87%E6%8B%A9%E5%81%87%E8%AE%BE-3"><span class="nav-text">原假设和备择假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%8A%9F%E6%95%88-3"><span class="nav-text">统计功效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E9%87%8F-3"><span class="nav-text">样本量</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8C%E7%8B%AC%E7%AB%8B%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC"><span class="nav-text">双独立样本均值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E7%8B%AC%E7%AB%8B%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%EF%BC%8C%E5%8F%8C%E8%BE%B9%E6%A3%80%E9%AA%8C"><span class="nav-text">双独立样本均值，双边检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%81%87%E8%AE%BE%E5%92%8C%E5%A4%87%E6%8B%A9%E5%81%87%E8%AE%BE-4"><span class="nav-text">原假设和备择假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%8A%9F%E6%95%88-4"><span class="nav-text">统计功效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E9%87%8F-4"><span class="nav-text">样本量</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC"><span class="nav-text">单样本均值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%EF%BC%8C%E5%8F%8C%E8%BE%B9%E6%A3%80%E9%AA%8C"><span class="nav-text">单样本均值，双边检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%81%87%E8%AE%BE%E5%92%8C%E5%A4%87%E6%8B%A9%E5%81%87%E8%AE%BE"><span class="nav-text">原假设和备择假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%8A%9F%E6%95%88"><span class="nav-text">统计功效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E9%87%8F"><span class="nav-text">样本量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%EF%BC%8C%E5%8D%95%E8%BE%B9%E6%A3%80%E9%AA%8C"><span class="nav-text">单样本均值，单边检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%81%87%E8%AE%BE%E5%92%8C%E5%A4%87%E6%8B%A9%E5%81%87%E8%AE%BE-1"><span class="nav-text">原假设和备择假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%8A%9F%E6%95%88-1"><span class="nav-text">统计功效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E9%87%8F-1"><span class="nav-text">样本量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%EF%BC%8C%E9%9D%9E%E5%8A%A3%E6%80%A7%E6%88%96%E4%BC%98%E8%B6%8A%E6%80%A7%E6%A3%80%E9%AA%8C"><span class="nav-text">单样本均值，非劣性或优越性检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%81%87%E8%AE%BE%E5%92%8C%E5%A4%87%E6%8B%A9%E5%81%87%E8%AE%BE-2"><span class="nav-text">原假设和备择假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%8A%9F%E6%95%88-2"><span class="nav-text">统计功效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E9%87%8F-2"><span class="nav-text">样本量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%EF%BC%8C%E7%AD%89%E6%95%88%E6%80%A7%E6%A3%80%E9%AA%8C"><span class="nav-text">单样本均值，等效性检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%81%87%E8%AE%BE%E5%92%8C%E5%A4%87%E6%8B%A9%E5%81%87%E8%AE%BE-3"><span class="nav-text">原假设和备择假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%8A%9F%E6%95%88-3"><span class="nav-text">统计功效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E9%87%8F-3"><span class="nav-text">样本量</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8C%E7%8B%AC%E7%AB%8B%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC"><span class="nav-text">双独立样本均值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E7%8B%AC%E7%AB%8B%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%EF%BC%8C%E5%8F%8C%E8%BE%B9%E6%A3%80%E9%AA%8C"><span class="nav-text">双独立样本均值，双边检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%81%87%E8%AE%BE%E5%92%8C%E5%A4%87%E6%8B%A9%E5%81%87%E8%AE%BE-4"><span class="nav-text">原假设和备择假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%8A%9F%E6%95%88-4"><span class="nav-text">统计功效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E9%87%8F-4"><span class="nav-text">样本量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E7%8B%AC%E7%AB%8B%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%EF%BC%8C%E5%8D%95%E8%BE%B9%E6%A3%80%E9%AA%8C"><span class="nav-text">双独立样本均值，单边检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%81%87%E8%AE%BE%E5%92%8C%E5%A4%87%E6%8B%A9%E5%81%87%E8%AE%BE-5"><span class="nav-text">原假设和备择假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%8A%9F%E6%95%88-5"><span class="nav-text">统计功效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E9%87%8F-5"><span class="nav-text">样本量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E7%8B%AC%E7%AB%8B%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%EF%BC%8C%E9%9D%9E%E5%8A%A3%E6%80%A7%E6%88%96%E4%BC%98%E8%B6%8A%E6%80%A7%E6%A3%80%E9%AA%8C"><span class="nav-text">双独立样本均值，非劣性或优越性检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%81%87%E8%AE%BE%E5%92%8C%E5%A4%87%E6%8B%A9%E5%81%87%E8%AE%BE-6"><span class="nav-text">原假设和备择假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%8A%9F%E6%95%88-6"><span class="nav-text">统计功效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E9%87%8F-6"><span class="nav-text">样本量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E7%8B%AC%E7%AB%8B%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%EF%BC%8C%E7%AD%89%E6%95%88%E6%80%A7%E6%A3%80%E9%AA%8C"><span class="nav-text">双独立样本均值，等效性检验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%81%87%E8%AE%BE%E5%92%8C%E5%A4%87%E6%8B%A9%E5%81%87%E8%AE%BE-7"><span class="nav-text">原假设和备择假设</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%8A%9F%E6%95%88-7"><span class="nav-text">统计功效</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E9%87%8F-7"><span class="nav-text">样本量</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E6%AF%94%E4%BE%8B%E7%9A%84%E6%8A%BD%E6%A0%B7%E5%88%86%E5%B8%83"><span class="nav-text">样本比例的抽样分布</span></a></li></ol></div>
             
 
           </div>
