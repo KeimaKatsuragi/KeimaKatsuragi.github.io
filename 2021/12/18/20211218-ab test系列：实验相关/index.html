@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="A/B 实验," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言A&#x2F;B实验的设计在我们拿到一个需求需要设计实验时，我们需要做好以下几件事情：  构建业务逻辑链条，选择合适的实验评估指标 预估每个实验指标的涨幅 确定实验数量或实验组数量 根据上述情况估算每组实验需要的样本量  实验评估指标选择实验评估指标的选择，是需要和业务紧密结合的。我们需要判断我们需要验证的方案对于用户的影响是怎么反映到我们所关注的指标上的，这就离不开业务逻辑链条的构建。一般来说我们对于">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A&#x2F;B实验系列（二）：实验相关【WIP】">
+<meta property="og:url" content="http://keimakatsuragi.github.io/2021/12/18/20211218-ab%20test%E7%B3%BB%E5%88%97%EF%BC%9A%E5%AE%9E%E9%AA%8C%E7%9B%B8%E5%85%B3/index.html">
+<meta property="og:site_name" content="Dulingzhi&#39;s Blog">
+<meta property="og:description" content="前言A&#x2F;B实验的设计在我们拿到一个需求需要设计实验时，我们需要做好以下几件事情：  构建业务逻辑链条，选择合适的实验评估指标 预估每个实验指标的涨幅 确定实验数量或实验组数量 根据上述情况估算每组实验需要的样本量  实验评估指标选择实验评估指标的选择，是需要和业务紧密结合的。我们需要判断我们需要验证的方案对于用户的影响是怎么反映到我们所关注的指标上的，这就离不开业务逻辑链条的构建。一般来说我们对于">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-12-17T17:23:10.000Z">
+<meta property="article:modified_time" content="2022-01-23T12:34:33.038Z">
+<meta property="article:author" content="LingZhi Du">
+<meta property="article:tag" content="A&#x2F;B 实验">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://keimakatsuragi.github.io/2021/12/18/20211218-ab test系列：实验相关/"/>
+
+
+
+
+
+  <title>A/B实验系列（二）：实验相关【WIP】 | Dulingzhi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dulingzhi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言本
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://keimakatsuragi.github.io/2021/12/18/20211218-ab%20test%E7%B3%BB%E5%88%97%EF%BC%9A%E5%AE%9E%E9%AA%8C%E7%9B%B8%E5%85%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/v201900.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dulingzhi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">A/B实验系列（二）：实验相关【WIP】</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-12-18T01:23:10+08:00">
+                2021-12-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/A-B-%E5%AE%9E%E9%AA%8C/" itemprop="url" rel="index">
+                    <span itemprop="name">A/B 实验</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/12/18/20211218-ab%20test%E7%B3%BB%E5%88%97%EF%BC%9A%E5%AE%9E%E9%AA%8C%E7%9B%B8%E5%85%B3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2021/12/18/20211218-ab test系列：实验相关/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.4k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h1 id="A-B实验的设计"><a href="#A-B实验的设计" class="headerlink" title="A/B实验的设计"></a>A/B实验的设计</h1><p>在我们拿到一个需求需要设计实验时，我们需要做好以下几件事情：</p>
+<ol>
+<li>构建业务逻辑链条，选择合适的实验评估指标</li>
+<li>预估每个实验指标的涨幅</li>
+<li>确定实验数量或实验组数量</li>
+<li>根据上述情况估算每组实验需要的样本量</li>
+</ol>
+<h2 id="实验评估指标选择"><a href="#实验评估指标选择" class="headerlink" title="实验评估指标选择"></a>实验评估指标选择</h2><p>实验评估指标的选择，是需要和业务紧密结合的。我们需要判断我们需要验证的方案对于用户的影响是怎么反映到我们所关注的指标上的，这就离不开业务逻辑链条的构建。一般来说我们对于指标的拆解有两种方案，一种是自上而下的方式拆解，另一种是自下而上的方式拆解。</p>
+<p>自上而下的方式拆解是从我们的最终目标出发，逐渐拆解到我们的业务指标最后拆解到我们的方案和业务逻辑上；而自下而上的方式则是恰好反过来，我们从实际业务场景出发，推导出可能影响的业务指标，最终反映到我们的最终目标上。自上而下的方式的拆解考虑更为全面，不容易犯错，缺点是思维难度大，而另一种方式则更符合一般的演绎思维，由现象推导出原因和结果，但缺点是这种方式容易遗漏情况.从理论上看，这两种方式应该是等价的，但现实往往很难做到。我自己更喜欢把两种方法结合在一起用。</p>
+<blockquote>
+<p>In solving a problem of this sort, the grand thing is to be able to reason backwards. That is a very useful accomplishment, and a very easy one, but people do not practise it much. In the everyday affairs of life it is more useful to reason forward, and so the other comes to be neglected. There are fifty who can reason synthetically for one who can reason analytically.</p>
+</blockquote>
+<p>不管是哪种方式，在我们的拆解过程中我们都需要回答好以下三个问题：</p>
+<ol>
+<li>这个功能的改变使得用户的行为发生了什么改变？</li>
+<li>用户行为的改变给用户带来了什么样的便利？</li>
+<li>这种便利最终给平台带来了什么好处？</li>
+</ol>
+<blockquote>
+<p>拆解时，需要注意的是，对于用户而言，我们不能仅仅考虑消费者，还应该考虑其他类型的用户，比如视频创作平台我们还应该考虑到创作者，社交平台我们还应该考虑到信息发送者，电商平台还应该考虑到商家甚至物流平台</p>
+</blockquote>
+<p>作为建议，我们应该分别按不同角色的用户单独的按照上面的流程进行拆解，如果有相同的部部分再进行合并</p>
+<p>比如我们设计了一个收藏按钮，用户使用收藏按钮后可以把自己喜欢的课程收藏起来，这样以来方便用户在回头复习这门课程，给用户带来了极大的便利，最终这种设计影响到了用户的留存和使用时长</p>
+<p>对于平台的好处，我们建议是：可以先简单粗略的写一版，如果对业务有很深的理解，可以拆的更细一些，比如我们前置预估vv影响留存或者已经通过实验证明了vv影响留存，那么我们可以在上面写的更详细一些</p>
+<h2 id="如何构建我们的逻辑链条"><a href="#如何构建我们的逻辑链条" class="headerlink" title="如何构建我们的逻辑链条"></a>如何构建我们的逻辑链条</h2><p>理解业务逻辑，根据业务逻辑构建</p>
+<h2 id="实验指标的涨幅如何预估"><a href="#实验指标的涨幅如何预估" class="headerlink" title="实验指标的涨幅如何预估"></a>实验指标的涨幅如何预估</h2><p>信仰判断</p>
+<h2 id="样本量计算"><a href="#样本量计算" class="headerlink" title="样本量计算"></a>样本量计算</h2><h3 id="样本量计算的意义"><a href="#样本量计算的意义" class="headerlink" title="样本量计算的意义"></a>样本量计算的意义</h3><p>在做A/B实验时，我们通常会提到一个名词：样本量。大家有没有想过，为什么我们要计算样本量，也就是，为什么我们每次都会从总体中抽取部分用户进行实验，而不是使用全部的用户？总结下来有三个可能的原因：</p>
+<ol>
+<li>从实验难度上看，我们很难把所有用户囊括到我们的实验中</li>
+<li>从影响范围上看，可以防止实验方案出现问题，对更大面积的用户产生影响</li>
+<li>从实验效果上看，可以防止实验方案效果不佳，导致检验指标有明显负向变化，对大量用户产生影响</li>
+</ol>
+<p>既然最好不要使用过大的样本量，那么样本量能不能过小呢？从直观上也能看出肯定是不能的，比如我只随机抽取2名用户来进行实验，如果这个差异让我们无法拒绝原假设，那我们能够信任这个实验结果，认为实验方案是无效的吗？</p>
+<p>既然样本量不能过大，也不能过小，我们就需要找到一个合适的样本量，这个样本量既在最小程度上给用户造成影响，同时又能够让准确的评估我们的实验结果，这就是我们计算样本量的意义</p>
+<h3 id="样本量计算公式"><a href="#样本量计算公式" class="headerlink" title="样本量计算公式"></a>样本量计算公式</h3><p>前面提到了，我们计算的样本量是<strong>满足实验要求的最小样本量</strong>。为了计算这个值，我们借助置信度和统计功效进行判断。在之前的章节有提到，置信度是用来判断原假设为真时，我们错误拒绝该假设的概率，而统计功效则是用来判断原假设为假时，我们错误接受该假设的概率。<strong>关于统计功效的计算公式以及样本量的推导以及求解用的Python代码，放到了附录部分</strong>，在本节不进行展开。</p>
+<h3 id="一个常见问题：如果所需要的流量不能满足实验该如何处理"><a href="#一个常见问题：如果所需要的流量不能满足实验该如何处理" class="headerlink" title="一个常见问题：如果所需要的流量不能满足实验该如何处理"></a>一个常见问题：如果所需要的流量不能满足实验该如何处理</h3><p>在计算样本量时我们会遇到这样一个问题，我们的目的是想要求出能检测预期收益的最小样本量，但实际情况却是我们实验能够提供的样本量却小于我们实验需要的最小样本量。这时候实验难道不应该进行吗？答案是不一定，我们得分情况讨论。</p>
+<blockquote>
+<p>计算实验能够提供的样本量的方法：单组实验组所需流量 / (总流量 * 功能渗透率)</p>
+</blockquote>
+<p><strong>情况一：实验组数过多导致流量不够用</strong></p>
+<p>如果是这种情况，可以看下能否调整实验设计。检查是否能够减少实验组数，或者通过开多个实验的方式来减少样本压力。比如单组需要20%的流量，但实验组（含对照组）设置了8组，共需160%的流量，此时可以看下这8个实验组是否为多种方案的组合，如果是，可以看下拆分组合的可能性，如果不是，检验8种方案是否都需要进行实验，能否前置通过信仰判断减少实验量</p>
+<p><strong>情况一：总体数量过小导致流量不够用</strong></p>
+<p>这种情况下，可以反向推导，看在固定每组流量比例的情况下，我们能够检测出的最小差异，如果在信仰判断下认为能够达到这个差异，或者实验成本低，亦或者这个实验非常重要，以致于还是有必要去查看实验效果的情况下，还是有必要去开启实验的。</p>
+<h2 id="实验-组-数量的确定"><a href="#实验-组-数量的确定" class="headerlink" title="实验(组)数量的确定"></a>实验(组)数量的确定</h2><h3 id="一个功能，多套方案"><a href="#一个功能，多套方案" class="headerlink" title="一个功能，多套方案"></a>一个功能，多套方案</h3><p>这种情况下每一种方案都是其他方案的替代品，因此建议开一组实验，每一种方案作为一个实验组进行配置。从中选出一个最好的方案。需要注意的是，多种方案进行两两比较，其犯第一类错误的概率会大大增加，犯错概率为$1-(1-\alpha)^{n}$，比如当$\alpha=0.05$时，有3个实验组和1个对照组，那么两两组合共有6种可能，其犯第一类错误的概率为26.5\%。对于多重比较问题该如何解决，是一个值得讨论的话题。</p>
+<h3 id="多个功能，一套方案"><a href="#多个功能，一套方案" class="headerlink" title="多个功能，一套方案"></a>多个功能，一套方案</h3><p>多个功能，一套方案指的是改动了多处功能，但是每个功能只有一个改动方案。对于这类需求而言，通常有两种实验方案设计，第一种方案是将每个功能独立成一个单独的实验，通过每个实验的结果判断功能是否达到我们的预期目的；另一种方案则是只设计一组实验，对照组是线上功能，实验组则是功能的叠加，为了测试不同功能单独的效用，我们可以设置多个实验组，当前实验组只比前一个实验组多出一个功能（第一个实验组则是在对照组的基础上多一个功能），通过比较当前的实验组比前一个实验组的结果就可以知道某个功能的效果好坏。用图表示不同的实验方案如下：</p>
+<p><strong>方案一</strong><br>实验1：<br>|组别|功能|<br>|—-|—-|<br>|对照组|线上功能|<br>|实验组|功能1|</p>
+<p>实验2：<br>|组别|功能|<br>|—-|—-|<br>|对照组|线上功能|<br>|实验组|功能2|</p>
+<p>实验n：<br>|组别|功能|<br>|—-|—-|<br>|对照组|线上功能|<br>|实验组|功能n|</p>
+<p><strong>方案二</strong><br>|组别|功能|<br>|—-|—-|<br>|对照组|线上功能|<br>|实验组1|功能1|<br>|实验组2|功能1+功能2|<br>|…|…|<br>|实验组n|功能1+…+功能n|</p>
+<p>这两种实验方案的目的是不同的。<strong>第一种方案用于决定每一个功能是否应该被采纳使用，而第二种方案用于决定哪一个功能组合应该被采纳使用</strong>。应使用哪一种方案，应取决于我们的目的和场景。如果功能之间相关性较弱，建议使用方案一，这样可以清楚评判每个功能的好坏。如果功能之间存在相关性，那么我们应该使用方案二（否则会存在选择偏差）</p>
+<h3 id="多个功能，多套方案"><a href="#多个功能，多套方案" class="headerlink" title="多个功能，多套方案"></a>多个功能，多套方案</h3><p>如果是多个功能多套方案，一般情况下不涉及是否要上线某个功能的问题，而是要上线哪一种方案的问题。因此这类实验主要是功能和方案的笛卡尔积。但这种情况一般都是爆炸式的增长，为了减少评估压力和评估错误，一般情况下我们会根据功能之间的相关性，单独拆解出部分功能及其方案单独开实验</p>
+<h2 id="实验周期的确定"><a href="#实验周期的确定" class="headerlink" title="实验周期的确定"></a>实验周期的确定</h2><p>除了样本量以外，另一个很重要的因素就是实验周期。实验周期的选择取决于3个因素：</p>
+<ol>
+<li>实验指标是否收敛。如果实验指标没有发生收敛，说明我们的指标还处于波动之中，即使指标显著，可能也是一个暂时的情况（假阳性）</li>
+<li>用户行为是否有周期性变化。除了实验指标是否收敛以外，还有一个重要指标是用户的行为是否有周期性变化，如果用户的行为有周期性变化的话，即使目前实验指标发生收敛，我们也不能停止实验，我们需要考虑到用户行为变化的最小周期。</li>
+<li>用户是否为新用户。对于新用户而言，比较特殊的一点是，我们需要根据平均每天的新用户数量，再计算一次用户的进组时间，我们需要根据样本量保证用户是足够的</li>
+</ol>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="统计功效计算推导（双独立样本，双边检验）"><a href="#统计功效计算推导（双独立样本，双边检验）" class="headerlink" title="统计功效计算推导（双独立样本，双边检验）"></a>统计功效计算推导（双独立样本，双边检验）</h2><p>假定我们的原假设和备择假设为：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+    H_{0}: \mu_{1} = \mu_{2} \longleftrightarrow H_{0}: \mu_{1} \neq \mu_{2}
+\end{align*}</script><p>令$\delta=\mu_{1} - \mu_{2}$，$s_{1}^{2},s_{2}^{2}$为样本方差，$\bar{x}_{1},\bar{x}_{2}$为样本均值，$n_{1},n_{2}$为方案1和方案2的样本量，由第二类错误的定义，我们有</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+    \beta &= Pr\{\mbox{accept }H_{0} \mid H_{0}\mbox{ is not true}\}\\
+    &= Pr\{ \vert \frac{\bar{x}_{1}-\bar{x}_{2}}{\sqrt{\frac{s_{1}^{2}}{n_{1}}+\frac{s_{2}^{2}}{n_{2}}}} \vert \leq z_{1-\alpha / 2} \mid \delta \neq 0\}\\
+    &= Pr\{-z_{1-\alpha / 2} - \frac{\delta}{\sqrt{\frac{s_{1}^{2}}{n_{1}}+\frac{s_{2}^{2}}{n_{2}}}} \leq  \frac{\bar{x}_{1}-\bar{x}_{2}-\delta}{\sqrt{\frac{s_{1}^{2}}{n_{1}}+\frac{s_{2}^{2}}{n_{2}}}} \leq z_{1-\alpha / 2} -\frac{\delta}{\sqrt{\frac{s_{1}^{2}}{n_{1}}+\frac{s_{2}^{2}}{n_{2}}}} \mid \delta \neq 0\}\\
+    &=\Phi(z_{1-\alpha / 2} - \frac{\delta}{\sqrt{\frac{s_{1}^{2}}{n_{1}}+\frac{s_{2}^{2}}{n_{2}}}}) - \Phi(-z_{1-\alpha / 2} - \frac{\delta}{\sqrt{\frac{s_{1}^{2}}{n_{1}}+\frac{s_{2}^{2}}{n_{2}}}})
+\end{align*}</script><blockquote>
+<p>注意：由于$\delta \neq 0$，此时$\frac{\bar{x}_{1}-\bar{x}_{2}}{\sqrt{\frac{s_{1}^{2}}{n_{1}}+\frac{s_{2}^{2}}{n_{2}}}}$并不满足标准正态分布，需要用$\frac{\bar{x}_{1}-\bar{x}_{2}-\delta}{\sqrt{\frac{s_{1}^{2}}{n_{1}}+\frac{s_{2}^{2}}{n_{2}}}}$来进行处理（即把两者差值抹平）</p>
+</blockquote>
+<p>进一步，令$z=\frac{\bar{x}_{1}-\bar{x}_{2}}{\sqrt{\frac{s_{1}^{2}}{n_{1}}+\frac{s_{2}^{2}}{n_{2}}}}$统计功效的表达式为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+    power &= 1-\beta\\
+    &= 1 - \{\Phi(z_{1-\alpha / 2} - z) - \Phi(-z_{1-\alpha / 2} - z)\}\\
+    &\approx 1 - \Phi(z_{1-\alpha / 2} - \vert z \vert)\\
+    &= \Phi( \vert z \vert - z_{1-\alpha / 2})
+\end{align*}</script><h2 id="样本量计算推导"><a href="#样本量计算推导" class="headerlink" title="样本量计算推导"></a>样本量计算推导</h2><p>实验里，一般情况下我们考虑样本方差相等的情况，即$s^{2}=s_{1}^{2}=s_{2}^{2}$，同时我们假定$n_{1}=\kappa n_{2}$，结合统计功效的推导公式有</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+    z_{1-\beta} 
+    &= \Phi^{-1}\{ \Phi( \vert z \vert - z_{1-\alpha / 2}) \}\\
+    &= \vert z \vert - z_{1-\alpha / 2}
+\end{align*}</script><p>带入后我们可以计算出</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+    n_{2} = (1+\frac{1}{\kappa})(\frac{z_{1-\alpha / 2}+z_{1-\beta}}{\bar{x}_{1}-\bar{x}_{2}}s)^{2}
+\end{align*}</script><p>一般情况下取$\kappa=1$</p>
+<h2 id="灵敏度推导"><a href="#灵敏度推导" class="headerlink" title="灵敏度推导"></a>灵敏度推导</h2><p>利用</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+    z_{1-\beta} 
+    &= \Phi^{-1}\{ \Phi( \vert z \vert - z_{1-\alpha / 2}) \}\\
+    &= \vert z \vert - z_{1-\alpha / 2}
+\end{align*}</script><p>可推导</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+    \vert \delta \vert &\approx \vert \bar{x}_{1}-\bar{x}_{2} \vert = (z_{1-\alpha / 2}+z_{1-\beta})\sqrt{\frac{s_{1}^{2}}{n_{1}}+\frac{s_{2}^{2}}{n_{2}}}
+\end{align*}</script><p>一般情况下我们考虑样本方差相等的情况，即$s^{2}=s_{1}^{2}=s_{2}^{2}$，同时我们假定$n_{1}=\kappa n_{2}$，有</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+    \vert \delta \vert 
+    &\approx (z_{1-\alpha / 2}+z_{1-\beta})\sqrt{\frac{s^{2}}{n_{2}}(1+\frac{1}{\kappa})}
+\end{align*}</script><p>一般情况下取$\kappa=1$</p>
+<h2 id="样本量计算代码"><a href="#样本量计算代码" class="headerlink" title="样本量计算代码"></a>样本量计算代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> norm</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">base_calculation</span>(<span class="params">total_user, click_rate: <span class="built_in">float</span>, alpha: <span class="built_in">float</span>, beta: <span class="built_in">float</span>, version_prop: <span class="built_in">float</span></span>):</span></span><br><span class="line">    <span class="comment"># 计算置信度和统计功效</span></span><br><span class="line">    confidence_level = <span class="number">1</span> - alpha</span><br><span class="line">    power_level = <span class="number">1</span> - beta</span><br><span class="line">    <span class="comment"># 置信度是双侧检验，统计功效是单侧检验</span></span><br><span class="line">    confidence_level_side = <span class="number">1</span> - alpha / <span class="number">2</span></span><br><span class="line">    </span><br><span class="line">    z_alpha = <span class="built_in">round</span>(norm.ppf(confidence_level_side), <span class="number">2</span>)</span><br><span class="line">    z_beta = <span class="built_in">round</span>(norm.ppf(power_level), <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    test_user_num = total_user * click_rate * version_prop</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> confidence_level, power_level, z_alpha, z_beta, test_user_num</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sample_num</span>(<span class="params">base_line: <span class="built_in">float</span>, error: <span class="built_in">float</span>, total_user, error_method: <span class="built_in">str</span>=<span class="string">&#x27;absolute&#x27;</span>, click_rate: <span class="built_in">float</span>=<span class="number">1.0</span>, alpha: <span class="built_in">float</span>=<span class="number">0.05</span>, beta: <span class="built_in">float</span>=<span class="number">0.2</span>, version_prop: <span class="built_in">float</span>=<span class="number">0.8</span></span>):</span></span><br><span class="line">    confidence_level, power_level, z_alpha, z_beta, test_user_num \</span><br><span class="line">        = base_calculation(total_user, click_rate, alpha, beta, version_prop)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> error_method == <span class="string">&#x27;absolute&#x27;</span>:</span><br><span class="line">        absolute_error = error</span><br><span class="line">        relative_error = error / base_line</span><br><span class="line">    <span class="keyword">elif</span> error_method == <span class="string">&#x27;relative&#x27;</span>:</span><br><span class="line">        relative_error = error</span><br><span class="line">        absolute_error = error * base_line</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">raise</span> Exception(<span class="string">&#x27;no error method&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    absolute_error = <span class="built_in">round</span>(absolute_error, <span class="number">4</span>)</span><br><span class="line">    relative_error = <span class="built_in">round</span>(relative_error, <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">    need_user_num = <span class="number">2</span> * base_line * (<span class="number">1</span> - base_line) * np.power((z_alpha + z_beta) / absolute_error, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    need_user_num_amendment = need_user_num * test_user_num / (need_user_num + test_user_num - <span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    user_rate = need_user_num_amendment / test_user_num</span><br><span class="line"></span><br><span class="line">    print(</span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        样本量信息：</span></span><br><span class="line"><span class="string">        ---基础信息---</span></span><br><span class="line"><span class="string">        基线: &#123;&#125;, 某位置流量占总流量比例: &#123;&#125;</span></span><br><span class="line"><span class="string">        绝对误差: &#123;&#125;(百分数: &#123;&#125;), 相对误差: &#123;&#125;(百分数: &#123;&#125;)</span></span><br><span class="line"><span class="string">        置信度: &#123;&#125;(分位点: &#123;&#125;), 统计功效: &#123;&#125;(分位点: &#123;&#125;)</span></span><br><span class="line"><span class="string">        ---结果信息---</span></span><br><span class="line"><span class="string">        实验需要用户量: &#123;&#125;</span></span><br><span class="line"><span class="string">        实际满足条件用户: &#123;&#125;</span></span><br><span class="line"><span class="string">        调整后用户量: &#123;&#125;</span></span><br><span class="line"><span class="string">        单组用户比例: &#123;&#125;(百分数: &#123;&#125;)</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span>.<span class="built_in">format</span>(</span><br><span class="line">            base_line, click_rate,</span><br><span class="line">            absolute_error, <span class="built_in">str</span>(<span class="built_in">round</span>(absolute_error*<span class="number">100</span>, <span class="number">2</span>))+<span class="string">&#x27;%&#x27;</span>, relative_error, <span class="built_in">str</span>(<span class="built_in">round</span>(relative_error*<span class="number">100</span>, <span class="number">2</span>))+<span class="string">&#x27;%&#x27;</span>,</span><br><span class="line">            confidence_level, z_alpha, power_level, z_beta,</span><br><span class="line">            <span class="built_in">int</span>(<span class="built_in">round</span>(need_user_num, <span class="number">0</span>)),</span><br><span class="line">            <span class="built_in">int</span>(<span class="built_in">round</span>(test_user_num, <span class="number">0</span>)),</span><br><span class="line">            <span class="built_in">int</span>(<span class="built_in">round</span>(need_user_num_amendment, <span class="number">0</span>)),</span><br><span class="line">            <span class="built_in">round</span>(user_rate, <span class="number">4</span>), <span class="built_in">str</span>(<span class="built_in">round</span>(user_rate*<span class="number">100</span>, <span class="number">2</span>))+<span class="string">&#x27;%&#x27;</span></span><br><span class="line">        )</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">detect_relative_error</span>(<span class="params">base_line: <span class="built_in">float</span>, user_rate: <span class="built_in">float</span>, total_user, click_rate: <span class="built_in">float</span>=<span class="number">1.0</span>, alpha: <span class="built_in">float</span>=<span class="number">0.05</span>, beta: <span class="built_in">float</span>=<span class="number">0.2</span>, version_prop: <span class="built_in">float</span>=<span class="number">0.8</span></span>):</span></span><br><span class="line">    confidence_level, power_level, z_alpha, z_beta, test_user_num \</span><br><span class="line">        = base_calculation(total_user, click_rate, alpha, beta, version_prop)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    need_user_num_amendment = user_rate * test_user_num</span><br><span class="line">    need_user_num = user_rate * (test_user_num - <span class="number">1</span>) / (<span class="number">1</span> - user_rate)</span><br><span class="line"></span><br><span class="line">    absolute_error = (z_alpha + z_beta) / np.sqrt(need_user_num / (<span class="number">2</span> * base_line * (<span class="number">1</span> - base_line)))</span><br><span class="line">    relative_error = absolute_error / base_line</span><br><span class="line"></span><br><span class="line">    <span class="comment"># print(relative_error)</span></span><br><span class="line"></span><br><span class="line">    print(</span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        误差信息：</span></span><br><span class="line"><span class="string">        ---基础信息---</span></span><br><span class="line"><span class="string">        基线: &#123;&#125;, 某位置流量占总流量比例: &#123;&#125;</span></span><br><span class="line"><span class="string">        置信度: &#123;&#125;(分位点: &#123;&#125;), 统计功效: &#123;&#125;(分位点: &#123;&#125;)</span></span><br><span class="line"><span class="string">        预期单组用户比例: &#123;&#125;(百分数: &#123;&#125;)</span></span><br><span class="line"><span class="string">        ---结果信息---</span></span><br><span class="line"><span class="string">        预期实验需要用户量: &#123;&#125;</span></span><br><span class="line"><span class="string">        预期实际满足条件用户: &#123;&#125;</span></span><br><span class="line"><span class="string">        预期调整后用户量: &#123;&#125;</span></span><br><span class="line"><span class="string">        预期能观测到的绝对误差: &#123;&#125;(百分数: &#123;&#125;), 预期能观测到的相对误差: &#123;&#125;(百分数: &#123;&#125;)</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span>.<span class="built_in">format</span>(</span><br><span class="line">            base_line, click_rate,</span><br><span class="line">            confidence_level, z_alpha, power_level, z_beta,</span><br><span class="line">            <span class="built_in">round</span>(user_rate, <span class="number">4</span>), <span class="built_in">str</span>(<span class="built_in">round</span>(user_rate*<span class="number">100</span>, <span class="number">2</span>))+<span class="string">&#x27;%&#x27;</span>,</span><br><span class="line">            <span class="built_in">int</span>(<span class="built_in">round</span>(need_user_num, <span class="number">0</span>)),</span><br><span class="line">            <span class="built_in">int</span>(<span class="built_in">round</span>(test_user_num, <span class="number">0</span>)),</span><br><span class="line">            <span class="built_in">int</span>(<span class="built_in">round</span>(need_user_num_amendment, <span class="number">0</span>)),</span><br><span class="line">            <span class="built_in">round</span>(absolute_error, <span class="number">4</span>), <span class="built_in">str</span>(<span class="built_in">round</span>(absolute_error*<span class="number">100</span>, <span class="number">2</span>))+<span class="string">&#x27;%&#x27;</span>, <span class="built_in">round</span>(relative_error, <span class="number">4</span>), <span class="built_in">str</span>(<span class="built_in">round</span>(relative_error*<span class="number">100</span>, <span class="number">2</span>))+<span class="string">&#x27;%&#x27;</span>,</span><br><span class="line">        )</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line"><span class="comment"># 统计量信息</span></span><br><span class="line">alpha = <span class="number">0.05</span></span><br><span class="line">beta = <span class="number">0.2</span></span><br><span class="line">version_prop = <span class="number">0.8</span></span><br><span class="line">click_rate = <span class="number">1</span> <span class="comment"># 某位置流量占总流量比例</span></span><br><span class="line"><span class="comment"># 样本信息（样本量）</span></span><br><span class="line">base_line = <span class="number">0.11</span></span><br><span class="line">error=<span class="number">0.7</span></span><br><span class="line">error_method=<span class="string">&#x27;relative&#x27;</span></span><br><span class="line"><span class="comment"># error_method=&#x27;absolute&#x27;</span></span><br><span class="line">total_user = <span class="number">5000</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 样本信息（误差检测）</span></span><br><span class="line">base_line_detected = <span class="number">0.9</span></span><br><span class="line">user_rate_detected = <span class="number">0.25</span></span><br><span class="line">total_user_detected = <span class="number">5000</span></span><br><span class="line">click_rate_detected = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">sample_num(</span><br><span class="line">    base_line=base_line, </span><br><span class="line">    error=error, </span><br><span class="line">    total_user=total_user, </span><br><span class="line">    error_method=error_method, </span><br><span class="line">    click_rate=click_rate, </span><br><span class="line">    alpha=alpha, </span><br><span class="line">    beta=beta, </span><br><span class="line">    version_prop=version_prop</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">detect_relative_error(</span><br><span class="line">    base_line=base_line_detected, </span><br><span class="line">    user_rate=user_rate_detected, </span><br><span class="line">    total_user=total_user_detected, </span><br><span class="line">    click_rate=click_rate_detected, </span><br><span class="line">    alpha=alpha, </span><br><span class="line">    beta=beta, </span><br><span class="line">    version_prop=version_prop</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    LingZhi Du
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://keimakatsuragi.github.io/2021/12/18/20211218-ab%20test%E7%B3%BB%E5%88%97%EF%BC%9A%E5%AE%9E%E9%AA%8C%E7%9B%B8%E5%85%B3/" title="A/B实验系列（二）：实验相关【WIP】">http://keimakatsuragi.github.io/2021/12/18/20211218-ab%20test%E7%B3%BB%E5%88%97%EF%BC%9A%E5%AE%9E%E9%AA%8C%E7%9B%B8%E5%85%B3/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/A-B-%E5%AE%9E%E9%AA%8C/" rel="tag"># A/B 实验</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/12/16/20211216-ab%20test%E7%B3%BB%E5%88%97%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AFab%20test/" rel="next" title="A/B实验系列（一）：什么是A/B实验【WIP】">
+                <i class="fa fa-chevron-left"></i> A/B实验系列（一）：什么是A/B实验【WIP】
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/01/10/20220110-%E6%A0%B7%E6%9C%AC%E9%87%8F%E8%AE%A1%E7%AE%97/" rel="prev" title="A/B实验系列（三）：样本量计算【WIP】">
+                A/B实验系列（三）：样本量计算【WIP】 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/v201900.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+                <a href="/archives">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A-B%E5%AE%9E%E9%AA%8C%E7%9A%84%E8%AE%BE%E8%AE%A1"><span class="nav-text">A&#x2F;B实验的设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E8%AF%84%E4%BC%B0%E6%8C%87%E6%A0%87%E9%80%89%E6%8B%A9"><span class="nav-text">实验评估指标选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E6%88%91%E4%BB%AC%E7%9A%84%E9%80%BB%E8%BE%91%E9%93%BE%E6%9D%A1"><span class="nav-text">如何构建我们的逻辑链条</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E6%8C%87%E6%A0%87%E7%9A%84%E6%B6%A8%E5%B9%85%E5%A6%82%E4%BD%95%E9%A2%84%E4%BC%B0"><span class="nav-text">实验指标的涨幅如何预估</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E9%87%8F%E8%AE%A1%E7%AE%97"><span class="nav-text">样本量计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E9%87%8F%E8%AE%A1%E7%AE%97%E7%9A%84%E6%84%8F%E4%B9%89"><span class="nav-text">样本量计算的意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E9%87%8F%E8%AE%A1%E7%AE%97%E5%85%AC%E5%BC%8F"><span class="nav-text">样本量计算公式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%EF%BC%9A%E5%A6%82%E6%9E%9C%E6%89%80%E9%9C%80%E8%A6%81%E7%9A%84%E6%B5%81%E9%87%8F%E4%B8%8D%E8%83%BD%E6%BB%A1%E8%B6%B3%E5%AE%9E%E9%AA%8C%E8%AF%A5%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86"><span class="nav-text">一个常见问题：如果所需要的流量不能满足实验该如何处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C-%E7%BB%84-%E6%95%B0%E9%87%8F%E7%9A%84%E7%A1%AE%E5%AE%9A"><span class="nav-text">实验(组)数量的确定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%8A%9F%E8%83%BD%EF%BC%8C%E5%A4%9A%E5%A5%97%E6%96%B9%E6%A1%88"><span class="nav-text">一个功能，多套方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E4%B8%AA%E5%8A%9F%E8%83%BD%EF%BC%8C%E4%B8%80%E5%A5%97%E6%96%B9%E6%A1%88"><span class="nav-text">多个功能，一套方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E4%B8%AA%E5%8A%9F%E8%83%BD%EF%BC%8C%E5%A4%9A%E5%A5%97%E6%96%B9%E6%A1%88"><span class="nav-text">多个功能，多套方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E5%91%A8%E6%9C%9F%E7%9A%84%E7%A1%AE%E5%AE%9A"><span class="nav-text">实验周期的确定</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%8A%9F%E6%95%88%E8%AE%A1%E7%AE%97%E6%8E%A8%E5%AF%BC%EF%BC%88%E5%8F%8C%E7%8B%AC%E7%AB%8B%E6%A0%B7%E6%9C%AC%EF%BC%8C%E5%8F%8C%E8%BE%B9%E6%A3%80%E9%AA%8C%EF%BC%89"><span class="nav-text">统计功效计算推导（双独立样本，双边检验）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E9%87%8F%E8%AE%A1%E7%AE%97%E6%8E%A8%E5%AF%BC"><span class="nav-text">样本量计算推导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%81%B5%E6%95%8F%E5%BA%A6%E6%8E%A8%E5%AF%BC"><span class="nav-text">灵敏度推导</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B7%E6%9C%AC%E9%87%8F%E8%AE%A1%E7%AE%97%E4%BB%A3%E7%A0%81"><span class="nav-text">样本量计算代码</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LingZhi Du</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">全站字数&#58;</span>
+    
+    <span title="全站字数">33k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dlz850245.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://keimakatsuragi.github.io/2021/12/18/20211218-ab%20test%E7%B3%BB%E5%88%97%EF%BC%9A%E5%AE%9E%E9%AA%8C%E7%9B%B8%E5%85%B3/';
+          this.page.identifier = '2021/12/18/20211218-ab test系列：实验相关/';
+          this.page.title = 'A/B实验系列（二）：实验相关【WIP】';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dlz850245.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
