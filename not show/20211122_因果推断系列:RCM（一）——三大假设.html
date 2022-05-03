@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content=",," />
 
 
 
@@ -79,14 +79,18 @@
 
 
 
-<meta name="description" content="Sharing my life">
+<meta name="description" content="前言在Rubin Casual Model(RCM)的学习中，大多数文章或多或少都会提到关于RCM的三个重要假定。这三个假定分别是SUTVA（Stable Unit Treatment Value Assumption）、可忽略性（Ignorability）和正向性（Positivity），本文记录了三大假定的定义及其解释。 三大假定前言：一个医学实验的例子一家医院想通过利用病人的观察数据（即电子">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Dulingzhi&#39;s Blog">
-<meta property="og:url" content="http://keimakatsuragi.github.io/archives/2022/01/index.html">
+<meta property="og:title" content="因果推断系列:RCM（一）——三大假设">
+<meta property="og:url" content="http://keimakatsuragi.github.io/not%20show/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97:RCM%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E4%B8%89%E5%A4%A7%E5%81%87%E8%AE%BE.html">
 <meta property="og:site_name" content="Dulingzhi&#39;s Blog">
-<meta property="og:description" content="Sharing my life">
+<meta property="og:description" content="前言在Rubin Casual Model(RCM)的学习中，大多数文章或多或少都会提到关于RCM的三个重要假定。这三个假定分别是SUTVA（Stable Unit Treatment Value Assumption）、可忽略性（Ignorability）和正向性（Positivity），本文记录了三大假定的定义及其解释。 三大假定前言：一个医学实验的例子一家医院想通过利用病人的观察数据（即电子">
 <meta property="og:locale">
+<meta property="article:published_time" content="2021-11-22T12:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-27T16:54:35.567Z">
 <meta property="article:author" content="LingZhi Du">
+<meta property="article:tag" content="因果推断">
+<meta property="article:tag" content="RCM">
 <meta name="twitter:card" content="summary">
 
 
@@ -117,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://keimakatsuragi.github.io/archives/2022/01/"/>
+  <link rel="canonical" href="http://keimakatsuragi.github.io/not show/20211122_因果推断系列:RCM（一）——三大假设.html"/>
 
 
 
 
 
-  <title>归档 | Dulingzhi's Blog</title>
+  <title>因果推断系列:RCM（一）——三大假设 | Dulingzhi's Blog</title>
   
 
 
@@ -142,7 +146,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -310,111 +314,93 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
 
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 21 篇日志。 继续努力。
-      </span>
+	<h1 class="post-title" itemprop="name headline">因果推断系列:RCM（一）——三大假设</h1>
+
+
+
+</header>
 
       
+      
+      
+      <div class="post-body">
+        
+        
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在Rubin Casual Model(RCM)的学习中，大多数文章或多或少都会提到关于RCM的三个重要假定。这三个假定分别是SUTVA（Stable Unit Treatment Value Assumption）、可忽略性（Ignorability）和正向性（Positivity），本文记录了三大假定的定义及其解释。</p>
+<h1 id="三大假定"><a href="#三大假定" class="headerlink" title="三大假定"></a>三大假定</h1><h2 id="前言：一个医学实验的例子"><a href="#前言：一个医学实验的例子" class="headerlink" title="前言：一个医学实验的例子"></a>前言：一个医学实验的例子</h2><p>一家医院想通过利用病人的观察数据（即电子健康记录）来评估一种疾病的<strong>几种不同药物</strong>的治疗效果，这些数据包括病人的人口统计信息、病人服用的具体药物和具体剂量以及医疗检查的结果。由于病人只可能接受其中一种治疗方法，我们只能知道病人在该治疗方案下病人的治疗结果（即我们只能从电子健康记录中得到一个特定病人的事实结果），因此，核心任务是<strong>预测如果病人采取另一种治疗方法（即不同的药物或同一药物的不同剂量）会发生什么</strong>。<br>回答这样的反事实问题是非常具有挑战性的。因此，我们希望使用因果推理来预测<strong>每个病人在所有不同剂量的药物上的所有潜在结果</strong>。然后，我们就可以合理、准确地评估和比较不同药物对这种疾病的治疗效果。<br>在这个例子中，需要特别注意的一点是，<strong>对于每一种药物，它们可能有不同的剂量</strong>。例如，对于药物A来说，剂量范围可以是$[a,b]$范围内的一个连续变量，而对于药物B来说，剂量可以是一个分类变量，有几种具体的剂量方案。<br>总结一下：</p>
+<ul>
+<li>个体是指患有所研究疾病的病人。</li>
+<li>治疗方法指的是针对这种疾病的不同药物的具体剂量，我们用$W(W\in{0，1，2，\cdots，n })$表示治疗方法。例如，$W_{i}=1$可以代表单位$i$所服用的具有特定剂量的药物A，$W_{i}=2$代表单位$i$所服用的具有特定剂量的药物B。</li>
+<li>用$Y$来表示治疗结果，例如一种血液测试，可以衡量药物破坏疾病的能力，导致病人的康复。让$Y_{i}(W=1)$表示特定剂量的药物A对病人$i$的潜在结果。</li>
+<li>病人的特征可能包括年龄、性别、临床表现和其他一些医学检查等等。在这些特征中，年龄、性别和其他人口统计学信息是治疗前的变量，不会受到服用治疗的影响。一些临床表现和医学检查会受到服用药物的影响，它们是治疗后的变量。在这个例子中，我们的目标是根据提供的观察数据估计不同药物对这种疾病的治疗效果。</li>
+</ul>
+<h2 id="SUTVA（Stable-Unit-Treatment-Value-Assumption）"><a href="#SUTVA（Stable-Unit-Treatment-Value-Assumption）" class="headerlink" title="SUTVA（Stable Unit Treatment Value Assumption）"></a>SUTVA（Stable Unit Treatment Value Assumption）</h2><p>在评论 Basu（1980）的随机性检验的文章时，Rubin（1980）<a href="#ref1"><sup>1</sup></a>首次界定SUTVA 条件指的是任何一个个体被干预时，不管干预的机制是什么，也不管其他个体受到什么干预，它的潜在结果都是一样的。这个假设条件具有两个关键内容：一个是每一个个体所接受的处理水平是唯一的，所导致的潜在结果也是唯一的；另一个是干预的结果不受其他个体所接受处理的影响。这个假定包含了两部分内容：</p>
+<ul>
+<li>第一点是每个个体的独立性。也就是说，个体之间不存在这相互作用；</li>
+<li>另一点则是说每种实验或处理水平（treatment）都是一种单一版本。这也就意味着每一个个体所接受的处理水平是唯一的，所导致的潜在结果也是唯一的。</li>
+</ul>
+<p>放到我们医学实验的例子上，假设我们的药物A为阿司匹林片剂，我们要研究的是感冒的程度（为方便起见我们用头疼与否来进行衡量）：</p>
+<ol>
+<li>个体之间不存在这相互作用意味着病人1的头疼与否不会影响到病人2是否会头疼。例如，如果病人1在头疼的情况下，无论病人2是否服用阿斯匹林，病人2的潜在结果都是头疼；而在病人1不头疼的情况下，病人2服用阿斯匹林就不头疼，不服用就头疼。在这种情况下，我们认为是不符合SUTVA假定的。</li>
+<li>处理水平唯一则是指对于每一种剂量的阿司匹林，我们都应该单独的视为一种治疗方案。例如服用25mg的阿司匹林和服用50mg的阿司匹林，其潜在结果可能是不同的。</li>
+</ol>
+<h2 id="可忽略性（Ignorability）"><a href="#可忽略性（Ignorability）" class="headerlink" title="可忽略性（Ignorability）"></a>可忽略性（Ignorability）</h2><p>在统计学中，可忽略性（Ignorability）是实验设计的一个特点，即数据收集方法（和缺失数据的性质）<strong>不取决于缺失数据</strong>。如果在给定观测数据的情况下，一个缺失数据矩阵，条件独立于缺失数据，那么诸如治疗分配或调查抽样策略等缺失数据机制是 “可忽略的”。</p>
+<p>Rubin(1978)<a href="#ref2"><sup>2</sup></a>在贝叶斯推断的框架下讨论了可忽略的分配机制，可以理解为在给定了关于个体的所有被记录事项的情况（观测数据）下，个人被分配到实验组的方式与数据分析无关(即在后验的推断中，可将分配机制“忽略”掉)。之后Rubin和Rosenbaum(1983)<a href="#ref3"><sup>3</sup></a>定义了强可忽略的实验分配条件，在这里，如果我们假定只有两种实验方案$W=0/W=1$，记个体$i$的潜在结果为$\{Y_{i}(W=0),Y_{i}(W=1)\}$，那么这种强可忽略的实验分配条件可以用数学公式来表达为:</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\{Y(W=0), Y(W=1)\} \perp W \mid X
+\end{align*}</script><p>其中$Y(W=t)$表示了在给定实验方案$t$的条件下的潜在结果，$X$是与该实验有关的协变量，$W$是实验指派变量。而实际上，对于每一个个体$i$，我们能够观测得到其中一种结果，即实际结果$Y_{i}$满足:</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+Y_{i}=W_{i}Y_{i}(W=1)+(1-W_{i})Y(W=0)
+\end{align*}</script><p>$(Y(W=0), Y(W=1)) \perp W \mid X$这一条件可以进行如下解读:</p>
+<ol>
+<li>即给定协变量$X$，实验的分配$W$相当于随机分配，即给定X，无论W如何，实验的潜在结果是相同的（这也就是说在控制了协变量X的情况下，个体$i$的潜在结果为$\{Y_{i}(W=0),Y_{i}(W=1)\}$也就确定了下来，具体是哪一种结果仅取决于$W$的分配）</li>
+<li>给定X， 若个体$i$和个体$j$的潜在结果是相同的，则$W$的分布相同，用数学表达式可以表达为:$pr(W|Y_{i}(W=0), Y_{i}(W=1), X=x)=pr(W|Y_{j}(W=0), Y_{j}(W=1), X=x)$</li>
+</ol>
+<p>Ignorability假设保证了研究平均处理效应时，不同实验组的协变量$X$是相同的。从而避免由于选择偏差（selection bias），导致实验组的分配有不同倾向性的情况。在因果图里</p>
+<pre class="mermaid">graph TD;
+W-->Y;
+X(confounders: X)-->W;
+X(confounders: X)-->Y;</pre>
+
+<p>放到我们医学实验的例子，假设$W=1$代表使用药物。X为年龄</p>
+<p>例如，考察药物对病人治疗效果的例子。$Y$为是否康复，$W=1$代使用药物A。协变量$X$为年龄，为了方便起见，我们仅划分为年轻的病人和年老的病人两类群体。其中<strong>年轻的病人基本不会选择用药，只有年老的病人更倾向于选择用药</strong>。如果不控制协变量$X$，那么$W=1$的治疗组以年老的病人为主，$W=0$的对照组以年轻的病人为主，进而使用药物的组里康复率会偏低，甚至低于对照组，从而得出药物对康复率具有副作用的错误结论（辛普森悖论）。如果将协变量年龄固定后再进行研究，对于年轻的病人，其用药倾向性一致，从而$W$的分配没有倾向性。由此消除了协变量$X$对处理效应的干扰，从数学公式上看，总体的平均因果效应可以被如下计算:</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ACE&=E(Y_{i}(W=1)-Y_{i}(W=0)|X)\\
+&=E(Y_{i}(W=1)|X) - E(Y_{i}(W=0)|X) \quad \mbox{(期望计算的线性性，非线性不可用)}\\
+&=E(Y_{i}(W=1)|W=1, X) - E(Y_{i}(W=0)|W=0, X) \quad \mbox{(随机化，即可忽略性的应用)}\\
+&=E(Y_{i}|W=1, X) - E(Y_{i}(W=0)|X)\\
+\end{align*}</script><h2 id="正向性（Positivity）"><a href="#正向性（Positivity）" class="headerlink" title="正向性（Positivity）"></a>正向性（Positivity）</h2><p>正向性<a href="#ref3"><sup>3</sup></a>相比于其他两个假定更容易理解，这个假定保证了给定任意一个协变量$X=x$，每一个实验组被分配的概率都不等于0，用数学公式表示为:</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+0<pr(W=w \mid X=x) <1
+\end{align*}</script><p>放到我们医学实验的例子里，同样考察药物对病人治疗效果的例子。$Y$为是否康复，$W=1$代使用药物A。协变量$X$为年龄，为了方便起见，我们仅划分为年轻的病人和年老的病人两类群体。如果<strong>年轻的病人均不选择用药，只有年老的病人全都选择用药</strong>，那么这种情况下，是不满足正向性假定的。以年轻的病人为例，我们只知道他们不使用药物的结果，但是<strong>我们没有观测数据帮助我们估计使用药物的结果</strong>，这种情况下我们没法做平均处理效应的计算。</p>
+<p><div id="ref1"></div></p>
+<ul>
+<li>[1] Rubin, D. B. (1980). Randomization analysis of experimental data: The Fisher randomization test comment. Journal of the American Statistical Association, 75(371), 591-593.<div id="ref2"></div></li>
+<li>[2] Rubin, D. B. (1978). Bayesian inference for causal effects: The role of randomization. The Annals of statistics, 34-58.<div id="ref3"></div></li>
+<li>[3] Rosenbaum, P. R., &amp; Rubin, D. B. (1983). The central role of the propensity score in observational studies for causal effects. Biometrika, 70(1), 41-55.</li>
+</ul>
 
         
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2022">2022</h1>
-          </div>
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/01/23/not%20show/20220123-%E5%A4%9A%E9%87%8D%E6%AF%94%E8%BE%83/" itemprop="url">
-              
-                <span itemprop="name">A/B实验系列（四）：多重比较问题【WIP】</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-01-23T20:33:19+08:00"
-              content="2022-01-23" >
-          01-23
-        </time>
       </div>
-
-    </header>
-  </article>
-
-
-
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/01/10/not%20show/20220110-%E6%A0%B7%E6%9C%AC%E9%87%8F%E8%AE%A1%E7%AE%97/" itemprop="url">
-              
-                <span itemprop="name">A/B实验系列（三）：样本量计算【WIP】</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-01-10T22:32:14+08:00"
-              content="2022-01-10" >
-          01-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
-
+      
     </div>
+    
+    
+    
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -422,6 +408,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -442,8 +442,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -460,7 +469,7 @@
             
               <div class="site-state-item site-state-posts">
                 <a href="/archives">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -471,7 +480,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -482,7 +491,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -505,6 +514,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E5%A4%A7%E5%81%87%E5%AE%9A"><span class="nav-text">三大假定</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80%EF%BC%9A%E4%B8%80%E4%B8%AA%E5%8C%BB%E5%AD%A6%E5%AE%9E%E9%AA%8C%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="nav-text">前言：一个医学实验的例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SUTVA%EF%BC%88Stable-Unit-Treatment-Value-Assumption%EF%BC%89"><span class="nav-text">SUTVA（Stable Unit Treatment Value Assumption）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E5%BF%BD%E7%95%A5%E6%80%A7%EF%BC%88Ignorability%EF%BC%89"><span class="nav-text">可忽略性（Ignorability）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E5%90%91%E6%80%A7%EF%BC%88Positivity%EF%BC%89"><span class="nav-text">正向性（Positivity）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -533,7 +558,7 @@
     
       <span class="post-meta-item-text">全站字数&#58;</span>
     
-    <span title="全站字数">41.9k</span>
+    <span title="全站字数">24.9k</span>
   
 </div>
 
@@ -655,6 +680,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -672,6 +701,18 @@
       <script id="dsq-count-scr" src="https://dlz850245.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://keimakatsuragi.github.io/not%20show/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97:RCM%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E4%B8%89%E5%A4%A7%E5%81%87%E8%AE%BE.html';
+          this.page.identifier = 'not show/20211122_因果推断系列:RCM（一）——三大假设.html';
+          this.page.title = '因果推断系列:RCM（一）——三大假设';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dlz850245.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   

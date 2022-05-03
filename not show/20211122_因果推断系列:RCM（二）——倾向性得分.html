@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content=",," />
 
 
 
@@ -79,14 +79,18 @@
 
 
 
-<meta name="description" content="Sharing my life">
+<meta name="description" content="前言在Rubin Casual Model(RCM)的第一篇讲述了模型的三个基本假设，在本文中，将主要围绕着Rubin(1983)的文章重点看一下在大样本理论倾向性得分的定义、推导及含义。 倾向性得分数学推导符号定义假设从总体中随机抽出$N$个样本。为方便起见，规定实验指派变量（treatment assigned variable， 即实验方案）$w$仅有两种，用数学符号表达为:  \begin">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Dulingzhi&#39;s Blog">
-<meta property="og:url" content="http://keimakatsuragi.github.io/archives/2022/03/index.html">
+<meta property="og:title" content="因果推断系列:RCM（二）——倾向性得分">
+<meta property="og:url" content="http://keimakatsuragi.github.io/not%20show/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97:RCM%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%80%BE%E5%90%91%E6%80%A7%E5%BE%97%E5%88%86.html">
 <meta property="og:site_name" content="Dulingzhi&#39;s Blog">
-<meta property="og:description" content="Sharing my life">
+<meta property="og:description" content="前言在Rubin Casual Model(RCM)的第一篇讲述了模型的三个基本假设，在本文中，将主要围绕着Rubin(1983)的文章重点看一下在大样本理论倾向性得分的定义、推导及含义。 倾向性得分数学推导符号定义假设从总体中随机抽出$N$个样本。为方便起见，规定实验指派变量（treatment assigned variable， 即实验方案）$w$仅有两种，用数学符号表达为:  \begin">
 <meta property="og:locale">
+<meta property="article:published_time" content="2021-11-22T13:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-27T16:54:35.569Z">
 <meta property="article:author" content="LingZhi Du">
+<meta property="article:tag" content="因果推断">
+<meta property="article:tag" content="RCM">
 <meta name="twitter:card" content="summary">
 
 
@@ -117,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://keimakatsuragi.github.io/archives/2022/03/"/>
+  <link rel="canonical" href="http://keimakatsuragi.github.io/not show/20211122_因果推断系列:RCM（二）——倾向性得分.html"/>
 
 
 
 
 
-  <title>归档 | Dulingzhi's Blog</title>
+  <title>因果推断系列:RCM（二）——倾向性得分 | Dulingzhi's Blog</title>
   
 
 
@@ -142,7 +146,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -310,74 +314,113 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
 
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 21 篇日志。 继续努力。
-      </span>
+	<h1 class="post-title" itemprop="name headline">因果推断系列:RCM（二）——倾向性得分</h1>
+
+
+
+</header>
 
       
+      
+      
+      <div class="post-body">
+        
+        
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在Rubin Casual Model(RCM)的第一篇讲述了模型的三个基本假设，在本文中，将主要围绕着Rubin(1983)的文章重点看一下在大样本理论倾向性得分的定义、推导及含义。</p>
+<h1 id="倾向性得分"><a href="#倾向性得分" class="headerlink" title="倾向性得分"></a>倾向性得分</h1><h2 id="数学推导"><a href="#数学推导" class="headerlink" title="数学推导"></a>数学推导</h2><h3 id="符号定义"><a href="#符号定义" class="headerlink" title="符号定义"></a>符号定义</h3><p>假设从总体中随机抽出$N$个样本。为方便起见，规定<strong>实验指派变量（treatment assigned variable， 即实验方案）</strong>$w$仅有两种，用数学符号表达为:</p>
+<script type="math/tex; mode=display">
+\begin{equation}
+w=
+\left\{
+\begin{aligned}
+1, \mbox{if it had received treatment 1}\\
+0, \mbox{if it had received treatment 0}\\
+\end{aligned}
+\right.
+\end{equation}</script><p>为了方便起见，设置实验1为实验组，实验0为对照组。记个体$i$的潜在结果为$\{Y_{i}(w=0),Y_{i}(w=1)\}$。用$x=\{x_{1}, x_{2}, \cdots, x_{k}\}$表示一系列观测到的<strong>预处理措施或者协变量</strong>，同时，定义<strong>平衡分数</strong>$b(x)$为一类关于协变量$x$的函数，这种函数能够使得在给定$b(x)$(即给定平衡分数)的情况下，协变量$x$的条件分布与实验指派变量$w$无关，用符号表示为</p>
+<script type="math/tex; mode=display">
+x \perp w \mid b(x)</script><p>另外，假定给定协变量$x$的前提下，给用户指派到实验组的条件概率为</p>
+<script type="math/tex; mode=display">
+e(x)=pr(w=1 \mid x)</script><p>我们称$e(x)$为<strong>倾向性得分</strong>，进而我们容易得到以下的等式:</p>
+<script type="math/tex; mode=display">
+pr(w_{1}, \cdots, w_{n} \mid x_{1}, \cdots, x_{n})=\prod_{i=1}^{N}e(x_{i})^{w_{i}}  \{1-e(x_{i})\}^{1-w_{i}}</script><h3 id="基本理论（大样本）"><a href="#基本理论（大样本）" class="headerlink" title="基本理论（大样本）"></a>基本理论（大样本）</h3><p><strong>定理1</strong>：在给定倾向性得分$e(x)$ 的条件下，实验指派变量$w$和协变量$x$条件独立，用符号表示为</p>
+<script type="math/tex; mode=display">
+x \perp w \mid e(x)</script><p>定理1实际上是定理2的一个特例，因此在此略过证明</p>
+<p><strong>定理2</strong>：假定$b(x)$是关于$x$的一个函数，当且仅当$e(x)=f\{b(x)\}$时$b(x)$是平衡性分数，即</p>
+<script type="math/tex; mode=display">
+x \perp w \mid b(x)</script><p>证明：</p>
+<p>充分性：</p>
+<p>假定满足$e(x)=f\{b(x)\}$，根据$e(x)$的定义及定理1，要证明$x \perp w \mid b(x)$，可证</p>
+<script type="math/tex; mode=display">
+pr\{w=1 \mid b(x)\}=e(x)</script><p>而</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+pr\{w=1 \mid b(x)\}&=\int_{x}xg\{pr\{w=1 \mid x\} \mid b(x)\}dx\\
+&=\int_{x}xg\{e(x) \mid b(x)\}dx\\
+&=E\{e(x) \mid b(x)\}\\
+&=e(x) \quad (\mbox{b(x) is finer than e(x)})
+\end{align*}</script><p>证明成立</p>
+<p>必要性：</p>
+<p>假定$x \perp w \mid b(x)$ ，但是$e(x) \neq f\{b(x)\}$，那么必定存在$x_{1}$和$x_{2}$满足$e(x_{1}) \neq e(x_{2})$ 但是$b(x_{1})=b(x_{2})$。这样一来，根据倾向性得分的定义$pr(w=1 \mid x_{1}) \neq pr(w=1 \mid x_{2})$，那么$b(x)$一定不是平衡性分数</p>
+<p>Q.E.D</p>
+<p><strong>定理3</strong>：如果满足$\{Y(w=0),Y(w=1)\} \perp w \mid x$并且$0&lt;pr(w=1 \mid x) &lt;1$，那么一定满足$\{Y(w=0),Y(w=1)\} \perp w \mid b(x)$并且$0&lt;pr\{w=1 \mid b(x)\}&lt;1$</p>
+<p>证明：</p>
+<p>该定理即证</p>
+<script type="math/tex; mode=display">
+pr\{w=1 \mid Y(w=0),Y(w=1), b(x)\}=pr\{w=1 \mid b(x)\}</script><p>同定理2证明</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+pr\{z=1 \mid Y(w=0),Y(w=1), b(x)\}&=E\{ pr\{w=1 \mid Y(w=0),Y(w=1), x\}\mid  Y(w=0),Y(w=1), b(x)\}\\
+&=E\{ pr\{w=1 \mid x\}\mid  Y(w=0),Y(w=1), b(x)\}\\
+&=E\{e(x) \mid Y(w=0),Y(w=1), b(x)\}\\
+&=E\{e(x) \mid b(x)\}\\
+&=e(x) \quad (\mbox{b(x) is finer than e(x)})
+\end{align*}</script><p>Q.E.D</p>
+<p><strong>定理4</strong>：假定实验指派变量$w$是强可忽略的，且$b(x)$是平衡性分数，在给定平衡性分数$b(x)$下实验组和对照组观测到的反应的期望差异等于给定平衡性分数$b(x)$下的平均处理效应（ATE），即</p>
+<script type="math/tex; mode=display">
+E\{Y(w=1) \mid b(x), w=1\}-E\{Y(w=0) \mid b(x), w=0\}=E\{Y(w=1)-Y(w=0) \mid b(x)\}</script><p>证明：</p>
+<p>由定理3，</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+E\{Y(w=1) \mid b(x), w=1\}-E\{Y(w=0) \mid b(x), w=0\}&=E\{Y(w=1) \mid b(x)\}-E\{Y(w=0) \mid b(x)\}\\
+&=E\{Y(w=1)-Y(w=0) \mid b(x)\}
+\end{align*}</script><p>Q.E.D</p>
+<p>由定理4，在两阶段抽样过程中，实验组和对照组观测到的反应的期望差异可以表示为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+E_{b(x)}\{E\{Y(w=1)\mid b(x), w=1\}-E\{Y(w=0) \mid b(x), w=0\}\}
+&=E_{b(x)}\{E\{Y(w=1)-Y(w=0) \mid b(x)\}\}\\
+&=E(Y(w=1)-Y(w=0))
+\end{align*}</script><p>即实验组与对照组总体的平均处理效应（ATE）</p>
+<h2 id="理论解释"><a href="#理论解释" class="headerlink" title="理论解释"></a>理论解释</h2><p>在本章开始，先进行了关于倾向性得分的定义和数学推导做了详尽的介绍，我们认为这是有必要的，数学推导是理解倾向性得分理论正确性以及理论本质的一个重要手段，在本节，我们重点讲一下为什么要使用倾向性得分，以及如何使用它。</p>
+<p>不知道大家是否注意到上一篇中我们在讲述可忽略性（Ignorability）时的数学表述:</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\{Y(w=0), Y(w=1)\} \perp w \mid x
+\end{align*}</script><p>可以试想一下，假如协变量组$x$的数目比较大，共有$k$个，每个协变量共有$m$类分组，那么所有分组共有$m^{k}$种，从实际角度出发，我们不可能去对每一类都进行严格的控制，不然我们要比较的组数就太多了，因此在这种情况下，<strong>降维</strong>是一种非常有效的手段。在定理3中，我们已经证明了平衡分数/倾向性得分替代协变量的可能性，这也意味着，如果我们能够利用协变量$x$去拟合一个适当的$b(x)$，同时利用$b(x)$去输出一个标签或一个标签对应的概率值，那么我们就能够把维数大大降下来，以一个相对较少的组数进行比较。</p>
+<p>问题来了，如果我们需要去拟合一个$b(x)$，因变量是什么呢？这块翻阅了大量关于因果推断的文章和博客，却无人提及这一点。实际上，我们的因变量可以是我们自定义的一个变量（只要这个变量有意义），但最常用的通常是我们的实验指派变量$w$。</p>
+<p><div id="ref1"></div></p>
+<ul>
+<li>[1] Rosenbaum, P. R., &amp; Rubin, D. B. (1983). The central role of the propensity score in observational studies for causal effects. Biometrika, 70(1), 41-55.</li>
+</ul>
 
         
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2022">2022</h1>
-          </div>
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2022/03/27/not%20show/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%93%E9%A2%98%E7%9B%AE%E5%BD%95/" itemprop="url">
-              
-                <span itemprop="name">未命名</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2022-03-27T22:30:23+08:00"
-              content="2022-03-27" >
-          03-27
-        </time>
       </div>
-
-    </header>
-  </article>
-
-
-
       
-
+      
+      
     </div>
+    
+    
+    
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -385,6 +428,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -405,8 +462,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -423,7 +489,7 @@
             
               <div class="site-state-item site-state-posts">
                 <a href="/archives">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -434,7 +500,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -445,7 +511,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -468,6 +534,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%80%BE%E5%90%91%E6%80%A7%E5%BE%97%E5%88%86"><span class="nav-text">倾向性得分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E6%8E%A8%E5%AF%BC"><span class="nav-text">数学推导</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E5%AE%9A%E4%B9%89"><span class="nav-text">符号定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA%EF%BC%88%E5%A4%A7%E6%A0%B7%E6%9C%AC%EF%BC%89"><span class="nav-text">基本理论（大样本）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E8%A7%A3%E9%87%8A"><span class="nav-text">理论解释</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -496,7 +578,7 @@
     
       <span class="post-meta-item-text">全站字数&#58;</span>
     
-    <span title="全站字数">41.9k</span>
+    <span title="全站字数">24.9k</span>
   
 </div>
 
@@ -618,6 +700,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -635,6 +721,18 @@
       <script id="dsq-count-scr" src="https://dlz850245.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://keimakatsuragi.github.io/not%20show/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97:RCM%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%80%BE%E5%90%91%E6%80%A7%E5%BE%97%E5%88%86.html';
+          this.page.identifier = 'not show/20211122_因果推断系列:RCM（二）——倾向性得分.html';
+          this.page.title = '因果推断系列:RCM（二）——倾向性得分';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dlz850245.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
