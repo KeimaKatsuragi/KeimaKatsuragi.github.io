@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="因果推断," />
+  <meta name="keywords" content="A/B 实验," />
 
 
 
@@ -79,18 +79,21 @@
 
 
 
-<meta name="description" content="因果推断1 数学部分1.1 符号定义假设从总体中随机抽出$N$个样本，规定实验指派变量$z$满足  \begin{equation} z&#x3D; \left\{ \begin{aligned} 1, \mbox{if it had received treatment 1}\\ 0, \mbox{if it had received treatment 0}\\ \end{aligned} \right">
+<meta name="description" content="前言：客户端发版的数据分析在互联网数据分析的工作中，一个较为例行的任务就是保障客户端发版。为了避免客户端存在bug对用户有较多的打扰，一般在客户端发版时，都会经历灰度阶段。灰度，其实就是小批量测试的过程。整个保障过程，除了RD、QA以外，数据分析师也得参与其中。QA可以介入测试功能，那数据分析师的作用是什么呢？数据分析师，就是要比较客户端版本升级前和升级后在某些核心指标上是否存在明显变化。 假设我">
 <meta property="og:type" content="article">
-<meta property="og:title" content="因果推断">
-<meta property="og:url" content="http://keimakatsuragi.github.io/2021/09/17/20210920_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/index.html">
+<meta property="og:title" content="聊聊AB实验（1）——AA实验">
+<meta property="og:url" content="http://keimakatsuragi.github.io/2022/05/03/20220503-%E8%81%8A%E8%81%8AAB%E5%AE%9E%E9%AA%8C%EF%BC%881%EF%BC%89%E2%80%94%E2%80%94AA%E5%AE%9E%E9%AA%8C/index.html">
 <meta property="og:site_name" content="Dulingzhi&#39;s Blog">
-<meta property="og:description" content="因果推断1 数学部分1.1 符号定义假设从总体中随机抽出$N$个样本，规定实验指派变量$z$满足  \begin{equation} z&#x3D; \left\{ \begin{aligned} 1, \mbox{if it had received treatment 1}\\ 0, \mbox{if it had received treatment 0}\\ \end{aligned} \right">
+<meta property="og:description" content="前言：客户端发版的数据分析在互联网数据分析的工作中，一个较为例行的任务就是保障客户端发版。为了避免客户端存在bug对用户有较多的打扰，一般在客户端发版时，都会经历灰度阶段。灰度，其实就是小批量测试的过程。整个保障过程，除了RD、QA以外，数据分析师也得参与其中。QA可以介入测试功能，那数据分析师的作用是什么呢？数据分析师，就是要比较客户端版本升级前和升级后在某些核心指标上是否存在明显变化。 假设我">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-09-16T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-11-27T16:54:35.567Z">
+<meta property="og:image" content="http://keimakatsuragi.github.io/2022/05/03/images/AA%20analysis/learning_time.png">
+<meta property="og:image" content="http://keimakatsuragi.github.io/2022/05/03/images/AA%20analysis/learning_time_diff.png">
+<meta property="article:published_time" content="2022-05-03T14:29:10.000Z">
+<meta property="article:modified_time" content="2022-05-03T17:25:23.071Z">
 <meta property="article:author" content="LingZhi Du">
-<meta property="article:tag" content="因果推断">
+<meta property="article:tag" content="A&#x2F;B 实验">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://keimakatsuragi.github.io/2022/05/03/images/AA%20analysis/learning_time.png">
 
 
 
@@ -120,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://keimakatsuragi.github.io/2021/09/17/20210920_因果推断/"/>
+  <link rel="canonical" href="http://keimakatsuragi.github.io/2022/05/03/20220503-聊聊AB实验（1）——AA实验/"/>
 
 
 
 
 
-  <title>因果推断 | Dulingzhi's Blog</title>
+  <title>聊聊AB实验（1）——AA实验 | Dulingzhi's Blog</title>
   
 
 
@@ -327,7 +330,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://keimakatsuragi.github.io/2021/09/17/20210920_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/">
+    <link itemprop="mainEntityOfPage" href="http://keimakatsuragi.github.io/2022/05/03/20220503-%E8%81%8A%E8%81%8AAB%E5%AE%9E%E9%AA%8C%EF%BC%881%EF%BC%89%E2%80%94%E2%80%94AA%E5%AE%9E%E9%AA%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -344,7 +347,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">因果推断</h1>
+          <h1 class="post-title" itemprop="name headline">聊聊AB实验（1）——AA实验</h1>
         
 
         <div class="post-meta">
@@ -356,8 +359,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-09-17T00:00:00+08:00">
-                2021-09-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-05-03T22:29:10+08:00">
+                2022-05-03
               </time>
             
 
@@ -379,8 +382,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/" itemprop="url" rel="index">
-                    <span itemprop="name">因果推断</span>
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" itemprop="url" rel="index">
+                    <span itemprop="name">数据分析</span>
                   </a>
                 </span>
 
@@ -397,9 +400,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/09/17/20210920_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/#comments" itemprop="discussionUrl">
+                <a href="/2022/05/03/20220503-%E8%81%8A%E8%81%8AAB%E5%AE%9E%E9%AA%8C%EF%BC%881%EF%BC%89%E2%80%94%E2%80%94AA%E5%AE%9E%E9%AA%8C/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2021/09/17/20210920_因果推断/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2022/05/03/20220503-聊聊AB实验（1）——AA实验/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -421,7 +424,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2k
+                  1.8k
                 </span>
               
 
@@ -437,7 +440,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  9
+                  6
                 </span>
               
             </div>
@@ -458,123 +461,38 @@
       
 
       
-        <h1 id="因果推断"><a href="#因果推断" class="headerlink" title="因果推断"></a>因果推断</h1><h2 id="1-数学部分"><a href="#1-数学部分" class="headerlink" title="1 数学部分"></a>1 数学部分</h2><h3 id="1-1-符号定义"><a href="#1-1-符号定义" class="headerlink" title="1.1 符号定义"></a>1.1 符号定义</h3><p>假设从总体中随机抽出$N$个样本，规定<strong>实验指派变量</strong>$z$满足</p>
-<script type="math/tex; mode=display">
-\begin{equation}
-z=
-\left\{
-\begin{aligned}
-1, \mbox{if it had received treatment 1}\\
-0, \mbox{if it had received treatment 0}\\
-\end{aligned}
-\right.
-\end{equation}</script><p>为了方便起见，设置实验1为实验组，实验0为对照组。令$r_{1}$和$r_{0}$分别为用户接受实验组和对照组的反应，对于第$i$个个体的反应，规定为$r_{1i}$和$r_{0i}$。用$x=\{x_{1}, x_{2}, \cdots, x_{n}\}$表示一系列观测到的<strong>预处理措施或者协变量</strong>，同时，定义<strong>平衡分数</strong>$b(x)$为能够在给定平衡分数的前提下，协变量$x$的条件分布对于对照组和实验组完全一致的关于协变量$x$的函数，用符号表示为</p>
-<script type="math/tex; mode=display">
-x \perp z \mid b(x)</script><p>另外，假定给定协变量$x$的前提下，给用户指派到实验组的条件概率为</p>
-<script type="math/tex; mode=display">
-e(x)=pr(z=1 \mid x)</script><p>称$e(x)$为<strong>倾向性得分</strong>，同时假定</p>
-<script type="math/tex; mode=display">
-pr(z_{1}, \cdots, z_{n} \mid x_{1}, \cdots, x_{n})=\prod_{i=1}^{N}e(x_{i})^{z_{i}}  \{1-e(x_{i})\}^{1-z_{i}}</script><p>定义可忽略性和正向性如下：</p>
-<p>可忽略性：$(r_{0}, r_{1}) \perp z \mid x$</p>
-<p>正向性：$0&lt;pr(z=1 \mid x) &lt;1$</p>
-<h3 id="1-2-基本理论（大样本）"><a href="#1-2-基本理论（大样本）" class="headerlink" title="1.2 基本理论（大样本）"></a>1.2 基本理论（大样本）</h3><p><strong>定理1</strong>：在给定倾向性得分$e(x)$ 的条件下，实验指派变量$z$和协变量$x$条件独立，用符号表示为</p>
-<script type="math/tex; mode=display">
-x \perp z \mid e(x)</script><p>证明：略</p>
-<p><strong>定理2</strong>：假定$b(x)$是关于$x$的一个函数，当且仅当$e(x)=f\{b(x)\}$时$b(x)$是平衡性分数，即</p>
-<script type="math/tex; mode=display">
-x \perp z \mid b(x)</script><p>证明：略，见1.1定义</p>
-<p>充分性：</p>
-<p>假定满足$e(x)=f\{b(x)\}$，根据$e(x)$的定义及定理1，要证明$x \perp z \mid b(x)$，可证</p>
-<script type="math/tex; mode=display">
-pr\{z=1 \mid b(x)\}=e(x)</script><p>而</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-pr\{z=1 \mid b(x)\}&=\int_{x}xg\{pr\{z=1 \mid x\} \mid b(x)\}dx\\
-&=\int_{x}xg\{e(x) \mid b(x)\}dx\\
-&=E\{e(x) \mid b(x)\}\\
-&=e(x) \quad (\mbox{b(x) is finer than e(x)})
-\end{align*}</script><p>证明成立</p>
-<p>必要性：</p>
-<p>假定$x \perp z \mid b(x)$ ，但是$e(x) \neq f\{b(x)\}$，那么必定存在$x_{1}$和$x_{2}$满足$e(x_{1}) \neq e(x_{2})$ 但是$b(x_{1})=b(x_{2})$。这样一来，根据倾向性得分的定义$pr(z=1 \mid x_{1}) \neq pr(z=1 \mid x_{2})$，那么$b(x)$一定不是平衡性分数</p>
-<p>Q.E.D</p>
-<p><strong>定理3</strong>：如果满足$(r_{0}, r_{1}) \perp z \mid x$并且$0&lt;pr(z=1 \mid x) &lt;1$，那么一定满足$(r_{0}, r_{1}) \perp z \mid b(x)$并且$0&lt;pr\{z=1 \mid b(x)\}&lt;1$</p>
-<p>证明：</p>
-<p>该定理即证</p>
-<script type="math/tex; mode=display">
-pr\{z=1 \mid r_{0}, r_{1}, b(x)\}=pr\{z=1 \mid b(x)\}</script><p>同定理2证明</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-pr\{z=1 \mid r_{0}, r_{1}, b(x)\}&=E\{ pr\{z=1 \mid r_{0}, r_{1}, x\}\mid  r_{0}, r_{1}, b(x)\}\\
-&=E\{ pr\{z=1 \mid x\}\mid  r_{0}, r_{1}, b(x)\}\\
-&=E\{e(x) \mid r_{0}, r_{1}, b(x)\}\\
-&=E\{e(x) \mid b(x)\}\\
-&=e(x) \quad (\mbox{b(x) is finer than e(x)})
-\end{align*}</script><p>Q.E.D</p>
-<p><strong>定理4</strong>：假定实验指派变量$z$是强可忽略的，且$b(x)$是平衡性分数，在给定平衡性分数$b(x)$下实验组和对照组观测到的反应的期望差异等于给定平衡性分数$b(x)$下的平均处理效应（ATE），即</p>
-<script type="math/tex; mode=display">
-E\{r_{1} \mid b(x), z=1\}-E\{r_{0} \mid b(x), z=0\}=E\{r_{1}-r_{0} \mid b(x)\}</script><p>证明：</p>
-<p>由定理3，</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-E\{r_{1} \mid b(x), z=1\}-E\{r_{0} \mid b(x), z=0\}&=E\{r_{1} \mid b(x)\}-E\{r_{0} \mid b(x)\}\\
-&=E\{r_{1}-r_{0} \mid b(x)\}
-\end{align*}</script><p>Q.E.D</p>
-<p>由定理4，在两阶段抽样过程中，实验组和对照组观测到的反应的期望差异可以表示为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-E_{b(x)}\{E\{r_{1} \mid b(x), z=1\}-E\{r_{0} \mid b(x), z=0\}\}
-&=E_{b(x)}\{E\{r_{1}-r_{0} \mid b(x)\}\}\\
-&=E(r_{1}-r_{0})
-\end{align*}</script><p>即实验组与对照组总体的平均处理效应（ATE）</p>
-<h3 id="1-3-Inverse-Propensity-Weighting"><a href="#1-3-Inverse-Propensity-Weighting" class="headerlink" title="1.3 Inverse Propensity Weighting"></a>1.3 Inverse Propensity Weighting</h3><p>假设有限总体$N$划被分为$S$组（例如根据性别划分），组标记为$s=1,2,\cdots,S$，且每一组的总体频数$N_{s}$已知，满足$N=N_{1}+N_{2}+\cdots+N_{S}$，那么实验效应的总体均值可以被估计为</p>
-<script type="math/tex; mode=display">
-\bar{r}
-=\frac{1}{N}\sum_{s=1}^{S}\sum_{i=1}^{N_{s}}r_{si}
-=\sum_{s=1}^{S}\frac{N_{s}}{N}\bar{r}_{s}</script><p>为了方便起见，引入前面的标记$z$，并假定反应只能观测在被选择的样本中，假设被观测到的样本数$n$满足$n=n_{1}+n_{2}+\cdots+n_{S}$，那么每一组实验效应的样本均值可以被估计为</p>
-<script type="math/tex; mode=display">
-\bar{r}_{s}=\frac{\sum_{i=1}^{N_{s}}z_{i}^{(s)}r_{i}^{(s)}}{n_{s}}</script><p>所有组别的实验效应样本均值可以估计为</p>
-<script type="math/tex; mode=display">
-\bar{r}
-=\sum_{s=1}^{S}\frac{N_{s}}{N}\bar{r}_{s}
-=\sum_{s=1}^{S}\frac{\sum_{i=1}^{N_{s}}z_{i}^{(s)}r_{i}^{(s)}}{(n_{s}/N_{s})}</script><p>在实际中，若$n_{S}$趋近于0，那么某一组$\bar{r}_{s}$估计出来的值将会趋于无穷，为了解决这个问题，Holt和Smith（1919）提出了在随机抽样的条件下，$\bar{r}$无偏的一种解决方案：</p>
-<script type="math/tex; mode=display">
-\bar{r}
-=\frac{\sum_{s=1}^{S}\sum_{i=1}^{N_{s}}z_{i}^{(s)}r_{i}^{(s)}}{\sum_{s=1}^{S}n_{s}}</script><p>需要指出$\bar{r}$并不是<strong>条件无偏</strong>的，在给定样本总体n的情况下，$\bar{r}$是有偏的</p>
-<p>Rosenbaum（1987）给出了一种更通用的解决方案，即</p>
-<script type="math/tex; mode=display">
-\bar{r}
-=\frac{1}{N}\sum_{s=1}^{S}\sum_{i=1}^{N_{s}}\frac{z_{i}^{(s)}r_{i}^{(s)}}{\hat{e}_{s}}
-=\sum_{s=1}^{S}\frac{N_{s}}{N}\frac{n_{s}}{\hat{m}_{s}}\bar{r}_{s}</script><p>其中$\hat{e}_{s}=\frac{\hat{m}_{s}}{N_{s}}$是下式的极大似然估计</p>
-<script type="math/tex; mode=display">
-\Phi=(\phi_{1},\phi_{2},\cdots,\phi_{S})^{T}=\boldsymbol{F \beta}\\
-\phi_{S}=log[\frac{e_{s}}{1-e_{s}}]\\
-\boldsymbol{F} \in R^{S \times P}(1 \leq P \leq S)</script><p>可以证实，当$n_{s} &gt;$0且$\boldsymbol{F}$列满秩时，</p>
-<script type="math/tex; mode=display">
-\bar{r}
-=\sum_{s=1}^{S}\frac{\sum_{i=1}^{N_{s}}z_{i}^{(s)}r_{i}^{(s)}}{(n_{s}/N_{s})}</script><p>当$\boldsymbol{F}=\boldsymbol{1}$时，</p>
-<script type="math/tex; mode=display">
-\bar{r}
-=\frac{\sum_{s=1}^{S}\sum_{i=1}^{N_{s}}z_{i}^{(s)}r_{i}^{(s)}}{\sum_{s=1}^{S}n_{s}}</script><p>借助上式，在估计平均处理效应（ATE）时，可以表示为</p>
-<script type="math/tex; mode=display">
-ATE=\frac{1}{N}(
-\sum_{s=1}^{S}\sum_{i=1}^{N_{s}}\frac{z_{i}^{(s)}r_{i}^{(s)}}{\hat{e}_{s}}
--\sum_{s=1}^{S}\sum_{i=1}^{N_{s}}\frac{(1-z_{i}^{(s)})r_{i}^{(s)}}{(1-\hat{e}_{s})}
-)</script><h3 id="1-3-Doubly-Robust-Estimation（DR-Estimation）"><a href="#1-3-Doubly-Robust-Estimation（DR-Estimation）" class="headerlink" title="1.3 Doubly Robust Estimation（DR Estimation）"></a>1.3 Doubly Robust Estimation（DR Estimation）</h3><p>双重鲁棒性估计在上世纪统计推断中已经有使用了，但论文较为杂乱，没有能直接说清楚的。近些年来在Recommendation System或者是Reinforcement Learning开始引用，主要是用在部分组别实际反应的观测数据缺失的情况。这种估计是基于样本的<strong>半参数估计</strong>。DR Estimator可以表示为下式：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-\bar{r}_{dr}
-&=\frac{1}{n}\sum_{i=1}^{N}\frac{z_{i}}{\hat{e}_{i}}r_{i}+
-    \frac{1}{n}\sum_{i=1}^{N}(1-\frac{z_{i}}{\hat{e}_{i}})r_{i,mean} \tag{1}\\
-&=\frac{1}{n}\sum_{i=1}^{N}\{\frac{z_{i}}{\hat{e}_{i}}(r_{i}-r_{i,mean})+r_{i,mean}\} \tag{2}
-\end{align}</script><p>其中$r_{i,mean}$是利用协变量$X$和实验结果$r$估计出来的模型，可以是线性模型，也可以是非线性的。如果$\hat{e}_{s}$能够真实的反映用户参与实验的情况，那么利用$(1)$式，$1-\frac{z_{i}}{\hat{e}_{}}=0$i，剩下的部分即IPW；若模型估计的足够准确，利用$(2)$式，$r_{i}-r_{i,mean}=0$，剩余部分即模型预估出来的结果，那么同样能够达到效果。在这种条件下，平均处理效应可以被表示为（应用$(2)$式）</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-ATE&=\bar{r}(1, X)_{dr}-\bar{r}(0, X)_{dr}\\
-&=\frac{1}{n}\sum_{i=1}^{N}\{
-    r(1,X)_{i,mean}-r(0,X)_{i,mean}
-    +\frac{z_{i}(r_{i}-r(1,X)_{i,mean})}{\hat{e}_{i}}-\frac{(1-z_{i})(r_{i}-r(0,X)_{i,mean})}{(1-\hat{e}_{i})}
-\}
-\end{align*}</script>
+        <h1 id="前言：客户端发版的数据分析"><a href="#前言：客户端发版的数据分析" class="headerlink" title="前言：客户端发版的数据分析"></a>前言：客户端发版的数据分析</h1><p>在互联网数据分析的工作中，一个较为例行的任务就是保障客户端发版。为了避免客户端存在bug对用户有较多的打扰，一般在客户端发版时，都会经历灰度阶段。灰度，其实就是小批量测试的过程。整个保障过程，除了RD、QA以外，数据分析师也得参与其中。QA可以介入测试功能，那数据分析师的作用是什么呢？数据分析师，<strong>就是要比较客户端版本升级前和升级后在某些核心指标上是否存在明显变化</strong>。</p>
+<p>假设我们现在有一个英语学习类app正在发版（例如从v1.0.0升级到v1.1.0），对于新用户而言，我们关注的核心指标是人均学习时长，两个版本的新用户人均学习时长曲线如下</p>
+<p><img src="../images/AA%20analysis/learning_time.png" alt="avatar"></p>
+<p>那么要比较两个版本之间的差异，只需要将两条曲线做差/做比即可。如果两条曲线的差值没有稳定下降且没有回升的趋势，那么我们就认定这个版本大概率是没有问题的；反之，如果核心指标的差异随着天数的增加一直稳定下降没有回升的趋势，说明这个版本可能存在着一定的问题，这个问题或者是某些功能的改变带来的，也有可能是客户端出现了一定的bug。</p>
+<p><img src="../images/AA%20analysis/learning_time_diff.png" alt="avatar"></p>
+<p>接着上面的例子，两条曲线的差值在稳定下降，我们需要暴露这个问题进行排查。</p>
+<h1 id="AA实验"><a href="#AA实验" class="headerlink" title="AA实验"></a>AA实验</h1><h2 id="AA实验的定义"><a href="#AA实验的定义" class="headerlink" title="AA实验的定义"></a>AA实验的定义</h2><p>前面的例子已经让大家对AA实验有了一定的了解。<strong>在我看来，AA实验实际上就是我们在学术里经常提到的自然实验</strong>。所谓自然实验，就是让实验组的用户，在受到环境等非实验观测者控制的因素作用下，自然地进入到实验组（对照组和实验组用户对于其在哪一组并不知情），并受实验观测者观测的一类研究方法。</p>
+<blockquote>
+<p>严格来说自然实验是不允许实验用户知道自己是在实验组里还是对照组里的，在互联网环境下可以做到。但是对于学术界，比如我们评估政策有效性时，我们也会用自然实验的研究方法来进行研究。</p>
+</blockquote>
+<p>例如前面的例子中，对于新用户而言，什么样的用户以及什么时候注册和使用app我们无法控制，用户在使用后能知晓其所在的app版本，但他们并不知道我们在研究这一行为或者在做这类实验。</p>
+<h2 id="AA实验的应用场景"><a href="#AA实验的应用场景" class="headerlink" title="AA实验的应用场景"></a>AA实验的应用场景</h2><p>在互联网场景下，目前我遇到比较多的AA实验应用场景如下：</p>
+<ul>
+<li>搞了xxx活动（比如春晚直播转播），活动周期为y天，想要评估下活动的效果</li>
+<li>运营模式以社群为主，但社群数量少，社群运营周期长，实验成本高。调整了运营策略，如何评价策略的有效性</li>
+<li>发布了新的客户端版本，想要评价本次发版有没有引起重大的bug/对客户端做的优化策略是否有效</li>
+</ul>
+<p>这些场景的主要特点：</p>
+<ul>
+<li><strong>实验成本高或实验条件不足</strong>。实验成本高主要指金钱成本或机会成本，比如上述第一类问题，运营活动需要花费大量的宣传费、物料费用以及人力成本。如果在这些活动上开随机实验的话，一方面前期的投入就会打水漂（沉默成本），另一方面，原本在用户侧能获取到的收益现在也无法获取（机会成本）；实验条件不足主要指现有场景不满足实验的应具备的条件，最常见的是样本量不足的条件。</li>
+<li>大多和时间因素相关。比如第一个问题，如果要应用AA分析，实际上就是要比较活动前与活动后实验指标的差异。这一对比是由时间来提供的。</li>
+</ul>
+<h2 id="AA实验的常用研究方法"><a href="#AA实验的常用研究方法" class="headerlink" title="AA实验的常用研究方法"></a>AA实验的常用研究方法</h2><p>这一块实际涉及涉及的不多，我就所了解的方法简单说明一下，针对某些特定的方法，可能会单独在用某些篇章专门说明。</p>
+<h3 id="做差-做比比较法"><a href="#做差-做比比较法" class="headerlink" title="做差/做比比较法"></a>做差/做比比较法</h3><p>这一方法我感觉是最常用的，比如前面提到的发版的例子，在控制好协变量后，将前后的观测值做差或者做比，观察差值或比值的变化情况</p>
+<h3 id="双重差分"><a href="#双重差分" class="headerlink" title="双重差分"></a>双重差分</h3><p>这一方法通常固定某一时间节点，各选取实验前和实验后一段时间的观测值，在组内和组间做差，最终比较两次差分的结果。实际上做差/做比比较法就是双重差分的一种特例。</p>
+<h3 id="因果推断"><a href="#因果推断" class="headerlink" title="因果推断"></a>因果推断</h3><p>既然没有办法做随机实验，那么可以通过结果人群人为的构造一组近似随机的实验组和对照组，并比较两组之间的处理效应。在互联网常用的方法有IPW、CEM两种，PSM目前见使用得不多</p>
+<h2 id="AA实验的问题"><a href="#AA实验的问题" class="headerlink" title="AA实验的问题"></a>AA实验的问题</h2><p>AA实验（或者叫自然实验）并不是万能的，这种实验方式存在着一些问题，不然无论是学术界还是业界，为什么都没有过分推崇这一实验方法。总结下来其最大问题在于<strong>内生性问题</strong>。这一问题几乎是自然实验最大的一类问题，由于自然实验是用户自然暴露在实验条件内，也就是说，实验组和对照组用户可能在某些影响实验结果的因素上并不完全相同。<strong>这些因素有可能和人口统计学因素有关，也有可能跟用户自身的属性有关，跟外界环境因素有关，甚至会和时间因素有关</strong>。因为我们没办法完全剔除内生性的影响，因此用这种方式进行归因，会存在一定的缺陷。<strong>但如果我们有较为明确的逻辑链路，某些情况下使用这种方式进行归因是没有问题的。</strong></p>
+<blockquote>
+<p>内生性问题示例：<br>比如我们在发版时要比较老用户在新版本与旧版本核心指标上的差异，我们可能会发现新版本的部分指标会远高于老版本。而这个结果可能并不是版本变化带来的，而是因为发版过程中愿意升级新版本的用户可能是app的忠实用户（如高活用户），因此这个是活跃度差异导致的指标变化。</p>
+</blockquote>
+<h2 id="AA实验的替代品"><a href="#AA实验的替代品" class="headerlink" title="AA实验的替代品"></a>AA实验的替代品</h2><p>因为AA实验存在着内生性这一弊端，因此在互联网业界，我们会更推崇使用另一种方式：AB实验。具体AB实验是什么，我们放到之后的篇章进行讲解</p>
+
       
     </div>
     
@@ -594,7 +512,7 @@ ATE&=\bar{r}(1, X)_{dr}-\bar{r}(0, X)_{dr}\\
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://keimakatsuragi.github.io/2021/09/17/20210920_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/" title="因果推断">http://keimakatsuragi.github.io/2021/09/17/20210920_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/</a>
+    <a href="http://keimakatsuragi.github.io/2022/05/03/20220503-%E8%81%8A%E8%81%8AAB%E5%AE%9E%E9%AA%8C%EF%BC%881%EF%BC%89%E2%80%94%E2%80%94AA%E5%AE%9E%E9%AA%8C/" title="聊聊AB实验（1）——AA实验">http://keimakatsuragi.github.io/2022/05/03/20220503-%E8%81%8A%E8%81%8AAB%E5%AE%9E%E9%AA%8C%EF%BC%881%EF%BC%89%E2%80%94%E2%80%94AA%E5%AE%9E%E9%AA%8C/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -609,7 +527,7 @@ ATE&=\bar{r}(1, X)_{dr}-\bar{r}(0, X)_{dr}\\
       
         <div class="post-tags">
           
-            <a href="/tags/%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/" rel="tag"># 因果推断</a>
+            <a href="/tags/A-B-%E5%AE%9E%E9%AA%8C/" rel="tag"># A/B 实验</a>
           
         </div>
       
@@ -622,8 +540,8 @@ ATE&=\bar{r}(1, X)_{dr}-\bar{r}(0, X)_{dr}\\
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/05/01/20220501-Bayesian-Data-Analysis%EF%BC%88%E4%BA%94%EF%BC%89%EF%BC%9A%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B/" rel="next" title="20220501_Bayesian Data Analysis（五）：分层模型【WIP】">
-                <i class="fa fa-chevron-left"></i> 20220501_Bayesian Data Analysis（五）：分层模型【WIP】
+              <a href="/2022/03/27/not%20show/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%93%E9%A2%98%E7%9B%AE%E5%BD%95/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
               </a>
             
           </div>
@@ -632,8 +550,8 @@ ATE&=\bar{r}(1, X)_{dr}-\bar{r}(0, X)_{dr}\\
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/11/22/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97:RCM%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E4%B8%89%E5%A4%A7%E5%81%87%E8%AE%BE/" rel="prev" title="因果推断系列:RCM（一）——三大假设">
-                因果推断系列:RCM（一）——三大假设 <i class="fa fa-chevron-right"></i>
+              <a href="/2022/05/04/20220503-%E8%81%8A%E8%81%8AAB%E5%AE%9E%E9%AA%8C%EF%BC%882%EF%BC%89%E2%80%94%E2%80%94AB%E5%AE%9E%E9%AA%8C/" rel="prev" title="聊聊AB实验（2）——AB实验">
+                聊聊AB实验（2）——AB实验 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -723,7 +641,7 @@ ATE&=\bar{r}(1, X)_{dr}-\bar{r}(0, X)_{dr}\\
             
               <div class="site-state-item site-state-posts">
                 <a href="/archives">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -734,7 +652,7 @@ ATE&=\bar{r}(1, X)_{dr}-\bar{r}(0, X)_{dr}\\
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -778,7 +696,7 @@ ATE&=\bar{r}(1, X)_{dr}-\bar{r}(0, X)_{dr}\\
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD"><span class="nav-text">因果推断</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%95%B0%E5%AD%A6%E9%83%A8%E5%88%86"><span class="nav-text">1 数学部分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E7%AC%A6%E5%8F%B7%E5%AE%9A%E4%B9%89"><span class="nav-text">1.1 符号定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E5%9F%BA%E6%9C%AC%E7%90%86%E8%AE%BA%EF%BC%88%E5%A4%A7%E6%A0%B7%E6%9C%AC%EF%BC%89"><span class="nav-text">1.2 基本理论（大样本）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Inverse-Propensity-Weighting"><span class="nav-text">1.3 Inverse Propensity Weighting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Doubly-Robust-Estimation%EF%BC%88DR-Estimation%EF%BC%89"><span class="nav-text">1.3 Doubly Robust Estimation（DR Estimation）</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80%EF%BC%9A%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%8F%91%E7%89%88%E7%9A%84%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90"><span class="nav-text">前言：客户端发版的数据分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AA%E5%AE%9E%E9%AA%8C"><span class="nav-text">AA实验</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AA%E5%AE%9E%E9%AA%8C%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-text">AA实验的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AA%E5%AE%9E%E9%AA%8C%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-text">AA实验的应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AA%E5%AE%9E%E9%AA%8C%E7%9A%84%E5%B8%B8%E7%94%A8%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95"><span class="nav-text">AA实验的常用研究方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%9A%E5%B7%AE-%E5%81%9A%E6%AF%94%E6%AF%94%E8%BE%83%E6%B3%95"><span class="nav-text">做差&#x2F;做比比较法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E9%87%8D%E5%B7%AE%E5%88%86"><span class="nav-text">双重差分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD"><span class="nav-text">因果推断</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AA%E5%AE%9E%E9%AA%8C%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-text">AA实验的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AA%E5%AE%9E%E9%AA%8C%E7%9A%84%E6%9B%BF%E4%BB%A3%E5%93%81"><span class="nav-text">AA实验的替代品</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -812,7 +730,7 @@ ATE&=\bar{r}(1, X)_{dr}-\bar{r}(0, X)_{dr}\\
     
       <span class="post-meta-item-text">全站字数&#58;</span>
     
-    <span title="全站字数">36.8k</span>
+    <span title="全站字数">41.9k</span>
   
 </div>
 
@@ -958,9 +876,9 @@ ATE&=\bar{r}(1, X)_{dr}-\bar{r}(0, X)_{dr}\\
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://keimakatsuragi.github.io/2021/09/17/20210920_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/';
-          this.page.identifier = '2021/09/17/20210920_因果推断/';
-          this.page.title = '因果推断';
+          this.page.url = 'http://keimakatsuragi.github.io/2022/05/03/20220503-%E8%81%8A%E8%81%8AAB%E5%AE%9E%E9%AA%8C%EF%BC%881%EF%BC%89%E2%80%94%E2%80%94AA%E5%AE%9E%E9%AA%8C/';
+          this.page.identifier = '2022/05/03/20220503-聊聊AB实验（1）——AA实验/';
+          this.page.title = '聊聊AB实验（1）——AA实验';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://dlz850245.disqus.com/embed.js';

@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="因果推断,RCM," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言在Rubin Casual Model(RCM)的学习中，大多数文章或多或少都会提到关于RCM的三个重要假定。这三个假定分别是SUTVA（Stable Unit Treatment Value Assumption）、可忽略性（Ignorability）和正向性（Positivity），本文记录了三大假定的定义及其解释。 三大假定前言：一个医学实验的例子一家医院想通过利用病人的观察数据（即电子">
+<meta property="og:type" content="article">
+<meta property="og:title" content="因果推断系列:RCM（一）——三大假设">
+<meta property="og:url" content="http://keimakatsuragi.github.io/2021/11/22/not%20show/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97:RCM%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E4%B8%89%E5%A4%A7%E5%81%87%E8%AE%BE/index.html">
+<meta property="og:site_name" content="Dulingzhi&#39;s Blog">
+<meta property="og:description" content="前言在Rubin Casual Model(RCM)的学习中，大多数文章或多或少都会提到关于RCM的三个重要假定。这三个假定分别是SUTVA（Stable Unit Treatment Value Assumption）、可忽略性（Ignorability）和正向性（Positivity），本文记录了三大假定的定义及其解释。 三大假定前言：一个医学实验的例子一家医院想通过利用病人的观察数据（即电子">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-11-22T12:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-27T16:54:35.567Z">
+<meta property="article:author" content="LingZhi Du">
+<meta property="article:tag" content="因果推断">
+<meta property="article:tag" content="RCM">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://keimakatsuragi.github.io/2021/11/22/not show/20211122_因果推断系列:RCM（一）——三大假设/"/>
+
+
+
+
+
+  <title>因果推断系列:RCM（一）——三大假设 | Dulingzhi's Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Dulingzhi's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-categories"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            留言本
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://keimakatsuragi.github.io/2021/11/22/not%20show/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97:RCM%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E4%B8%89%E5%A4%A7%E5%81%87%E8%AE%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/v201900.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Dulingzhi's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">因果推断系列:RCM（一）——三大假设</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-22T20:00:00+08:00">
+                2021-11-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/" itemprop="url" rel="index">
+                    <span itemprop="name">因果推断</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/11/22/not%20show/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97:RCM%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E4%B8%89%E5%A4%A7%E5%81%87%E8%AE%BE/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2021/11/22/not show/20211122_因果推断系列:RCM（一）——三大假设/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在Rubin Casual Model(RCM)的学习中，大多数文章或多或少都会提到关于RCM的三个重要假定。这三个假定分别是SUTVA（Stable Unit Treatment Value Assumption）、可忽略性（Ignorability）和正向性（Positivity），本文记录了三大假定的定义及其解释。</p>
+<h1 id="三大假定"><a href="#三大假定" class="headerlink" title="三大假定"></a>三大假定</h1><h2 id="前言：一个医学实验的例子"><a href="#前言：一个医学实验的例子" class="headerlink" title="前言：一个医学实验的例子"></a>前言：一个医学实验的例子</h2><p>一家医院想通过利用病人的观察数据（即电子健康记录）来评估一种疾病的<strong>几种不同药物</strong>的治疗效果，这些数据包括病人的人口统计信息、病人服用的具体药物和具体剂量以及医疗检查的结果。由于病人只可能接受其中一种治疗方法，我们只能知道病人在该治疗方案下病人的治疗结果（即我们只能从电子健康记录中得到一个特定病人的事实结果），因此，核心任务是<strong>预测如果病人采取另一种治疗方法（即不同的药物或同一药物的不同剂量）会发生什么</strong>。<br>回答这样的反事实问题是非常具有挑战性的。因此，我们希望使用因果推理来预测<strong>每个病人在所有不同剂量的药物上的所有潜在结果</strong>。然后，我们就可以合理、准确地评估和比较不同药物对这种疾病的治疗效果。<br>在这个例子中，需要特别注意的一点是，<strong>对于每一种药物，它们可能有不同的剂量</strong>。例如，对于药物A来说，剂量范围可以是$[a,b]$范围内的一个连续变量，而对于药物B来说，剂量可以是一个分类变量，有几种具体的剂量方案。<br>总结一下：</p>
+<ul>
+<li>个体是指患有所研究疾病的病人。</li>
+<li>治疗方法指的是针对这种疾病的不同药物的具体剂量，我们用$W(W\in{0，1，2，\cdots，n })$表示治疗方法。例如，$W_{i}=1$可以代表单位$i$所服用的具有特定剂量的药物A，$W_{i}=2$代表单位$i$所服用的具有特定剂量的药物B。</li>
+<li>用$Y$来表示治疗结果，例如一种血液测试，可以衡量药物破坏疾病的能力，导致病人的康复。让$Y_{i}(W=1)$表示特定剂量的药物A对病人$i$的潜在结果。</li>
+<li>病人的特征可能包括年龄、性别、临床表现和其他一些医学检查等等。在这些特征中，年龄、性别和其他人口统计学信息是治疗前的变量，不会受到服用治疗的影响。一些临床表现和医学检查会受到服用药物的影响，它们是治疗后的变量。在这个例子中，我们的目标是根据提供的观察数据估计不同药物对这种疾病的治疗效果。</li>
+</ul>
+<h2 id="SUTVA（Stable-Unit-Treatment-Value-Assumption）"><a href="#SUTVA（Stable-Unit-Treatment-Value-Assumption）" class="headerlink" title="SUTVA（Stable Unit Treatment Value Assumption）"></a>SUTVA（Stable Unit Treatment Value Assumption）</h2><p>在评论 Basu（1980）的随机性检验的文章时，Rubin（1980）<a href="#ref1"><sup>1</sup></a>首次界定SUTVA 条件指的是任何一个个体被干预时，不管干预的机制是什么，也不管其他个体受到什么干预，它的潜在结果都是一样的。这个假设条件具有两个关键内容：一个是每一个个体所接受的处理水平是唯一的，所导致的潜在结果也是唯一的；另一个是干预的结果不受其他个体所接受处理的影响。这个假定包含了两部分内容：</p>
+<ul>
+<li>第一点是每个个体的独立性。也就是说，个体之间不存在这相互作用；</li>
+<li>另一点则是说每种实验或处理水平（treatment）都是一种单一版本。这也就意味着每一个个体所接受的处理水平是唯一的，所导致的潜在结果也是唯一的。</li>
+</ul>
+<p>放到我们医学实验的例子上，假设我们的药物A为阿司匹林片剂，我们要研究的是感冒的程度（为方便起见我们用头疼与否来进行衡量）：</p>
+<ol>
+<li>个体之间不存在这相互作用意味着病人1的头疼与否不会影响到病人2是否会头疼。例如，如果病人1在头疼的情况下，无论病人2是否服用阿斯匹林，病人2的潜在结果都是头疼；而在病人1不头疼的情况下，病人2服用阿斯匹林就不头疼，不服用就头疼。在这种情况下，我们认为是不符合SUTVA假定的。</li>
+<li>处理水平唯一则是指对于每一种剂量的阿司匹林，我们都应该单独的视为一种治疗方案。例如服用25mg的阿司匹林和服用50mg的阿司匹林，其潜在结果可能是不同的。</li>
+</ol>
+<h2 id="可忽略性（Ignorability）"><a href="#可忽略性（Ignorability）" class="headerlink" title="可忽略性（Ignorability）"></a>可忽略性（Ignorability）</h2><p>在统计学中，可忽略性（Ignorability）是实验设计的一个特点，即数据收集方法（和缺失数据的性质）<strong>不取决于缺失数据</strong>。如果在给定观测数据的情况下，一个缺失数据矩阵，条件独立于缺失数据，那么诸如治疗分配或调查抽样策略等缺失数据机制是 “可忽略的”。</p>
+<p>Rubin(1978)<a href="#ref2"><sup>2</sup></a>在贝叶斯推断的框架下讨论了可忽略的分配机制，可以理解为在给定了关于个体的所有被记录事项的情况（观测数据）下，个人被分配到实验组的方式与数据分析无关(即在后验的推断中，可将分配机制“忽略”掉)。之后Rubin和Rosenbaum(1983)<a href="#ref3"><sup>3</sup></a>定义了强可忽略的实验分配条件，在这里，如果我们假定只有两种实验方案$W=0/W=1$，记个体$i$的潜在结果为$\{Y_{i}(W=0),Y_{i}(W=1)\}$，那么这种强可忽略的实验分配条件可以用数学公式来表达为:</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\{Y(W=0), Y(W=1)\} \perp W \mid X
+\end{align*}</script><p>其中$Y(W=t)$表示了在给定实验方案$t$的条件下的潜在结果，$X$是与该实验有关的协变量，$W$是实验指派变量。而实际上，对于每一个个体$i$，我们能够观测得到其中一种结果，即实际结果$Y_{i}$满足:</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+Y_{i}=W_{i}Y_{i}(W=1)+(1-W_{i})Y(W=0)
+\end{align*}</script><p>$(Y(W=0), Y(W=1)) \perp W \mid X$这一条件可以进行如下解读:</p>
+<ol>
+<li>即给定协变量$X$，实验的分配$W$相当于随机分配，即给定X，无论W如何，实验的潜在结果是相同的（这也就是说在控制了协变量X的情况下，个体$i$的潜在结果为$\{Y_{i}(W=0),Y_{i}(W=1)\}$也就确定了下来，具体是哪一种结果仅取决于$W$的分配）</li>
+<li>给定X， 若个体$i$和个体$j$的潜在结果是相同的，则$W$的分布相同，用数学表达式可以表达为:$pr(W|Y_{i}(W=0), Y_{i}(W=1), X=x)=pr(W|Y_{j}(W=0), Y_{j}(W=1), X=x)$</li>
+</ol>
+<p>Ignorability假设保证了研究平均处理效应时，不同实验组的协变量$X$是相同的。从而避免由于选择偏差（selection bias），导致实验组的分配有不同倾向性的情况。在因果图里</p>
+<pre class="mermaid">graph TD;
+W-->Y;
+X(confounders: X)-->W;
+X(confounders: X)-->Y;</pre>
+
+<p>放到我们医学实验的例子，假设$W=1$代表使用药物。X为年龄</p>
+<p>例如，考察药物对病人治疗效果的例子。$Y$为是否康复，$W=1$代使用药物A。协变量$X$为年龄，为了方便起见，我们仅划分为年轻的病人和年老的病人两类群体。其中<strong>年轻的病人基本不会选择用药，只有年老的病人更倾向于选择用药</strong>。如果不控制协变量$X$，那么$W=1$的治疗组以年老的病人为主，$W=0$的对照组以年轻的病人为主，进而使用药物的组里康复率会偏低，甚至低于对照组，从而得出药物对康复率具有副作用的错误结论（辛普森悖论）。如果将协变量年龄固定后再进行研究，对于年轻的病人，其用药倾向性一致，从而$W$的分配没有倾向性。由此消除了协变量$X$对处理效应的干扰，从数学公式上看，总体的平均因果效应可以被如下计算:</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+ACE&=E(Y_{i}(W=1)-Y_{i}(W=0)|X)\\
+&=E(Y_{i}(W=1)|X) - E(Y_{i}(W=0)|X) \quad \mbox{(期望计算的线性性，非线性不可用)}\\
+&=E(Y_{i}(W=1)|W=1, X) - E(Y_{i}(W=0)|W=0, X) \quad \mbox{(随机化，即可忽略性的应用)}\\
+&=E(Y_{i}|W=1, X) - E(Y_{i}(W=0)|X)\\
+\end{align*}</script><h2 id="正向性（Positivity）"><a href="#正向性（Positivity）" class="headerlink" title="正向性（Positivity）"></a>正向性（Positivity）</h2><p>正向性<a href="#ref3"><sup>3</sup></a>相比于其他两个假定更容易理解，这个假定保证了给定任意一个协变量$X=x$，每一个实验组被分配的概率都不等于0，用数学公式表示为:</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+0<pr(W=w \mid X=x) <1
+\end{align*}</script><p>放到我们医学实验的例子里，同样考察药物对病人治疗效果的例子。$Y$为是否康复，$W=1$代使用药物A。协变量$X$为年龄，为了方便起见，我们仅划分为年轻的病人和年老的病人两类群体。如果<strong>年轻的病人均不选择用药，只有年老的病人全都选择用药</strong>，那么这种情况下，是不满足正向性假定的。以年轻的病人为例，我们只知道他们不使用药物的结果，但是<strong>我们没有观测数据帮助我们估计使用药物的结果</strong>，这种情况下我们没法做平均处理效应的计算。</p>
+<p><div id="ref1"></div></p>
+<ul>
+<li>[1] Rubin, D. B. (1980). Randomization analysis of experimental data: The Fisher randomization test comment. Journal of the American Statistical Association, 75(371), 591-593.<div id="ref2"></div></li>
+<li>[2] Rubin, D. B. (1978). Bayesian inference for causal effects: The role of randomization. The Annals of statistics, 34-58.<div id="ref3"></div></li>
+<li>[3] Rosenbaum, P. R., &amp; Rubin, D. B. (1983). The central role of the propensity score in observational studies for causal effects. Biometrika, 70(1), 41-55.</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    LingZhi Du
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://keimakatsuragi.github.io/2021/11/22/not%20show/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97:RCM%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E4%B8%89%E5%A4%A7%E5%81%87%E8%AE%BE/" title="因果推断系列:RCM（一）——三大假设">http://keimakatsuragi.github.io/2021/11/22/not%20show/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97:RCM%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E4%B8%89%E5%A4%A7%E5%81%87%E8%AE%BE/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/" rel="tag"># 因果推断</a>
+          
+            <a href="/tags/RCM/" rel="tag"># RCM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/09/17/not%20show/20210920_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD/" rel="next" title="因果推断">
+                <i class="fa fa-chevron-left"></i> 因果推断
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/11/22/not%20show/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97:RCM%EF%BC%88%E4%BA%8C%EF%BC%89%E2%80%94%E2%80%94%E5%80%BE%E5%90%91%E6%80%A7%E5%BE%97%E5%88%86/" rel="prev" title="因果推断系列:RCM（二）——倾向性得分">
+                因果推断系列:RCM（二）——倾向性得分 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/v201900.png"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+                <a href="/archives">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E5%A4%A7%E5%81%87%E5%AE%9A"><span class="nav-text">三大假定</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80%EF%BC%9A%E4%B8%80%E4%B8%AA%E5%8C%BB%E5%AD%A6%E5%AE%9E%E9%AA%8C%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="nav-text">前言：一个医学实验的例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SUTVA%EF%BC%88Stable-Unit-Treatment-Value-Assumption%EF%BC%89"><span class="nav-text">SUTVA（Stable Unit Treatment Value Assumption）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E5%BF%BD%E7%95%A5%E6%80%A7%EF%BC%88Ignorability%EF%BC%89"><span class="nav-text">可忽略性（Ignorability）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E5%90%91%E6%80%A7%EF%BC%88Positivity%EF%BC%89"><span class="nav-text">正向性（Positivity）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">LingZhi Du</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">全站字数&#58;</span>
+    
+    <span title="全站字数">41.9k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dlz850245.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://keimakatsuragi.github.io/2021/11/22/not%20show/20211122_%E5%9B%A0%E6%9E%9C%E6%8E%A8%E6%96%AD%E7%B3%BB%E5%88%97:RCM%EF%BC%88%E4%B8%80%EF%BC%89%E2%80%94%E2%80%94%E4%B8%89%E5%A4%A7%E5%81%87%E8%AE%BE/';
+          this.page.identifier = '2021/11/22/not show/20211122_因果推断系列:RCM（一）——三大假设/';
+          this.page.title = '因果推断系列:RCM（一）——三大假设';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dlz850245.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
