@@ -149,9 +149,9 @@
 E(\hat{\theta})=\int_{y} p(y)p(y\mid \theta) dy = \theta
 \end{align*}</script><p>从含义上看，无偏性表示在多次实验中所得到的估计量的平均值与参数的真实值相吻合。</p>
 <p>但实际上，无偏性只在频率学派的统计推断里出现，而在贝叶斯学派里没有出现，这是为什么呢？答案还得从两个学派的差异开始找起。</p>
-<h3 id="频率学派"><a href="#频率学派" class="headerlink" title="频率学派"></a>频率学派</h3><p>在频率学派下，对参数的估计形式为$\hat{\theta}=\hat{\theta}(Y)$。这样的一种估计形式是<strong>以样本为基础</strong>的一个函数。但需要注意的是我们这里的$Y$是<strong>随机变量而非样本</strong>，这是因为在频率学派下认为在对参数进行估计时，<strong>既要考虑我们的抽样信息($y$)，还要考虑未观测到的其他所有样本信息($\hat{y}$)</strong>。</p>
+<h3 id="频率学派"><a href="#频率学派" class="headerlink" title="频率学派"></a>频率学派</h3><p>在频率学派下，对参数的估计形式为$\hat{\theta}=\hat{\theta}(Y)$。这样的一种估计形式是<strong>以样本为基础</strong>的一个函数。但需要注意的是我们这里<strong>参数$Y$是随机变量而非样本，而$\theta$本身是一个固定的常数值而非随机变量</strong>。频率学派认为在对参数进行估计时，<strong>既要考虑我们的抽样信息($y$)，还要考虑未观测到的其他所有样本信息($\hat{y}$)</strong>。</p>
 <p>在实际估计时，由于样本与总体是独立同分布的，因此样本可以代表总体带入到函数中进行拟合。</p>
-<h3 id="贝叶斯学派"><a href="#贝叶斯学派" class="headerlink" title="贝叶斯学派"></a>贝叶斯学派</h3><p>贝叶斯学派下，对参数的估计形式为$\hat{\theta}=\hat{\theta}(y)$。这个估计形式表示贝叶斯推断是依赖于抽样信息，而与未观测到的抽样信息无关。</p>
+<h3 id="贝叶斯学派"><a href="#贝叶斯学派" class="headerlink" title="贝叶斯学派"></a>贝叶斯学派</h3><p>贝叶斯学派下，对参数的估计形式为$\hat{\theta}=\hat{\theta}(y)$。这个估计形式表示贝叶斯推断是依赖于抽样信息，而与未观测到的抽样信息无关。也就是说<strong>参数$y$是一个样本，而$\theta$本身是一个关于该样本的随机变量</strong>。</p>
 <p>回到我们之前的问题上来，无偏性只出现在频率学派中是因为<strong>需要考虑样本空间内所有可能的取值</strong>，也就是说无论是否在本次抽样中被采集到都需要去考虑。而在贝叶斯学派下则认为参数的取值仅跟当前的抽样信息有关</p>
 <h2 id="两个例子"><a href="#两个例子" class="headerlink" title="两个例子"></a>两个例子</h2><p>例子来自于茆诗松老师的《贝叶斯统计》：</p>
 <h3 id="例1：智商估计"><a href="#例1：智商估计" class="headerlink" title="例1：智商估计"></a>例1：智商估计</h3><p>假设儿童智力测验结果满足$p(y)=N(\theta, 100)$， 其中$\theta$被定义为儿童的智商，根据之前的多次实验，可以假设$p(\theta)=N(100, 225)$，加入我们现在 对一名儿童进行智力测验，希望能够得到这名儿童智商的估计，若儿童的测验分数为115分，结果是怎样的呢？</p>
@@ -501,7 +501,8 @@ p(\theta \mid y, \alpha)
   <entry>
     <title>Bayesian Data Analysis（二）：单参数模型</title>
     <url>/2021/11/28/20211128_Bayesian-Data-Analysis%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%8D%95%E5%8F%82%E6%95%B0%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[<h1 id="一般单参数模型的贝叶斯推断过程：以女性出生率估计为例"><a href="#一般单参数模型的贝叶斯推断过程：以女性出生率估计为例" class="headerlink" title="一般单参数模型的贝叶斯推断过程：以女性出生率估计为例"></a>一般单参数模型的贝叶斯推断过程：以女性出生率估计为例</h1><p>在两百年前的欧洲，绝大数人相信女性出生率小于0.5。目前通过大量欧洲人口中估计，这个值是0.485，同上一章约定的符号，我们把女性出生率设定为$\theta$，那么男女出生性别比可以表示为$\phi=\frac{1-\theta}{\theta}$。同时我们设定在$n$个被记录的出生样本中，有$y$个是女性，那么我们可以用一个二项分布来对该问题建模，也就是</p>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>从第二到第三章，主要简单介绍下贝叶斯数据分析中的单参数模型和多参数模型，这里主要涉及到的数学知识会多一点，偏理解的东西会少一些，主要是认为，我们需要通过不断的实操前一篇所说的三个步骤，来强化我们对贝叶斯数据分析的理解（尤其是共轭先验部分和附录部分，是强化练习的最好方式）。</p>
+<h1 id="一个例子：女性出生率估计"><a href="#一个例子：女性出生率估计" class="headerlink" title="一个例子：女性出生率估计"></a>一个例子：女性出生率估计</h1><p>在两百年前的欧洲，绝大数人相信女性出生率小于0.5。目前通过大量欧洲人口中估计，这个值是0.485，同上一章约定的符号，我们把女性出生率设定为$\theta$，那么男女出生性别比可以表示为$\phi=\frac{1-\theta}{\theta}$。同时我们设定在$n$个被记录的出生样本中，有$y$个是女性，那么我们可以用一个二项分布来对该问题建模，也就是</p>
 <script type="math/tex; mode=display">
 \begin{align*}
 p(y \mid \theta) = Bin(y \mid n, \theta) = 
@@ -1026,28 +1027,70 @@ p(\phi)
   <entry>
     <title>Bayesian Data Analysis（一）：概率与推断</title>
     <url>/2021/11/27/20211127_Bayesian-Data-Analysis%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%A6%82%E7%8E%87%E4%B8%8E%E6%8E%A8%E6%96%AD/</url>
-    <content><![CDATA[<h1 id="贝叶斯数据分析的三个步骤："><a href="#贝叶斯数据分析的三个步骤：" class="headerlink" title="贝叶斯数据分析的三个步骤："></a>贝叶斯数据分析的三个步骤：</h1><ol>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本次开启一个全新系列，贝叶斯数据分析系列。这一系列主要针对已经对基础的统计学知识如微积分、全概率模型、贝叶斯公式以及经典假设检验有了一定了解的同学，没有这些基础知识的话，看起来可能会比较吃力一些。从我目前掌握的程度看，贝叶斯数据分析对于一般的实验分析可能帮助不大，在日常中我们更多的是使用经典假设检验。贝叶斯数据分析在我看来提供了以下信息：</p>
+<ul>
+<li>一个新的分析视角。贝叶斯数据分析的整个分析步骤其实更贴近人的主观思考过程。它向我们展示了，我们在获得先验知识之后，为什么会在观测到一些样本信息后反而更新了我们的认知。</li>
+<li>为频率学派难以解决的一些问题提供了一些新思路。这点主要集中在多重比较问题上。贝叶斯学派对于多重比较问题，其解决办法会更自然，更简单，而在频率学派下虽然我们也有着相应的一套解法，但其解法更复杂，因此在日常分析中没有办法使用。</li>
+<li>对于很多统计或机器学习模型的基础。很多机器学习模型，实际上也在使用贝叶斯数据分析的思想。</li>
+</ul>
+<p>在开启这一新系列时，需要跟明确一些最基本的概念与所使用的符号。</p>
+<h1 id="符号和基础信息"><a href="#符号和基础信息" class="headerlink" title="符号和基础信息"></a>符号和基础信息</h1><h2 id="两种未观测到的估计：统计推断中的未观测数据"><a href="#两种未观测到的估计：统计推断中的未观测数据" class="headerlink" title="两种未观测到的估计：统计推断中的未观测数据"></a>两种未观测到的估计：统计推断中的未观测数据</h2><p>如果我们在文章中提到未观测的数据，其一般有两种可能：</p>
+<ol>
+<li>潜在的观测数据（比如未来实验中会出现的，或当前实验结果未出现的）</li>
+<li>数据无法被直接观测到的，比如控制着观察数据产生的假设过程的参数（比如回归估计的系数）</li>
+</ol>
+<p>这两类未观测数据的作用是完全不同的，在使用时务必将其分开。</p>
+<h2 id="参数、数据和预测"><a href="#参数、数据和预测" class="headerlink" title="参数、数据和预测"></a>参数、数据和预测</h2><p>在全系列，我们使用$\theta$表示为我们关注的观测的向量或总体参数（比如每个实验中病人的生存概率），$y$表示为我们的观测数据（比如每个实验组中病人生存和死亡的数量），$\widetilde{y}$表示为我们未知的或潜在的观测数据（比如下次抽查中病人的生存或者死亡的情况）。同时约定希腊字母表示参数。小写罗马字母表示观测或未观测的标量或向量（向量为列向量），大写罗马字母表示矩阵。不加说明$p$表示概率密度，$F$表示累计概率分布，$Pr$表示累计概率。</p>
+<h1 id="贝叶斯数据分析的基本步骤"><a href="#贝叶斯数据分析的基本步骤" class="headerlink" title="贝叶斯数据分析的基本步骤"></a>贝叶斯数据分析的基本步骤</h1><h2 id="概述：三个步骤"><a href="#概述：三个步骤" class="headerlink" title="概述：三个步骤"></a>概述：三个步骤</h2><ol>
 <li>建立起一个<strong>全概率模型</strong>。问题中所有观测样本和未观测样本的联合概率密度。模型必须与科学研究问题蕴含的知识以及数据收集过程相关</li>
 <li>基于观测样本进行条件化。计算和解释合适的<strong>后验分布</strong>——在给定观测样本的条件下，关于未观测样本的条件概率分布</li>
-<li>评估模型拟合情况和结果后验分布的启示。模型是否很好地拟合了数据？实质性结论是否可信？以及模型对于前面的假设1（数据拟合程度）的敏感性如何？最终，如果不满足其一都有可能让我们修改和拓展模型，然后重新完成这三个步骤。</li>
+<li>评估模型拟合情况和结果后验分布的启示。模型是否很好地拟合了数据？实质性结论是否可信？以及模型对于前面的假设1（数据拟合程度）的敏感性如何？最终，如果不满足其一都有可能让我们修改和拓展模型，然后重新完成这三个步骤。<h2 id="理论：贝叶斯推断"><a href="#理论：贝叶斯推断" class="headerlink" title="理论：贝叶斯推断"></a>理论：贝叶斯推断</h2><h3 id="全概率模型"><a href="#全概率模型" class="headerlink" title="全概率模型"></a>全概率模型</h3></li>
 </ol>
-<h1 id="符号和基础信息"><a href="#符号和基础信息" class="headerlink" title="符号和基础信息"></a>符号和基础信息</h1><h2 id="两种未观测到的估计：统计推断中的未观测数据"><a href="#两种未观测到的估计：统计推断中的未观测数据" class="headerlink" title="两种未观测到的估计：统计推断中的未观测数据"></a>两种未观测到的估计：统计推断中的未观测数据</h2><ol>
-<li>潜在的观测数据（比如未来实验中会出现的，或当前实验结果未出现的）</li>
-<li>数据无法被直接观测到的，比如控制着观察数据产生的假设过程的参数（比如回归估计的系数）<h2 id="参数、数据和预测"><a href="#参数、数据和预测" class="headerlink" title="参数、数据和预测"></a>参数、数据和预测</h2>在全系列，我们使用$\theta$表示为我们关注的观测的向量或总体参数（比如每个实验中病人的生存概率），$y$表示为我们的观测数据（比如每个实验组中病人生存和死亡的数量），$\widetilde{y}$表示为我们未知的或潜在的观测数据（比如下次抽查中病人的生存或者死亡的情况）。同时约定希腊字母表示参数。小写罗马字母表示观测或未观测的标量或向量（向量为列向量），大写罗马字母表示矩阵。不加说明$p$表示概率密度，$F$表示累计概率分布，$Pr$表示累计概率。<h2 id="可交换性"><a href="#可交换性" class="headerlink" title="可交换性"></a>可交换性</h2>对于一个有$n$个值（无限长的）的不确定性表述$p(y_{1}, \cdots, y_{n})$，我们认为每一个下标都是可交换的，也就是说不会收到样本顺序的影响。</li>
-</ol>
-<p>可交换性与独立同分布(i.i.d)并不等价，可交换的随机变量不一定是独立同分布的，但独立同分布的可以满足可交换性。</p>
+<p>在给定参数$\theta$的分布及其先验分布，我们从全概率公式出发，知道$\theta$和$y$的联合概率分布可以表达为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta, y) = p(\theta)p(y \mid \theta)
+\end{align*}</script><p>其中$\theta$的先验分布和其本身的分布并不等价，这在下一篇章会具体提到</p>
+<h3 id="贝叶斯公式"><a href="#贝叶斯公式" class="headerlink" title="贝叶斯公式"></a>贝叶斯公式</h3><p>同时，根据给定给定观测数据$y$后，应用我们的贝叶斯法则，可以将<strong>后验密度分布</strong>表示为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta \mid y) = \frac{p(\theta, y)}{p(y)} = \frac{p(\theta)p(y \mid \theta)}{p(y)}
+\end{align*}</script><p>其中$p(y)=\sum_{\theta}p(\theta)p(y \mid \theta)$（连续情形下为$p(y)=\int_{\theta}p(\theta)p(y \mid \theta)$）</p>
+<p>一旦观测数据$y$确定了，那么观测数据$y$的<strong>边缘概率密度</strong>也就是固定的，因此在这个贝叶斯公式中，我们可以认为<strong>观测数据$y$的边缘概率密度仅仅起到一个调节作用</strong>，也就是说</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\theta \mid y) \propto p(\theta)p(y \mid \theta)
+\end{align*}</script><p><strong>但正比于不等同于完全相等，在使用时务必注意</strong></p>
+<h3 id="后验预测分布"><a href="#后验预测分布" class="headerlink" title="后验预测分布"></a>后验预测分布</h3><p>在拥有后验分布后，我们假定未来想要观测数据$\widetilde{y}$出现的可能的分布，我们可以表示为$p(\widetilde{y} \mid y)$，根据贝叶斯法则，在连续情形下可以表示为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+p(\widetilde{y} \mid y) &= \int p(\widetilde{y}, \theta \mid y) d\theta\\
+&= \int p(\widetilde{y} \mid y, \theta) p(\theta \mid y) d\theta\\
+&= \int p(\widetilde{y} \mid \theta) p(\theta \mid y) d\theta \quad \mbox{(未观测数据的抽取与已观测数据无关，i.i.d假设)}\\
+\end{align*}</script><p><strong>第2、3行表示后验预测分布可以看成是在$\theta$的后验分布下的条件预测值的平均</strong></p>
+<h3 id="后验分布比"><a href="#后验分布比" class="headerlink" title="后验分布比"></a>后验分布比</h3><p>如果要计算两个参数的后验分布比，可以使用下式</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\frac{p(\theta_{1} \mid y)}{p(\theta_{2} \mid y)} 
+= \frac{p(\theta_{1})p(y \mid \theta_{1})/p(y)}{p(\theta_{2})p(y \mid \theta_{2})/p(y)}
+=\frac{p(\theta_{1})p(y \mid \theta_{1})}{p(\theta_{2})p(y \mid \theta_{2})}
+=\frac{p(\theta_{1})}{p(\theta_{2})}\frac{p(y \mid \theta_{1})}{p(y \mid \theta_{2})}
+\end{align*}</script><p>$\frac{p(\theta_{1})}{p(\theta_{2})}$是$\theta$的先验分布比，$\frac{p(\theta_{1} \mid y)}{p(\theta_{2} \mid y)} $是后验分布比</p>
+<h1 id="可交换性（非常重要的概念）"><a href="#可交换性（非常重要的概念）" class="headerlink" title="可交换性（非常重要的概念）"></a>可交换性（非常重要的概念）</h1><h2 id="可交换性（exchangeable）"><a href="#可交换性（exchangeable）" class="headerlink" title="可交换性（exchangeable）"></a>可交换性（exchangeable）</h2><p>对于一个有$n$个值（无限长的）的不确定性联合概率密度$p(y_{1}, \cdots, y_{n})$，我们认为每一个下标都是可交换的，也就是说不会收到样本顺序的影响。</p>
+<p>看起来这个和i.i.d假设非常类似，但实际上可交换性与独立同分布(i.i.d)并不等价，<strong>可交换的随机变量不一定是独立同分布的，但独立同分布的可以满足可交换性。</strong></p>
+<p>那这个性质是如何推导出来的呢？这里就不得不提到非常著名的De Finetti’s Theorem了。</p>
 <blockquote>
 <p>为方便起见，未经特殊说明，在本系列我们认为$y_{i}$是满足i.i.d假设的。</p>
-<h2 id="De-Finetti’s-Theorem"><a href="#De-Finetti’s-Theorem" class="headerlink" title="De Finetti’s Theorem"></a>De Finetti’s Theorem</h2><p>一个随机变量序列$(y_{1}, y_{2}, \cdots, y_{n})$是无限任意可交换的（infinite exchangeable）当且仅当相同度量空间下的$p$和$\theta$，$\forall n \in N$</p>
+<h2 id="De-Finetti’s-Theorem"><a href="#De-Finetti’s-Theorem" class="headerlink" title="De Finetti’s Theorem"></a>De Finetti’s Theorem</h2><h3 id="基本定义"><a href="#基本定义" class="headerlink" title="基本定义"></a>基本定义</h3><p>一个随机变量序列$(y_{1}, y_{2}, \cdots, y_{n})$是无限任意可交换的（infinite exchangeable）当且仅当相同度量空间下的$p$和$\theta$，$\forall n \in N$</p>
 <script type="math/tex; mode=display">
 \begin{align*}
 p(y_{1}, y_{2}, \cdots, y_{n})=\int \prod_{i=1}^{n}p(y_{i} \mid \theta) d p(\theta)
 \end{align*}</script></blockquote>
-<p>这一定理的意义：</p>
+<h3 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h3><p>虽然这个定理看起来这么简单，但是实际上这一定理几乎是后续很多统计或机器学习模型能够成立的一个重要基础，在我看来这一定理的意义在于：</p>
 <ul>
 <li>先验分布的信息来自于历史的数据和经验，我们无需刻意的假定先验分布的存在。以抛硬币为例，如果我的先验认知是硬币的正反两面出现的概率相等，这是无限多的历史数据和经验积累出来的结果。</li>
 <li>在无限多样本的情况下，前n-1次的数据结果不会影响我们对第n次事件发生的最初始先验概率的认知。以抛硬币为例，如果我的认知是硬币的正反两面出现的概率相等，那么即使前9999次出现的概率是正面，我在第10000次事件发生前的先验认知也不会发生改变，依旧是$\frac{1}{2}$。</li>
-<li>在某些情形下，可交换随机变量满足条件独立的条件。</li>
+<li>提出了在某些情形下，可交换随机变量满足条件独立的条件。</li>
 </ul>
 <blockquote>
 <p>注意：对于有限长度的序列，这一定理并不生效。举个两个例子：</p>
@@ -1056,33 +1099,6 @@ p(y_{1}, y_{2}, \cdots, y_{n})=\int \prod_{i=1}^{n}p(y_{i} \mid \theta) d p(\the
 <li>假定在有放回的随机抽出第一个球后，第二次抽取时，先验信息还是未发生改变。这个和抛硬币的例子是类似的。</li>
 </ol>
 </blockquote>
-<h1 id="贝叶斯推断"><a href="#贝叶斯推断" class="headerlink" title="贝叶斯推断"></a>贝叶斯推断</h1><h2 id="贝叶斯公式"><a href="#贝叶斯公式" class="headerlink" title="贝叶斯公式"></a>贝叶斯公式</h2><p>从全概率公式出发，我们知道$\theta$和$y$的联合概率分布可以表达为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-p(\theta, y) = p(\theta)p(y \mid \theta)
-\end{align*}</script><p>如果给定观测数据$y$，应用我们的贝叶斯法则，可以将<strong>后验密度分布</strong>表示为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-p(\theta \mid y) = \frac{p(\theta, y)}{p(y)} = \frac{p(\theta)p(y \mid \theta)}{p(y)}
-\end{align*}</script><p>其中$p(y)=\sum_{\theta}p(\theta)p(y \mid \theta)$（连续情形下为$p(y)=\int_{\theta}p(\theta)p(y \mid \theta)$）</p>
-<p>由于给定了观测数据，因此我们可以认为观测数据$y$的<strong>边缘概率密度</strong>仅仅起到一个调节作用，也就是说</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-p(\theta \mid y) \propto p(\theta)p(y \mid \theta)
-\end{align*}</script><h2 id="后验预测分布"><a href="#后验预测分布" class="headerlink" title="后验预测分布"></a>后验预测分布</h2><p>我们假定未来想要观测数据$\widetilde{y}$出现的可能的分布，我们可以表示为$p(\widetilde{y} \mid y)$，根据贝叶斯法则，在连续情形下可以表示为</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-p(\widetilde{y} \mid y) &= \int p(\widetilde{y}, \theta \mid y) d\theta\\
-&= \int p(\widetilde{y} \mid y, \theta) p(\theta \mid y) d\theta\\
-&= \int p(\widetilde{y} \mid \theta) p(\theta \mid y) d\theta \quad \mbox{(未观测数据的抽取与已观测数据无关，iid假设)}\\
-\end{align*}</script><p>第2、3行表示后验预测分布可以看成是在$\theta$的后验分布下的条件预测值的平均</p>
-<h2 id="后验分布比"><a href="#后验分布比" class="headerlink" title="后验分布比"></a>后验分布比</h2><script type="math/tex; mode=display">
-\begin{align*}
-\frac{p(\theta_{1} \mid y)}{p(\theta_{2} \mid y)} 
-= \frac{p(\theta_{1})p(y \mid \theta_{1})/p(y)}{p(\theta_{2})p(y \mid \theta_{2})/p(y)}
-=\frac{p(\theta_{1})p(y \mid \theta_{1})}{p(\theta_{2})p(y \mid \theta_{2})}
-=\frac{p(\theta_{1})}{p(\theta_{2})}\frac{p(y \mid \theta_{1})}{p(y \mid \theta_{2})}
-\end{align*}</script><p>$\frac{p(\theta_{1})}{p(\theta_{2})}$是$\theta$的先验分布比，$\frac{p(\theta_{1} \mid y)}{p(\theta_{2} \mid y)} $是后验分布比</p>
 <h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h2 id="均值与方差"><a href="#均值与方差" class="headerlink" title="均值与方差"></a>均值与方差</h2><p>假定存在随机变量$u$和$v$，且两个变量具有相关性，考虑连续情形。随机变量$u$的期望和方差可以表示为</p>
 <script type="math/tex; mode=display">
 \begin{align*}
@@ -1751,7 +1767,8 @@ y_{i}=E(y_{i}|x_{i1}, x_{i2}, x_{ip})+\epsilon_{i}</script><p>用矩阵可以表
 <p>原因：教程有缺陷，出现了多余空格<br>解决办法：打开/themes/next/_config.yml<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">menu:</span><br><span class="line">   tags: &#x2F; || tags</span><br><span class="line">改为：</span><br><span class="line">menu:</span><br><span class="line">   tags: &#x2F;|| tags</span><br><span class="line">其他同理</span><br></pre></td></tr></table></figure></p>
 <h2 id="5-文章多标签设置"><a href="#5-文章多标签设置" class="headerlink" title="5. 文章多标签设置"></a>5. 文章多标签设置</h2><hr>
 <p>原因：没有参照官方文档<br>解决办法：tags: [tag1,tag2,…,tagn] (推荐)</p>
-]]></content>
+<h2 id="6-上一页-下一页显示不正确"><a href="#6-上一页-下一页显示不正确" class="headerlink" title="6. 上一页/下一页显示不正确"></a>6. 上一页/下一页显示不正确</h2><p>点击上一页和下一页有效果，但是显示的是’<i class="fa fa-angle-left">&lt;/i&gt;’和’<i class="fa fa-angle-right"></i>‘，说明有上一页和下一页的效果，只是图标显示有问题，需要将<br>themes/next/layout/_partials/pagination.swig的代码替换成</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">&#123;% if page.prev or page.next %&#125;</span><br><span class="line">  <span class="tag">&lt;<span class="name">nav</span> <span class="attr">class</span>=<span class="string">&quot;pagination&quot;</span>&gt;</span></span><br><span class="line">    &#123;&#123;</span><br><span class="line">      paginator(&#123;</span><br><span class="line">        prev_text: &#x27;上一页&#x27;,</span><br><span class="line">        next_text: &#x27;下一页&#x27;,</span><br><span class="line">        mid_size: 1</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line">&#123;% endif %&#125;·</span><br></pre></td></tr></table></figure>]]></content>
       <tags>
         <tag>hexo</tag>
         <tag>blog</tag>
